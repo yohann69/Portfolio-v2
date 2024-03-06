@@ -5,40 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c2ee733-f11d-46b0-b957-91e8453f3210" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/ui/google-gemini-effect.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/macbook-scroll.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/tracing-beam.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Gemini.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/MacBook.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Tracing.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/my-portfolio.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/robots.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MouseGlow.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MouseGlow.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/locales/en.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/locales/fr.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Cards.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reportWebVitals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setupTests.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/localization.js" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ui/background-gradient-animation.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ui/evervault-card.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ui/floating-navbar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ui/infinite-moving-cards.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ui/parallax-scroll-2.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ui/sparkles.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Cards.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/NavBar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Particules.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Pictures.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Tracing.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Tracing.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1709731579505</updated>
       <workItem from="1709731580604" duration="1843000" />
-      <workItem from="1709733489251" duration="1215000" />
+      <workItem from="1709733489251" duration="6019000" />
     </task>
     <servers />
   </component>
