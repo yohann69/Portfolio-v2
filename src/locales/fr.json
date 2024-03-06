@@ -1,5 +1,29 @@
 {
   "home": "Accueil",
   "about": "À propos",
-  "contact": "Contact"
+  "contact": "Contact",
+  "cards": [
+    {
+      "heading": "Basique",
+      "price": "10 $",
+      "bullets": ["1 Go de stockage", "10 Go de bande passante", "3 sites web", "Personnalisation de base"],
+      "link": "#",
+      "cta": "Commencer"
+    },
+    {
+      "heading": "Pro",
+      "price": "20 $",
+      "bullets": ["5 Go de stockage", "50 Go de bande passante", "10 sites web", "Personnalisation avancée"],
+      "link": "#",
+      "cta": "Commencer"
+    },
+    {
+      "heading": "Entreprise",
+      "price": "30 $",
+      "bullets": ["10 Go de stockage", "100 Go de bande passante", "Sites web illimités", "Personnalisation complète", "Point étendu 1", "Point étendu 2", "Point étendu 3"],
+      "link": "#",
+      "cta": "Commencer"
+    }
+  ]
+
 }

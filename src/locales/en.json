@@ -1,5 +1,28 @@
 {
   "home": "Home",
   "about": "About",
-  "contact": "Contact"
+  "contact": "Contact",
+  "cards": [
+    {
+      "heading": "Basic",
+      "price": "$10",
+      "bullets": ["1GB Storage", "10GB Bandwidth", "3 Websites", "Basic Customization"],
+      "link": "#",
+      "cta": "Get Started"
+    },
+    {
+      "heading": "Pro",
+      "price": "$20",
+      "bullets": ["5GB Storage", "50GB Bandwidth", "10 Websites", "Advanced Customization"],
+      "link": "#",
+      "cta": "Get Started"
+    },
+    {
+      "heading": "Business",
+      "price": "$30",
+      "bullets": ["10GB Storage", "100GB Bandwidth", "Unlimited Websites", "Full Customization", "Extended Bullet Point 1", "Extended Bullet Point 2", "Extended Bullet Point 3"],
+      "link": "#",
+      "cta": "Get Started"
+    }
+  ]
 }

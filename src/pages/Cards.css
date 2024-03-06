@@ -1,0 +1,71 @@
+.cards {
+    position: relative;
+}
+
+.cards__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5em;
+    align-content: flex-start;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.card {
+    --flow-space: 0.5em;
+    padding: 1.5em 2em;
+    display: grid;
+    grid-template-rows: auto auto auto 1fr;
+    align-items: center;
+    gap: 1.25em;
+    color: #eceff1;
+    border: 1px solid #eceff133;
+    border-radius: 15px;
+    height: 100%;
+    width: 100%;
+}
+
+.card__bg{
+    background-color: rgba(74, 74, 74, 0.14);
+    border-radius: 15px;
+    margin: 15px 0;
+}
+
+.card__bullets {
+    line-height: 1.4;
+}
+
+.card__bullets li::before {
+    display: inline-block;
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='16' title='check' fill='%23dddddd'%3E%3Cpath d='M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z' /%3E%3C/svg%3E");
+    transform: translatey(0.25ch);
+    margin-right: 1ch;
+}
+
+.card__heading {
+    font-size: 1.05em;
+    font-weight: 600;
+}
+
+.card__price {
+    font-size: 1.75em;
+    font-weight: 700;
+}
+
+.flow > * + * {
+    margin-top: var(--flow-space, 1.25em);
+}
+
+.cta {
+    display: block;
+    align-self: end;
+    margin: 1em 0 0.5em 0;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #0d0d0d;
+    padding: 0.7em;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+}

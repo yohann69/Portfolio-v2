@@ -1,34 +1,38 @@
 // App.js
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import './App.css'; // Import your global styles
 import localization from './utils/localization';
-import MouseGlow from "./components/MouseGlow";
+// import MouseGlow from "./components/MouseGlow";
 import Cards from "./pages/Cards";
+import ScrollProgressBar from 'react-scroll-progress-bar';
+import MouseGlow from "./components/MouseGlow";
+
 
 function App() {
-  const { t, i18n } = useTranslation();
+    const {t, i18n} = useTranslation();
 
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    };
 
-  return (
-      <div className="App">
-        <header className="App-header">
-          <button onClick={() => changeLanguage('en')}>English</button>
-          <button onClick={() => changeLanguage('fr')}>Français</button>
+    return (<div className="App">
+            <nav>
+                <ScrollProgressBar/>
+                <button onClick={() => changeLanguage('en')}>English</button>
+                <button onClick={() => changeLanguage('fr')}>Français</button>
+            </nav>
 
-          <h1>{t('home')}</h1>
-          <p>{t('about')}</p>
-          <p>{t('contact')}</p>
-            {/* Add more components and translations as needed */}
-            {/*<MouseGlow />*/}
-        </header>
-        <Cards />
+            <header className="App-header">
+                <MouseGlow/>
+            </header>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
 
-      </div>
-  );
+        </div>);
 }
 
 export default App;
