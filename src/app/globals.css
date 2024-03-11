@@ -30,3 +30,13 @@ body {
         text-wrap: balance;
     }
 }
+
+.contactForm{
+    DISPLAY: FLEX;
+    Z-INDEX: 51111;
+    POSITION: absolute;
+    ALIGN-ITEMS: CENTER;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
