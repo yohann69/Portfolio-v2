@@ -17,18 +17,19 @@ export default function Home() {
 			<NavBar/>
 			<WaveBackground/>
 			<Cards/>
-			<Pictures/>
 			<Sparkles/>
-			
-			<TracingBeam>
 
+			<TracingBeam>
 				<MultiTabs/>
 
 				<MacBook/>
-				<Gemini/>
-
-				<CodeCard/>
 			</TracingBeam>
+
+			
+			<Pictures/>
+			<Gemini/>
+
+			<CodeCard/>
 
 			<BackgroundGradientAnimation>
 				<div className="contactForm">
