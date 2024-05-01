@@ -1,12 +1,11 @@
 // App.js
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import './App.css'; // Import your global styles
+import './App.css';
 import localization from './utils/localization';
-// import MouseGlow from "./components/MouseGlow";
-import Cards from "./pages/Cards";
 import ScrollProgressBar from 'react-scroll-progress-bar';
-import MouseGlow from "./components/MouseGlow";
+import Languages from "./components/Languages";
+import Photos from "./components/Photos";
 
 
 function App() {
@@ -17,22 +16,22 @@ function App() {
     };
 
     return (<div className="App">
-            <nav>
-                <ScrollProgressBar/>
-                <button onClick={() => changeLanguage('en')}>English</button>
-                <button onClick={() => changeLanguage('fr')}>Français</button>
-            </nav>
+        <nav>
+            <ScrollProgressBar/>
+            <button onClick={() => changeLanguage('en')}>English</button>
+            <button onClick={() => changeLanguage('fr')}>Français</button>
+        </nav>
 
-            <header className="App-header">
-                <MouseGlow/>
-            </header>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
+        <header className="App-header">
+            {/*<MouseGlow/>*/}
+        </header>
 
-        </div>);
+        <main>
+            <Languages/>
+            <Photos/>
+        </main>
+
+    </div>);
 }
 
 export default App;

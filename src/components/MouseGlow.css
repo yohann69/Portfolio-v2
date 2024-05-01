@@ -8,4 +8,5 @@
     mix-blend-mode: overlay;
     transform: translate(-50%, -50%);
     transition: transform 0.1s ease-out, width 0.1s ease-out, height 0.1s ease-out;
+    z-index: 0;
 }
