@@ -1,29 +1,48 @@
-import React from "react";
-import {BackgroundGradientAnimation} from "@/components/ui/background-gradient-animation";
+"use client";
+
+import React, {useState} from "react";
 import {Sparkles} from "@/pages/Particules";
 import {NavBar} from "@/pages/NavBar";
 import {Cards} from "@/pages/Cards";
-import {Pictures} from "@/pages/Pictures";
 import {MultiTabs} from "@/pages/MultiTabs";
-import {CodeCard} from "@/pages/CodeCard";
-import {WaveBackground} from "@/pages/WaveBackground";
-import {WobbleCard} from "@/components/ui/wobble-card";
-import Image from "next/image";
 import {WobbleCardDemo} from "@/pages/WobbleCard";
-import {ImageGrid} from "@/pages/ImageGrid";
+import {Hero} from "@/pages/Hero";
+import {ParallaxImages} from "@/pages/HeroParralax";
+import {Timeline} from "@/pages/Timeline";
 
 export default function Home() {
+    const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({x: 0, y: 0});
+
+    const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+        setMousePosition({x: event.clientX, y: event.clientY});
+    };
+
+    const radialGradient = `radial-gradient(at ${mousePosition.x}px ${mousePosition.y}px,rgb(255 106 61 / 20%), rgb(0 0 0))`;
+
+
     return (
-        <>
+        <div
+            className="rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden"
+            style={{
+                width: '100vw',
+                // height: '100vh',
+                background: radialGradient,
+            }}
+            onMouseMove={handleMouseMove}
+        >
             <NavBar/>
-            <WaveBackground/>
+            <Hero/>
+            {/*<WaveBackground/>*/}
             <Cards/>
             <Sparkles/>
 
+
             <MultiTabs/>
 
-           <WobbleCardDemo/>
-            <ImageGrid/>
+            <WobbleCardDemo/>
+
+            <Timeline/>
+            <ParallaxImages/>
 
 
             {/*<BackgroundGradientAnimation>*/}
@@ -42,7 +61,7 @@ export default function Home() {
             {/*    </div>*/}
 
             {/*</BackgroundGradientAnimation>*/}
-        </>
+        </div>
     );
 }
 
