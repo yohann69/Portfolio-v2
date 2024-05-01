@@ -117,7 +117,7 @@ section .description p {
     -webkit-backdrop-filter: blur(10px);
 }
 
-#competences > div{
+#competences > div {
     max-width: 550px;
 }
 

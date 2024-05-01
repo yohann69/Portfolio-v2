@@ -6,11 +6,11 @@ export default function LangagesOutils() {
     return (
         <section id="competences">
             <p className="max-w-2xl text-base md:text-xl dark:text-neutral-200">Au cours de ma
-            formation de BUT Informatique, de mon alternance au sein d&apos;
-            <a
-                href="https://ardechedromenumerique.fr/" target="_blank">Ardèche Drome Numérique</a> ou de mes
-            projets anexes, j&apos;ai appris à manier et utiliser
-            les technologies suivantes</p>
+                formation de BUT Informatique, de mon alternance au sein d&apos;
+                <a
+                    href="https://ardechedromenumerique.fr/" target="_blank">Ardèche Drome Numérique</a> ou de mes
+                projets anexes, j&apos;ai appris à manier et utiliser
+                les technologies suivantes</p>
             <br/>
             <div className="progLanguages">
                 <h3 className="mb-3 font-bold text-lg md:text-2xl">Langages de programmation</h3>

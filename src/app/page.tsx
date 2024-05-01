@@ -1,7 +1,6 @@
 "use client";
 
 import React, {useState} from "react";
-import Image from 'next/image';
 import NavBar from "@/pages/NavBar";
 import Hero from "@/pages/Hero";
 import MultiTabs from "@/pages/MultiTabs";
