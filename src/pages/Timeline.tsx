@@ -10,39 +10,72 @@ export function Timeline() {
                 <div className="border-2-2 border-yellow-555 absolute h-full border testclasse2"></div>
                 <div className="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
                     <div className="order-1 w-5/12"></div>
-                    <div className="order-1 w-5/12 px-1 py-4 text-right"><p
-                        className="mb-3 text-base text-yellow-300">1-6 May, 2021</p><h4
-                        className="mb-3 font-bold text-lg md:text-2xl">Registration</h4><p
-                        className="text-sm md:text-base leading-snug text-gray-50 text-opacity-100">Pick your
-                        favourite event(s) and register in that event by filling the form corresponding to that
-                        event. Its that easy :)</p></div>
+                    <div className="order-1 w-5/12 px-1 py-4 text-right">
+                        <p className="mb-3 text-base text-yellow-300"> Septembre 2021 - Juillet 2024</p>
+
+                        <h4 className="mb-3 font-bold text-lg md:text-2xl">BUT Informatique - IUT de
+                            Valence</h4>
+
+                        <p className="max-w-2xl text-base md:text-xl dark:text-neutral-200">Après l'obtention
+                            de mon baccalauréat, j'ai décidé de poursuivre mes études en intégrant un BUT Informatique.
+                            Cette formation m'a particulièrement attiré car elle offrait l'opportunité
+                            de réaliser une alternance en 3ème année, me permettant ainsi d'allier théorie et pratique.
+                            Au
+                            cours de ces trois années, j'ai pu acquérir des compétences solides en programmation, en
+                            développement web et en gestion de projet, préparant ainsi le terrain pour la suite de
+                            mon parcours professionnel.</p>
+                    </div>
                 </div>
+
                 <div className="mb-8 flex justify-between items-center w-full right-timeline">
                     <div className="order-1 w-5/12"></div>
-                    <div className="order-1  w-5/12 px-1 py-4 text-left"><p
-                        className="mb-3 text-base text-yellow-300">6-9 May, 2021</p><h4
-                        className="mb-3 font-bold text-lg md:text-2xl">Participation</h4><p
-                        className="text-sm md:text-base leading-snug text-gray-50 text-opacity-100">Participate
-                        online. The links for your registered events will be sent to you via email and whatsapp
-                        groups. Use those links and show your talent.</p></div>
+                    <div className="order-1  w-5/12 px-1 py-4">
+                        <p className="mb-3 text-base text-yellow-300">Septembre 2023 - Juillet 2024</p>
+
+                        <h4 className="mb-3 font-bold  text-lg md:text-2xl text-left">Altenance développeur full stack -
+                            Ardèche Drome Numérique</h4>
+
+                        <p className="max-w-2xl text-base md:text-xl dark:text-neutral-200">Ma première
+                            expérience professionnelle prolongée s'est déroulée chez Ardèche Drôme Numérique en tant que
+                            développeur full stack en alternance. Cette opportunité m'a permis de découvrir le monde de
+                            l'entreprise et d'apprendre le langage Go, SolidJS et PostGIS à travers différents
+                            développements de solutions internes. J'ai également contribué au développement de l'outil
+                            d'éligibilité accessible sur le site web de l'entreprise:
+                            <a href="https://ardechedromenumerique.fr/eligibilite" target="_blank"> https://ardechedromenumerique.fr/eligibilite</a>.
+                        </p>
+                    </div>
                 </div>
+
                 <div className="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
                     <div className="order-1 w-5/12"></div>
-                    <div className="order-1 w-5/12 px-1 py-4 text-right"><p
-                        className="mb-3 text-base text-yellow-300"> 10 May, 2021</p><h4
-                        className="mb-3 font-bold text-lg md:text-2xl">Result Declaration</h4><p
-                        className="text-sm md:text-base leading-snug text-gray-50 text-opacity-100">The ultimate
-                        genius will be revealed by our judging panel on 10th May, 2021 and the resukts will be
-                        announced on the whatsapp groups and will be mailed to you.</p></div>
+                    <div className="order-1 w-5/12 px-1 py-4 text-right">
+                        <p className="mb-3 text-base text-yellow-300">24 Février - 28 Février 2024 </p>
+
+                        <h4 className="mb-3 font-bold text-lg md:text-2xl">Participation au MWC à Barcelone</h4>
+
+                        <p className="max-w-2xl text-base md:text-xl dark:text-neutral-200">En tant que
+                            modérateur sur la <a href="https://c.mi.com/fr/" target="_blank">communauté Xiaomi
+                                France</a>, j'ai eu la chance d'être invité à assister au Mobile World Congress ainsi
+                            qu'au lancement de la série Xiaomi 14 en global (hors de Chine). J'ai également rejoint les
+                            rangs de l'équipe photographie sur la <a href="https://c.mi.com/fr/" target="_blank">communauté
+                                Xiaomi global</a> pendant le séjour.</p>
+                    </div>
                 </div>
+
                 <div className="mb-8 flex justify-between items-center w-full right-timeline">
                     <div className="order-1 w-5/12"></div>
-                    <div className="order-1  w-5/12 px-1 py-4"><p className="mb-3 text-base text-yellow-300">12
-                        May, 2021</p><h4 className="mb-3 font-bold  text-lg md:text-2xl text-left">Prize
-                        Distribution</h4><p
-                        className="text-sm md:text-base leading-snug text-gray-50 text-opacity-100">The winners
-                        will be contacted by our team for their addresses and the winning goodies will be sent
-                        at their addresses.</p></div>
+                    <div className="order-1  w-5/12 px-1 py-4">
+                        <p className="mb-3 text-base text-yellow-300">Septembre 2024 - Juillet 2027</p>
+
+                        <h4 className="mb-3 font-bold  text-lg md:text-2xl text-left">Ingénieur informatique en
+                            alternance - IMT Atlantique</h4>
+
+                        <p className="max-w-2xl text-base md:text-xl dark:text-neutral-200">J'ai récemment
+                            été admis dans la formation d'ingénieur informatique, spécialité Ingénierie Logicielle, au
+                            sein de la prestigieuse école IMT Atlantique à Nantes. Cette formation de 3 ans me permettra
+                            d'approfondir mes connaissances en programmation tout en développant mes compétences
+                            professionnelles grâce à un contrat d'apprentissage. </p>
+                    </div>
                 </div>
             </div>
         </div>);
