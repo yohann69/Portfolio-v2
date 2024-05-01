@@ -108,13 +108,13 @@ export const Header = () => {
                 La photographie
             </h1>
             <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-                Pour moi, la photographie est bien plus qu'une simple capture d'images. C'est une fenêtre ouverte
-                sur le monde, figeant l'essence de l'instant présent pour l'éternité. Chaque photo invite à
+                Pour moi, la photographie est bien plus qu&apos;une simple capture d&apos;images. C&apos;est une fenêtre ouverte
+                sur le monde, figeant l&apos;essence de l&apos;instant présent pour l&apos;éternité. Chaque photo invite à
                 explorer la beauté qui nous entoure.
                 <br/>
                 <br/>
                 En partageant mes images, je partage mes émotions, expériences et perspectives, transcendant les
-                barrières culturelles. La photographie est bien plus qu'une passion ; c'est un moyen de
+                barrières culturelles. La photographie est bien plus qu&apos;une passion ; c&apos;est un moyen de
                 communication universel, un regard neuf sur le monde.
             </p>
         </div>

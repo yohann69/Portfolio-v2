@@ -105,8 +105,8 @@ section .description p {
     margin: 5px;
     background-color: var(--card-color);
     border-radius: var(--radius-norm);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    /*backdrop-filter: blur(10px);*/
+    /*-webkit-backdrop-filter: blur(10px);*/
 }
 
 

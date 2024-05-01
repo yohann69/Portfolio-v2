@@ -2,7 +2,7 @@
 import React from "react";
 import {HeroParallax} from "@/components/ui/hero-parallax";
 
-export function ParallaxImages() {
+export default function ParallaxImages() {
     return <HeroParallax products={products}/>;
 }
 
@@ -83,7 +83,6 @@ export const products = [
         "link": "/img/20231209-IMG_20231209_181449.jpg",
         "thumbnail": "/img/20231209-IMG_20231209_181449.jpg"
     },
-
 
 
 ];

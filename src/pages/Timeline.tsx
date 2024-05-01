@@ -2,7 +2,7 @@
 import React from "react";
 
 
-export function Timeline() {
+export default function Timeline() {
     return (
         <div className="container mx-auto w-full h-full">
             <div className="relative wrap overflow-hidden p-10 h-full">
@@ -16,12 +16,15 @@ export function Timeline() {
                         <h4 className="mb-3 font-bold text-lg md:text-2xl">BUT Informatique - IUT de
                             Valence</h4>
 
-                        <p className="max-w-2xl text-base md:text-xl dark:text-neutral-200">Après l'obtention
-                            de mon baccalauréat, j'ai décidé de poursuivre mes études en intégrant un BUT Informatique.
-                            Cette formation m'a particulièrement attiré car elle offrait l'opportunité
-                            de réaliser une alternance en 3ème année, me permettant ainsi d'allier théorie et pratique.
+                        <p className="max-w-2xl text-base md:text-xl dark:text-neutral-200">Après l&apos;obtention
+                            de mon baccalauréat, j&apos;ai décidé de poursuivre mes études en intégrant un BUT
+                            Informatique.
+                            Cette formation m&apos;a particulièrement attiré car elle offrait l&apos;opportunité
+                            de réaliser une alternance en 3ème année, me permettant ainsi d&apos;allier théorie et
+                            pratique.
                             Au
-                            cours de ces trois années, j'ai pu acquérir des compétences solides en programmation, en
+                            cours de ces trois années, j&apos;ai pu acquérir des compétences solides en programmation,
+                            en
                             développement web et en gestion de projet, préparant ainsi le terrain pour la suite de
                             mon parcours professionnel.</p>
                     </div>
@@ -36,12 +39,16 @@ export function Timeline() {
                             Ardèche Drome Numérique</h4>
 
                         <p className="max-w-2xl text-base md:text-xl dark:text-neutral-200">Ma première
-                            expérience professionnelle prolongée s'est déroulée chez Ardèche Drôme Numérique en tant que
-                            développeur full stack en alternance. Cette opportunité m'a permis de découvrir le monde de
-                            l'entreprise et d'apprendre le langage Go, SolidJS et PostGIS à travers différents
-                            développements de solutions internes. J'ai également contribué au développement de l'outil
-                            d'éligibilité accessible sur le site web de l'entreprise:
-                            <a href="https://ardechedromenumerique.fr/eligibilite" target="_blank"> https://ardechedromenumerique.fr/eligibilite</a>.
+                            expérience professionnelle prolongée s&apos;est déroulée chez Ardèche Drôme Numérique en
+                            tant que
+                            développeur full stack en alternance. Cette opportunité m&apos;a permis de découvrir le
+                            monde de
+                            l&apos;entreprise et d&apos;apprendre le langage Go, SolidJS et PostGIS à travers différents
+                            développements de solutions internes. J&apos;ai également contribué au développement de
+                            l&apos;outil
+                            d&apos;éligibilité accessible sur le site web de l&apos;entreprise:
+                            <a href="https://ardechedromenumerique.fr/eligibilite"
+                               target="_blank"> https://ardechedromenumerique.fr/eligibilite</a>.
                         </p>
                     </div>
                 </div>
@@ -55,9 +62,11 @@ export function Timeline() {
 
                         <p className="max-w-2xl text-base md:text-xl dark:text-neutral-200">En tant que
                             modérateur sur la <a href="https://c.mi.com/fr/" target="_blank">communauté Xiaomi
-                                France</a>, j'ai eu la chance d'être invité à assister au Mobile World Congress ainsi
-                            qu'au lancement de la série Xiaomi 14 en global (hors de Chine). J'ai également rejoint les
-                            rangs de l'équipe photographie sur la <a href="https://c.mi.com/fr/" target="_blank">communauté
+                                France</a>, j&apos;ai eu la chance d&apos;être invité à assister au Mobile World
+                            Congress ainsi
+                            qu&apos;au lancement de la série Xiaomi 14 en global (hors de Chine). J&apos;ai également
+                            rejoint les
+                            rangs de l&apos;équipe photographie sur la <a href="https://c.mi.com/fr/" target="_blank">communauté
                                 Xiaomi global</a> pendant le séjour.</p>
                     </div>
                 </div>
@@ -70,11 +79,12 @@ export function Timeline() {
                         <h4 className="mb-3 font-bold  text-lg md:text-2xl text-left">Ingénieur informatique en
                             alternance - IMT Atlantique</h4>
 
-                        <p className="max-w-2xl text-base md:text-xl dark:text-neutral-200">J'ai récemment
-                            été admis dans la formation d'ingénieur informatique, spécialité Ingénierie Logicielle, au
+                        <p className="max-w-2xl text-base md:text-xl dark:text-neutral-200">J&apos;ai récemment
+                            été admis dans la formation d&apos;ingénieur informatique, spécialité Ingénierie Logicielle,
+                            au
                             sein de la prestigieuse école IMT Atlantique à Nantes. Cette formation de 3 ans me permettra
-                            d'approfondir mes connaissances en programmation tout en développant mes compétences
-                            professionnelles grâce à un contrat d'apprentissage. </p>
+                            d&apos;approfondir mes connaissances en programmation tout en développant mes compétences
+                            professionnelles grâce à un contrat d&apos;apprentissage. </p>
                     </div>
                 </div>
             </div>
