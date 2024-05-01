@@ -1,7 +1,7 @@
 "use client";
 import {TypewriterEffectSmooth} from "@/components/ui/tweffect";
 
-export function Typewriter() {
+export default function Typewriter() {
     const words = [
         // {
         //     text: "Un",

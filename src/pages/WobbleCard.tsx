@@ -15,15 +15,20 @@ export default function WobbleCardDemo() {
                         Modérateur de la communauté Xiaomi France
                     </h2>
                     <p className="mt-4 text-left max-w-[600px] text-base/6 text-neutral-200">
-                        Avec plusieurs milliers d&apos;utilisateurs actifs chaque mois, la communauté Xiaomi France est un
-                        lieu de d&apos;échanges et de partage autour des produits Xiaomi. En tant que modérateur, je veille à
+                        Avec plusieurs milliers d&apos;utilisateurs actifs chaque mois, la communauté Xiaomi France est
+                        un
+                        lieu de d&apos;échanges et de partage autour des produits Xiaomi. En tant que modérateur, je
+                        veille à
                         ce que les règles de la communauté soient respectées, que les utilisateurs soient aidés et que
-                        les informations soient claires et précises. J&apos;organise également des événements, des concours
+                        les informations soient claires et précises. J&apos;organise également des événements, des
+                        concours
                         et des sondages pour animer la communauté et renforcer les liens entre les membres.
                         <br/>
                         <br/>
-                        Au sein de la communauté Xiaomi Global, je fais partie de l&apos;équipe photographie, où je partage
-                        mes clichés et mes conseils avec les autres membres. J&apos;ai également l&apos;opportunité de tester des
+                        Au sein de la communauté Xiaomi Global, je fais partie de l&apos;équipe photographie, où je
+                        partage
+                        mes clichés et mes conseils avec les autres membres. J&apos;ai également l&apos;opportunité de
+                        tester des
                         téléphones et de participer à des événements exclusifs.
 
                     </p>
@@ -46,8 +51,10 @@ export default function WobbleCardDemo() {
                     Je participe activement à la traduction française de plusieurs projets, notamment les services <a
                     href="https://proton.me" target="_blank">Proton</a> et <a href="https://2fas.com/"
                                                                               target="_blank">2FAs</a>. Cette activité
-                    de traduction en ligne me permet non seulement d&apos;améliorer mon niveau d&apos;anglais en renforçant ma
-                    compréhension et mon interprétation, mais également de contribuer bénévolement à l&apos;amélioration des
+                    de traduction en ligne me permet non seulement d&apos;améliorer mon niveau d&apos;anglais en
+                    renforçant ma
+                    compréhension et mon interprétation, mais également de contribuer bénévolement à l&apos;amélioration
+                    des
                     services que j&apos;utilise quotidiennement.
                 </p>
             </WobbleCard>
@@ -60,19 +67,24 @@ export default function WobbleCardDemo() {
                         Tests de produits IOT et de l&apos;application Xiaomi Home
                     </h2>
                     <p className="mt-4 max-w-[65rem] text-left  text-base/6 text-neutral-200">
-                        Depuis mai 2021, je participe à la phase de test de la version d&apos;essai privée de l&apos;application
+                        Depuis mai 2021, je participe à la phase de test de la version d&apos;essai privée de
+                        l&apos;application
                         Xiaomi Home, permettant de controller les appareils connectés de Xiaomi. À chaque nouvelle
-                        version, je m&apos;assure qu&apos;aucun bug n&apos;est présent, que les différentes fonctionnalités sont
+                        version, je m&apos;assure qu&apos;aucun bug n&apos;est présent, que les différentes
+                        fonctionnalités sont
                         correctement traduites. Je veille également à ce que les fonctionnalités soient fluides et
                         intuitives, contribuant ainsi à améliorer l&apos;expérience utilisateur. Dans le cadre de ce
                         processus d&apos;amélioration, je propose régulièrement des suggestions.
                         <br/>
 
                         <br/>
-                        J&apos;ai également l&apos;opportunité de tester une variété de produits Xiaomi et Dreame, tels que des
+                        J&apos;ai également l&apos;opportunité de tester une variété de produits Xiaomi et Dreame, tels
+                        que des
                         trottinettes, des écouteurs, des objets connectés (capteurs, lumières, sonnettes, télémètres),
-                        des aspirateurs, et bien d&apos;autres. Durant ces tests, qui ont lieu avant la commercialisation des
-                        produits, j&apos;ai évalué divers aspects tels que le logiciel, l&apos;expérience utilisateur et la
+                        des aspirateurs, et bien d&apos;autres. Durant ces tests, qui ont lieu avant la
+                        commercialisation des
+                        produits, j&apos;ai évalué divers aspects tels que le logiciel, l&apos;expérience utilisateur et
+                        la
                         résistance, dans le but d&apos;améliorer le produit avant son lancement sur le marché.
                     </p>
                 </div>

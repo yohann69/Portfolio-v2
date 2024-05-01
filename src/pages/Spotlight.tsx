@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {Spotlight} from "@/components/ui/spotlight";
-import {Typewriter} from "@/pages/TipeWriter";
+import Typewriter from "@/pages/TipeWriter";
 import Image from "next/image";
 
-export function HeroSpotlight() {
+export default function HeroSpotlight() {
     const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({x: 0, y: 0});
 
     const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
