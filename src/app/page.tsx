@@ -30,17 +30,15 @@ export default function Home() {
             onMouseMove={handleMouseMove}
         >
             <NavBar/>
-            <Hero/>
-            {/*<WaveBackground/>*/}
-            {/*<Cards/>*/}
-            {/*<Sparkles/>*/}
 
-            <h1 className="text-2xl md:text-7xl font-bold dark:text-white p-20" id="projects">
+            <Hero/>
+
+            <h1 className="text-2xl md:text-7xl font-bold dark:text-white" id="projects" style={{margin: '100px 100px -80px 100px'}}>
                 Projets
             </h1>
             <MultiTabs/>
 
-            <h1 className="text-2xl md:text-7xl font-bold dark:text-white p-20" id="langages-outils">
+            <h1 className="text-2xl md:text-7xl font-bold dark:text-white p-20" id="langages-outils" style={{marginTop: '200px'}}>
                 Langages & Outils informatiques
             </h1>
             <LangagesOutils/>
@@ -64,22 +62,7 @@ export default function Home() {
             </h1>
 
 
-            {/*<BackgroundGradientAnimation>*/}
-            {/*    <div className="contactForm">*/}
-            {/*        <div*/}
-            {/*            className="absolute z-50 inset-0 flex items-center justify-center text-white font-bold px-4 pointer-events-none text-3xl text-center md:text-4xl lg:text-7xl">*/}
-            {/*            <p className="bg-clip-text text-transparent drop-shadow-2xl bg-gradient-to-b from-white/80 to-white/20">*/}
-            {/*                Contact me*/}
-            {/*            </p>*/}
-            {/*        </div>*/}
-            {/*        <div*/}
-            {/*            className="bg-green-500 bg-opacity-40 backdrop-blur-10 border border-green-500 border-opacity-20 h-300 w-100">*/}
-            {/*            <label className="text-white">email</label>*/}
-            {/*            <input type="text" placeholder="email@mail.com"/>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
 
-            {/*</BackgroundGradientAnimation>*/}
         </div>
     );
 }
