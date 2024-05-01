@@ -88,9 +88,17 @@ section .description p {
 
 #competences {
     width: 90%;
+    margin-bottom: 100px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
 }
 
-#competences section {
+#competences section, .progLanguages {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -98,17 +106,20 @@ section .description p {
     justify-content: center;
 }
 
-#competences div, #projects div {
+#competences > div, #competences > section > div {
     text-align: center;
-    max-width: 370px;
+    width: 370px;
     padding: 10px 20px;
-    margin: 5px;
+    margin: 20px;
     background-color: var(--card-color);
     border-radius: var(--radius-norm);
-    /*backdrop-filter: blur(10px);*/
-    /*-webkit-backdrop-filter: blur(10px);*/
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
+#competences > div{
+    max-width: 550px;
+}
 
 #competences h3:after {
     display: block;
@@ -120,7 +131,7 @@ section .description p {
 }
 
 #competences img {
-    width: 70px;
+    width: 80px;
     padding: 10px;
 }
 
@@ -129,9 +140,13 @@ section .description p {
     padding: 5px;
 }
 
-#competences > div > div {
+#competences > section > div > div, #competences > div > div {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
 /*------------------------------------------------------------

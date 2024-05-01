@@ -27,7 +27,8 @@ export const LayoutGrid = ({cards}: { cards: Card[] }) => {
     };
 
     return (
-        <div className="w-full p-10 grid grid-cols-1 md:grid-cols-6  max-w-7xl mx-auto gap-4 relative" style={{height:"1500px"}}>
+        <div className="w-full p-10 grid grid-cols-1 md:grid-cols-6  max-w-7xl mx-auto gap-4 relative"
+             style={{height: "1500px"}}>
             {cards.map((card, i) => (
                 <div key={i} className={cn(card.className, "")}>
                     <motion.div

@@ -1,12 +1,6 @@
 "use client";
 import React from "react";
-import {
-    motion,
-    useScroll,
-    useTransform,
-    useSpring,
-    MotionValue,
-} from "framer-motion";
+import {motion, MotionValue, useScroll, useSpring, useTransform,} from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,12 +17,12 @@ export const HeroParallax = ({
     const secondRow = products.slice(5, 10);
     const thirdRow = products.slice(10, 15);
     const ref = React.useRef(null);
-    const { scrollYProgress } = useScroll({
+    const {scrollYProgress} = useScroll({
         target: ref,
         offset: ["start start", "end start"],
     });
 
-    const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
+    const springConfig = {stiffness: 300, damping: 30, bounce: 100};
 
     const translateX = useSpring(
         useTransform(scrollYProgress, [0, 1], [0, 1000]),
@@ -57,9 +51,10 @@ export const HeroParallax = ({
     return (
         <div
             ref={ref}
-            className="h-[300vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+            className="py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+            style={{height: "3000px"}}
         >
-            <Header />
+            <Header/>
             <motion.div
                 style={{
                     rotateX,
@@ -108,8 +103,10 @@ export const Header = () => {
                 La photographie
             </h1>
             <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-                Pour moi, la photographie est bien plus qu&apos;une simple capture d&apos;images. C&apos;est une fenêtre ouverte
-                sur le monde, figeant l&apos;essence de l&apos;instant présent pour l&apos;éternité. Chaque photo invite à
+                Pour moi, la photographie est bien plus qu&apos;une simple capture d&apos;images. C&apos;est une fenêtre
+                ouverte
+                sur le monde, figeant l&apos;essence de l&apos;instant présent pour l&apos;éternité. Chaque photo invite
+                à
                 explorer la beauté qui nous entoure.
                 <br/>
                 <br/>
@@ -155,7 +152,8 @@ export const ProductCard = ({
                     alt={product.title}
                 />
             </Link>
-            <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
+            <div
+                className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
             <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
                 {product.title}
             </h2>
