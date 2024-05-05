@@ -98,7 +98,7 @@ export default function Home() {
                         </p>
                         <p className="pt-8 text-sm text-black">Accepté en formation d&apos;ingénieur informatique à l&apos;école
                             IMT Atlantique (Nantes), je suis à la recherche d&apos;une alternance pour les 3 années qui arrivent.
-                            Si mon profil vous interesse, n&apos;hésiter pas à me contacter via l&apos;un des canaux
+                            Si mon profil vous interesse, n&apos;hésitez pas à me contacter via l&apos;un des canaux
                             ci-dessous.</p>
 
                         <div className="pt-12 pb-8">

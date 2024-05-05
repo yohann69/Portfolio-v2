@@ -69,7 +69,7 @@ export default function WobbleCardDemo() {
                     <p className="mt-4 max-w-[65rem] text-left  text-base/6 text-neutral-200">
                         Depuis mai 2021, je participe à la phase de test de la version d&apos;essai privée de
                         l&apos;application
-                        Xiaomi Home, permettant de controller les appareils connectés de Xiaomi. À chaque nouvelle
+                        Xiaomi Home, permettant de contrôler les appareils connectés de Xiaomi. À chaque nouvelle
                         version, je m&apos;assure qu&apos;aucun bug n&apos;est présent, que les différentes
                         fonctionnalités sont
                         correctement traduites. Je veille également à ce que les fonctionnalités soient fluides et
