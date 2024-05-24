@@ -6,12 +6,12 @@ export default function Timeline() {
     return (
         <div className="container mx-auto w-full h-full">
             <div className="relative wrap overflow-hidden p-10 h-full">
-                <div className="border-2-2 border-yellow-555 absolute h-full border testclasse"></div>
-                <div className="border-2-2 border-yellow-555 absolute h-full border testclasse2"></div>
+                <div className="border-2-2 border-orange-500 absolute h-full border testclasse"></div>
+                <div className="border-2-2 border-orange-500 absolute h-full border testclasse2"></div>
                 <div className="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
                     <div className="order-1 w-5/12"></div>
                     <div className="order-1 w-5/12 px-1 py-4 text-right">
-                        <p className="mb-3 text-base text-yellow-300"> Septembre 2021 - Juillet 2024</p>
+                        <p className="mb-3 text-base text-orange-500"> Septembre 2021 - Juillet 2024</p>
 
                         <h4 className="mb-3 font-bold text-lg md:text-2xl">BUT Informatique - IUT de
                             Valence</h4>
@@ -33,7 +33,7 @@ export default function Timeline() {
                 <div className="mb-8 flex justify-between items-center w-full right-timeline">
                     <div className="order-1 w-5/12"></div>
                     <div className="order-1  w-5/12 px-1 py-4">
-                        <p className="mb-3 text-base text-yellow-300">Septembre 2023 - Juillet 2024</p>
+                        <p className="mb-3 text-base text-orange-500">Septembre 2023 - Juillet 2024</p>
 
                         <h4 className="mb-3 font-bold  text-lg md:text-2xl text-left">Altenance développeur full stack -
                             Ardèche Drome Numérique</h4>
@@ -56,7 +56,7 @@ export default function Timeline() {
                 <div className="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
                     <div className="order-1 w-5/12"></div>
                     <div className="order-1 w-5/12 px-1 py-4 text-right">
-                        <p className="mb-3 text-base text-yellow-300">24 Février - 28 Février 2024 </p>
+                        <p className="mb-3 text-base text-orange-500">24 Février - 28 Février 2024 </p>
 
                         <h4 className="mb-3 font-bold text-lg md:text-2xl">Participation au MWC à Barcelone</h4>
 
@@ -74,7 +74,7 @@ export default function Timeline() {
                 <div className="mb-8 flex justify-between items-center w-full right-timeline">
                     <div className="order-1 w-5/12"></div>
                     <div className="order-1  w-5/12 px-1 py-4">
-                        <p className="mb-3 text-base text-yellow-300">Septembre 2024 - Juillet 2027</p>
+                        <p className="mb-3 text-base text-orange-500">Septembre 2024 - Juillet 2027</p>
 
                         <h4 className="mb-3 font-bold  text-lg md:text-2xl text-left">Ingénieur informatique en
                             alternance - IMT Atlantique</h4>

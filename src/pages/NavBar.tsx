@@ -26,7 +26,7 @@ export default function NavBar() {
             icon: <IconTimeline className="h-4 w-4 text-neutral-500 dark:text-white"/>,
         },
         {
-            name: "Ptohographies",
+            name: "Photographies",
             link: "#photos",
             icon: <IconPhoto className="h-4 w-4 text-neutral-500 dark:text-white"/>,
         },
