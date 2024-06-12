@@ -102,7 +102,7 @@ export default function Timeline() {
 							J&apos;ai récemment signé un contrat d&apos;apprentissage avec La Poste pour devenir
 							développeur full stack. Ce contrat de 3 ans me permettra de mettre en pratique mes
 							compétences acquises lors de mes précédentes expériences professionnelles et de
-							continuer à me former dans le domaine du développement web et de la gestion de projet en parallèle de ma formation d'ingénieurerie logicielle.
+							continuer à me former dans le domaine du développement web et de la gestion de projet en parallèle de ma formation d&apos;ingénieurerie logicielle.
 						</p>
 					</div>
 				</div>
