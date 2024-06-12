@@ -104,7 +104,7 @@ export const Header = () => {
             </h1>
             <p className="max-w-2xl text-base md:text-xl text-neutral-100 font-bold">
                 Pour moi, la photographie est un moyen de capturer des moments, des émotions et des instants de vie.
-                Elle me permet de m'évader, de m'exprimer et de partager ma vision du monde.
+                Elle me permet de m&apos;évader, de m&apos;exprimer et de partager ma vision du monde.
             </p>
         </div>
     );
