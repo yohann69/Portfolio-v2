@@ -96,10 +96,9 @@ export default function Home() {
                             </svg>
                             Valence, Lyon, Nantes
                         </p>
-                        <p className="pt-8 text-sm text-black">Accepté en formation d&apos;ingénieur informatique à l&apos;école
-                            IMT Atlantique (Nantes), je suis à la recherche d&apos;une alternance pour les 3 années qui arrivent.
-                            Si mon profil vous interesse, n&apos;hésitez pas à me contacter via l&apos;un des canaux
-                            ci-dessous.</p>
+                        <p className="pt-8 font-semibold text-black">Accepté en formation d&apos;ingénieur informatique à l&apos;école
+                            IMT Atlantique (Nantes), j&apos;ai le plaisir d&apos;intégrer le groupe La Poste en tant que développeur full stack en alternance à partir de septembre 2024.
+                        </p>
 
                         <div className="pt-12 pb-8">
                             <a href="mailto:yohann.chavanel@proton.me" target={"_blank"}>
@@ -108,7 +107,7 @@ export default function Home() {
                                     Me contacter
                                 </button>
                             </a>
-                            <a href="/CV 2024 Yohann CHAVANEL.pdf" target={"_blank"}>
+                            <a href="/CV_2024_Yohann_CHAVANEL.pdf" target={"_blank"}>
                                 <button
                                     className="bg-gray-200 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded-full ml-5">
                                     CV

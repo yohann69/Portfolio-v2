@@ -5,7 +5,7 @@ import React from "react";
 export default function LangagesOutils() {
     return (
         <section id="competences">
-            <p className="max-w-2xl text-base md:text-xl dark:text-neutral-200">Au cours de ma
+            <p className="max-w-2xl text-base md:text-xl text-neutral-100 font-bold">Au cours de ma
                 formation de BUT Informatique, de mon alternance au sein d&apos;
                 <a
                     href="https://ardechedromenumerique.fr/" target="_blank">Ardèche Drome Numérique</a> ou de mes

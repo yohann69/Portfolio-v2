@@ -102,17 +102,9 @@ export const Header = () => {
             <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
                 La photographie
             </h1>
-            <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-                Pour moi, la photographie est bien plus qu&apos;une simple capture d&apos;images. C&apos;est une fenêtre
-                ouverte
-                sur le monde, figeant l&apos;essence de l&apos;instant présent pour l&apos;éternité. Chaque photo invite
-                à
-                explorer la beauté qui nous entoure.
-                <br/>
-                <br/>
-                En partageant mes images, je partage mes émotions, expériences et perspectives, transcendant les
-                barrières culturelles. La photographie est bien plus qu&apos;une passion ; c&apos;est un moyen de
-                communication universel, un regard neuf sur le monde.
+            <p className="max-w-2xl text-base md:text-xl text-neutral-100 font-bold">
+                Pour moi, la photographie est un moyen de capturer des moments, des émotions et des instants de vie.
+                Elle me permet de m'évader, de m'exprimer et de partager ma vision du monde.
             </p>
         </div>
     );

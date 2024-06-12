@@ -14,7 +14,7 @@ export default function WobbleCardDemo() {
                     <h2 className="text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
                         Modérateur de la communauté Xiaomi France
                     </h2>
-                    <p className="mt-4 text-left max-w-[600px] text-base/6 text-neutral-200">
+                    <p className="max-w-2xl text-base md:text-xl text-neutral-100 font-bold">
                         Avec plusieurs milliers d&apos;utilisateurs actifs chaque mois, la communauté Xiaomi France est
                         un
                         lieu de d&apos;échanges et de partage autour des produits Xiaomi. En tant que modérateur, je
@@ -47,7 +47,7 @@ export default function WobbleCardDemo() {
                 <h2 className="max-w-80  text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
                     Traduction de projets.
                 </h2>
-                <p className="mt-4 max-w-[26rem] text-left  text-base/6 text-neutral-200">
+                <p className="max-w-2xl text-base md:text-xl text-neutral-100 font-bold">
                     Je participe activement à la traduction française de plusieurs projets, notamment les services <a
                     href="https://proton.me" target="_blank">Proton</a> et <a href="https://2fas.com/"
                                                                               target="_blank">2FAs</a>. Cette activité
@@ -66,7 +66,7 @@ export default function WobbleCardDemo() {
                     <h2 className="max-w-sm md:max-w-lg  text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
                         Tests de produits IOT et de l&apos;application Xiaomi Home
                     </h2>
-                    <p className="mt-4 max-w-[65rem] text-left  text-base/6 text-neutral-200">
+                    <p className="max-w-2xl text-base md:text-xl text-neutral-100 font-bold">
                         Depuis mai 2021, je participe à la phase de test de la version d&apos;essai privée de
                         l&apos;application
                         Xiaomi Home, permettant de contrôler les appareils connectés de Xiaomi. À chaque nouvelle
