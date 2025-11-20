@@ -192,7 +192,7 @@ export const FileSystemProvider = ({ children }: { children: React.ReactNode }) 
                 }
                 counter++;
             }
-            
+
             const newFile = { ...file, name: newName };
             return {
                 ...prev,
@@ -204,7 +204,7 @@ export const FileSystemProvider = ({ children }: { children: React.ReactNode }) 
     const updateFileContent = useCallback((path: string, fileId: string, content: string) => {
         setFileSystem(prev => {
             const currentFiles = prev[path] || [];
-            const updatedFiles = currentFiles.map(f => 
+            const updatedFiles = currentFiles.map(f =>
                 f.id === fileId ? { ...f, textContent: content, size: `${new Blob([content]).size} B`, date: 'Just now' } : f
             );
             return {
@@ -217,7 +217,7 @@ export const FileSystemProvider = ({ children }: { children: React.ReactNode }) 
     const renameFile = useCallback((path: string, fileId: string, newName: string) => {
         setFileSystem(prev => {
             const currentFiles = prev[path] || [];
-            const updatedFiles = currentFiles.map(f => 
+            const updatedFiles = currentFiles.map(f =>
                 f.id === fileId ? { ...f, name: newName } : f
             );
             return {

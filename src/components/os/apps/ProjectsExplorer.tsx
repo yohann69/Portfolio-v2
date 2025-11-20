@@ -113,7 +113,7 @@ export default function ProjectsExplorer() {
             textContent: '',
         };
         createFile(currentPath, newFile);
-        
+
         // Start renaming immediately
         setRenamingFileId(newFileId);
         setRenameValue('New Text Document.txt');
@@ -122,14 +122,14 @@ export default function ProjectsExplorer() {
     const handleRenameSubmit = () => {
         if (renamingFileId && renameValue.trim()) {
             renameFile(currentPath, renamingFileId, renameValue.trim());
-            
+
             // Open the file after renaming if it's the one we just created
             // We can check if it's a text file and open it
             const file = fileSystem[currentPath]?.find(f => f.id === renamingFileId);
             if (file && file.type === 'txt') {
                 openWindow('text-editor', { fileId: renamingFileId });
             }
-            
+
             setRenamingFileId(null);
             setRenameValue('');
         } else {
@@ -227,7 +227,7 @@ export default function ProjectsExplorer() {
 
             {/* Sub-toolbar */}
             <div className="h-10 bg-white dark:bg-[#202020] border-b border-gray-200 dark:border-[#1a1a1a] flex items-center px-4 gap-2 text-sm transition-colors duration-200">
-                <button 
+                <button
                     onClick={handleNewFile}
                     className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 text-blue-500 dark:text-blue-400"
                 >
@@ -253,43 +253,43 @@ export default function ProjectsExplorer() {
                 {/* Sidebar */}
                 <div className="w-48 bg-gray-50 dark:bg-[#202020] border-r border-gray-200 dark:border-[#1a1a1a] flex flex-col py-2 overflow-y-auto transition-colors duration-200">
                     <div className="px-2 mb-2">
-                        <div 
-                            className={cn("flex items-center gap-2 px-2 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer text-sm text-gray-700 dark:text-gray-300", currentPath === '/home' && "bg-black/5 dark:bg-white/10 font-medium")} 
+                        <div
+                            className={cn("flex items-center gap-2 px-2 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer text-sm text-gray-700 dark:text-gray-300", currentPath === '/home' && "bg-black/5 dark:bg-white/10 font-medium")}
                             onClick={() => navigate('/home')}
                         >
                             <Home className="w-4 h-4 text-blue-500 dark:text-blue-400" />
                             <span>{t('explorer.home')}</span>
                         </div>
-                        <div 
-                            className={cn("flex items-center gap-2 px-2 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer text-sm text-gray-700 dark:text-gray-300", currentPath === '/desktop' && "bg-black/5 dark:bg-white/10 font-medium")} 
+                        <div
+                            className={cn("flex items-center gap-2 px-2 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer text-sm text-gray-700 dark:text-gray-300", currentPath === '/desktop' && "bg-black/5 dark:bg-white/10 font-medium")}
                             onClick={() => navigate('/desktop')}
                         >
                             <Monitor className="w-4 h-4 text-purple-500 dark:text-purple-400" />
                             <span>{t('explorer.desktop')}</span>
                         </div>
-                        <div 
-                            className={cn("flex items-center gap-2 px-2 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer text-sm text-gray-700 dark:text-gray-300", currentPath.startsWith('/documents') && "bg-black/5 dark:bg-white/10 font-medium")} 
+                        <div
+                            className={cn("flex items-center gap-2 px-2 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer text-sm text-gray-700 dark:text-gray-300", currentPath.startsWith('/documents') && "bg-black/5 dark:bg-white/10 font-medium")}
                             onClick={() => navigate('/documents')}
                         >
                             <Folder className="w-4 h-4 text-yellow-500 dark:text-yellow-400" />
                             <span>{t('explorer.documents')}</span>
                         </div>
-                        <div 
-                            className={cn("flex items-center gap-2 px-2 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer text-sm text-gray-700 dark:text-gray-300", currentPath === '/downloads' && "bg-black/5 dark:bg-white/10 font-medium")} 
+                        <div
+                            className={cn("flex items-center gap-2 px-2 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer text-sm text-gray-700 dark:text-gray-300", currentPath === '/downloads' && "bg-black/5 dark:bg-white/10 font-medium")}
                             onClick={() => navigate('/downloads')}
                         >
                             <Download className="w-4 h-4 text-green-500 dark:text-green-400" />
                             <span>{t('explorer.downloads')}</span>
                         </div>
-                        <div 
-                            className={cn("flex items-center gap-2 px-2 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer text-sm text-gray-700 dark:text-gray-300", currentPath === '/applications' && "bg-black/5 dark:bg-white/10 font-medium")} 
+                        <div
+                            className={cn("flex items-center gap-2 px-2 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer text-sm text-gray-700 dark:text-gray-300", currentPath === '/applications' && "bg-black/5 dark:bg-white/10 font-medium")}
                             onClick={() => navigate('/applications')}
                         >
                             <AppWindow className="w-4 h-4 text-red-500 dark:text-red-400" />
                             <span>{t('explorer.applications')}</span>
                         </div>
-                        <div 
-                            className={cn("flex items-center gap-2 px-2 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer text-sm text-gray-700 dark:text-gray-300", currentPath === '/gallery' && "bg-black/5 dark:bg-white/10 font-medium")} 
+                        <div
+                            className={cn("flex items-center gap-2 px-2 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer text-sm text-gray-700 dark:text-gray-300", currentPath === '/gallery' && "bg-black/5 dark:bg-white/10 font-medium")}
                             onClick={() => navigate('/gallery')}
                         >
                             <ImageIcon className="w-4 h-4 text-pink-500 dark:text-pink-400" />

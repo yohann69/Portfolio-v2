@@ -52,13 +52,12 @@ export default function TextEditor() {
     return (
         <div className="flex flex-col h-full bg-white dark:bg-[#202020] text-gray-900 dark:text-gray-100 font-mono">
             <div className="h-10 bg-gray-100 dark:bg-[#2c2c2c] border-b border-gray-200 dark:border-[#1a1a1a] flex items-center px-4 gap-2">
-                <button 
+                <button
                     onClick={handleSave}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded text-sm transition-colors ${
-                        isDirty 
-                            ? 'bg-blue-600 text-white hover:bg-blue-500' 
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded text-sm transition-colors ${isDirty
+                            ? 'bg-blue-600 text-white hover:bg-blue-500'
                             : 'text-gray-600 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5'
-                    }`}
+                        }`}
                 >
                     <Save className="w-4 h-4" />
                     Save
