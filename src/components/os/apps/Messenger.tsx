@@ -98,28 +98,28 @@ export default function Messenger() {
     };
 
     return (
-        <div className="flex flex-col h-full bg-[#1e1e1e] text-gray-200 font-sans relative">
+        <div className="flex flex-col h-full bg-white dark:bg-[#1e1e1e] text-gray-900 dark:text-gray-200 font-sans relative transition-colors duration-200">
             {/* Header */}
-            <div className="h-16 border-b border-white/10 flex items-center px-4 bg-[#252526] justify-between shrink-0">
+            <div className="h-16 border-b border-gray-200 dark:border-white/10 flex items-center px-4 bg-gray-50 dark:bg-[#252526] justify-between shrink-0 transition-colors duration-200">
                 <div className="flex items-center gap-3">
                     <div className="relative">
                         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center text-white font-bold text-lg shadow-lg">
                             Y
                         </div>
-                        <div className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-[#252526]" />
+                        <div className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-white dark:border-[#252526]" />
                     </div>
                     <div>
-                        <div className="font-bold text-sm text-white">Yohann CHAVANEL</div>
-                        <div className="text-xs text-green-400">Active now</div>
+                        <div className="font-bold text-sm text-gray-900 dark:text-white">Yohann CHAVANEL</div>
+                        <div className="text-xs text-green-500 dark:text-green-400">Active now</div>
                     </div>
                 </div>
 
-                <div className="flex items-center gap-4 text-gray-400">
-                    <Phone className="w-5 h-5 hover:text-white cursor-pointer transition-colors" />
-                    <Video className="w-5 h-5 hover:text-white cursor-pointer transition-colors" />
+                <div className="flex items-center gap-4 text-gray-500 dark:text-gray-400">
+                    <Phone className="w-5 h-5 hover:text-black dark:hover:text-white cursor-pointer transition-colors" />
+                    <Video className="w-5 h-5 hover:text-black dark:hover:text-white cursor-pointer transition-colors" />
                     <div className="relative">
                         <Lock
-                            className="w-4 h-4 hover:text-green-400 cursor-pointer transition-colors"
+                            className="w-4 h-4 hover:text-green-500 dark:hover:text-green-400 cursor-pointer transition-colors"
                             onMouseEnter={() => setShowLockInfo(true)}
                             onMouseLeave={() => setShowLockInfo(false)}
                         />
@@ -129,9 +129,9 @@ export default function Messenger() {
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: 10 }}
-                                    className="absolute top-full right-0 mt-2 w-64 bg-black/90 backdrop-blur-md border border-green-500/30 p-3 rounded-lg text-xs text-gray-300 z-50 shadow-xl"
+                                    className="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-black/90 backdrop-blur-md border border-green-500/30 p-3 rounded-lg text-xs text-gray-600 dark:text-gray-300 z-50 shadow-xl"
                                 >
-                                    <div className="flex items-center gap-2 text-green-400 font-bold mb-1">
+                                    <div className="flex items-center gap-2 text-green-500 dark:text-green-400 font-bold mb-1">
                                         <Lock className="w-3 h-3" />
                                         End-to-end Encrypted
                                     </div>
@@ -140,12 +140,12 @@ export default function Messenger() {
                             )}
                         </AnimatePresence>
                     </div>
-                    <Info className="w-5 h-5 hover:text-white cursor-pointer transition-colors" />
+                    <Info className="w-5 h-5 hover:text-black dark:hover:text-white cursor-pointer transition-colors" />
                 </div>
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-6 bg-[#1e1e1e]">
+            <div className="flex-1 overflow-y-auto p-4 space-y-6 bg-white dark:bg-[#1e1e1e] transition-colors duration-200">
                 {messages.map((msg) => (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -157,7 +157,7 @@ export default function Messenger() {
                             <div
                                 className={`px-4 py-2.5 rounded-2xl text-sm shadow-md ${msg.sender === 'user'
                                     ? 'bg-blue-600 text-white rounded-br-none'
-                                    : 'bg-[#3e3e42] text-gray-100 rounded-bl-none'
+                                    : 'bg-gray-100 dark:bg-[#3e3e42] text-gray-800 dark:text-gray-100 rounded-bl-none'
                                     }`}
                             >
                                 {msg.text}
@@ -171,7 +171,7 @@ export default function Messenger() {
 
                 {isTyping && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-                        <div className="bg-[#3e3e42] px-4 py-3 rounded-2xl rounded-bl-none flex gap-1">
+                        <div className="bg-gray-100 dark:bg-[#3e3e42] px-4 py-3 rounded-2xl rounded-bl-none flex gap-1">
                             <motion.div animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0 }} className="w-2 h-2 bg-gray-400 rounded-full" />
                             <motion.div animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0.2 }} className="w-2 h-2 bg-gray-400 rounded-full" />
                             <motion.div animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0.4 }} className="w-2 h-2 bg-gray-400 rounded-full" />
@@ -182,23 +182,23 @@ export default function Messenger() {
             </div>
 
             {/* Input Area */}
-            <div className="p-4 bg-[#252526] border-t border-white/10 shrink-0">
+            <div className="p-4 bg-gray-50 dark:bg-[#252526] border-t border-gray-200 dark:border-white/10 shrink-0 transition-colors duration-200">
                 <form onSubmit={handleSend} className="flex items-center gap-3">
-                    <div className="flex items-center gap-2 text-gray-400">
-                        <div className="p-2 hover:bg-white/10 rounded-full cursor-pointer transition-colors">
+                    <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+                        <div className="p-2 hover:bg-black/5 dark:hover:bg-white/10 rounded-full cursor-pointer transition-colors">
                             <Paperclip className="w-5 h-5" />
                         </div>
                     </div>
 
-                    <div className="flex-1 bg-[#1e1e1e] rounded-full px-4 py-2.5 border border-white/10 focus-within:border-blue-500/50 transition-colors flex items-center gap-2">
+                    <div className="flex-1 bg-white dark:bg-[#1e1e1e] rounded-full px-4 py-2.5 border border-gray-300 dark:border-white/10 focus-within:border-blue-500/50 transition-colors flex items-center gap-2">
                         <input
                             type="text"
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
                             placeholder="Type a message..."
-                            className="flex-1 bg-transparent border-none outline-none text-sm text-white placeholder-gray-500"
+                            className="flex-1 bg-transparent border-none outline-none text-sm text-gray-900 dark:text-white placeholder-gray-500"
                         />
-                        <Smile className="w-5 h-5 text-gray-500 cursor-pointer hover:text-gray-300" />
+                        <Smile className="w-5 h-5 text-gray-500 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300" />
                     </div>
 
                     <button
@@ -211,13 +211,13 @@ export default function Messenger() {
                 </form>
 
                 <div className="flex justify-center gap-2 mt-3 overflow-x-auto pb-1 scrollbar-hide">
-                    <button type="button" onClick={() => setInputValue("Send me your CV")} className="text-xs bg-[#3e3e42] hover:bg-[#4e4e52] text-gray-300 px-3 py-1.5 rounded-full transition-colors whitespace-nowrap border border-white/5">
+                    <button type="button" onClick={() => setInputValue("Send me your CV")} className="text-xs bg-white dark:bg-[#3e3e42] hover:bg-gray-100 dark:hover:bg-[#4e4e52] text-gray-700 dark:text-gray-300 px-3 py-1.5 rounded-full transition-colors whitespace-nowrap border border-gray-200 dark:border-white/5 shadow-sm">
                         📄 Send CV
                     </button>
-                    <button type="button" onClick={() => setInputValue("What is your email?")} className="text-xs bg-[#3e3e42] hover:bg-[#4e4e52] text-gray-300 px-3 py-1.5 rounded-full transition-colors whitespace-nowrap border border-white/5">
+                    <button type="button" onClick={() => setInputValue("What is your email?")} className="text-xs bg-white dark:bg-[#3e3e42] hover:bg-gray-100 dark:hover:bg-[#4e4e52] text-gray-700 dark:text-gray-300 px-3 py-1.5 rounded-full transition-colors whitespace-nowrap border border-gray-200 dark:border-white/5 shadow-sm">
                         📧 Email
                     </button>
-                    <button type="button" onClick={() => setInputValue("LinkedIn profile")} className="text-xs bg-[#3e3e42] hover:bg-[#4e4e52] text-gray-300 px-3 py-1.5 rounded-full transition-colors whitespace-nowrap border border-white/5">
+                    <button type="button" onClick={() => setInputValue("LinkedIn profile")} className="text-xs bg-white dark:bg-[#3e3e42] hover:bg-gray-100 dark:hover:bg-[#4e4e52] text-gray-700 dark:text-gray-300 px-3 py-1.5 rounded-full transition-colors whitespace-nowrap border border-gray-200 dark:border-white/5 shadow-sm">
                         💼 LinkedIn
                     </button>
                 </div>

@@ -56,10 +56,10 @@ export default function ExperienceLog() {
     const { t } = useSettings();
 
     return (
-        <div className="h-full bg-[#0d1117] text-gray-300 font-mono p-6 overflow-auto">
+        <div className="h-full bg-white dark:bg-[#0d1117] text-gray-900 dark:text-gray-300 font-mono p-6 overflow-auto transition-colors duration-200">
             <div className="max-w-3xl mx-auto">
-                <div className="mb-8 border-b border-gray-800 pb-4">
-                    <h1 className="text-2xl font-bold text-white mb-2">{t('timeline.title')}</h1>
+                <div className="mb-8 border-b border-gray-200 dark:border-gray-800 pb-4">
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('timeline.title')}</h1>
                     <div className="flex items-center gap-4 text-sm text-gray-500">
                         <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-green-500"></div> {t('timeline.running')}</span>
                         <span>{t('timeline.pid')}: 1337</span>
@@ -69,26 +69,26 @@ export default function ExperienceLog() {
 
                 <div className="space-y-0 relative">
                     {/* Vertical Line */}
-                    <div className="absolute left-4 top-2 bottom-2 w-px bg-gray-800" />
+                    <div className="absolute left-4 top-2 bottom-2 w-px bg-gray-200 dark:bg-gray-800" />
 
                     {events.map((event, index) => (
                         <div key={event.id} className="relative pl-12 py-6 group">
                             {/* Dot */}
-                            <div className="absolute left-[11px] top-8 w-2.5 h-2.5 rounded-full bg-gray-600 border-2 border-[#0d1117] group-hover:bg-blue-500 group-hover:scale-125 transition-all z-10" />
+                            <div className="absolute left-[11px] top-8 w-2.5 h-2.5 rounded-full bg-gray-400 dark:bg-gray-600 border-2 border-white dark:border-[#0d1117] group-hover:bg-blue-500 group-hover:scale-125 transition-all z-10" />
 
                             <div className="flex flex-col gap-2">
-                                <div className="flex items-center gap-3 text-xs font-bold tracking-wider text-blue-400">
+                                <div className="flex items-center gap-3 text-xs font-bold tracking-wider text-blue-500 dark:text-blue-400">
                                     <span className="bg-blue-500/10 px-2 py-1 rounded border border-blue-500/20">
                                         {event.date} -&gt; {event.endDate}
                                     </span>
-                                    <span className="text-gray-600">
+                                    <span className="text-gray-500 dark:text-gray-600">
                                         [{event.type.toUpperCase()}]
                                     </span>
                                 </div>
 
-                                <div className="bg-[#161b22] border border-gray-800 rounded-lg p-4 hover:border-gray-600 transition-colors">
+                                <div className="bg-gray-50 dark:bg-[#161b22] border border-gray-200 dark:border-gray-800 rounded-lg p-4 hover:border-gray-400 dark:hover:border-gray-600 transition-colors shadow-sm">
                                     <div className="flex items-start justify-between mb-2">
-                                        <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                                        <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
                                             {event.title}
                                         </h3>
                                         {event.type === 'work' ? <Briefcase className="w-4 h-4 text-gray-500" /> :
@@ -96,11 +96,11 @@ export default function ExperienceLog() {
                                                 <MapPin className="w-4 h-4 text-gray-500" />}
                                     </div>
 
-                                    <div className="text-sm text-green-500 font-bold mb-3">
+                                    <div className="text-sm text-green-600 dark:text-green-500 font-bold mb-3">
                                         @ {event.company}
                                     </div>
 
-                                    <p className="text-sm text-gray-400 leading-relaxed">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                                         {event.description}
                                     </p>
                                 </div>
@@ -109,7 +109,7 @@ export default function ExperienceLog() {
                     ))}
                 </div>
 
-                <div className="mt-8 text-center text-xs text-gray-600 animate-pulse">
+                <div className="mt-8 text-center text-xs text-gray-500 dark:text-gray-600 animate-pulse">
                     {t('timeline.end')}
                 </div>
             </div>

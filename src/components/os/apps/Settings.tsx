@@ -90,15 +90,11 @@ export default function Settings() {
                                             onClick={() => setBgPreset(preset)}
                                             className={`relative flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all ${bgPreset.id === preset.id ? 'border-blue-500 bg-blue-500/10' : 'border-gray-200 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5'}`}
                                         >
-                                            <div
-                                                className="w-full aspect-video rounded-lg shadow-sm overflow-hidden"
-                                                style={{ background: preset.type !== 'animated' ? preset.value : 'linear-gradient(45deg, #000, #333)' }}
-                                            >
-                                                {preset.type === 'animated' && (
-                                                    <div className="w-full h-full flex items-center justify-center text-xs text-white/50 bg-black">
-                                                        Animated
-                                                    </div>
-                                                )}
+                                            <div className="w-full aspect-video rounded-lg shadow-sm overflow-hidden relative bg-slate-900">
+                                                {/* Mini preview of the animated background */}
+                                                <div className={`absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full blur-[20px] mix-blend-screen ${preset.colors.blob1}`} />
+                                                <div className={`absolute top-[20%] right-[-10%] w-[40%] h-[40%] rounded-full blur-[20px] mix-blend-screen ${preset.colors.blob2}`} />
+                                                <div className={`absolute bottom-[-10%] left-[20%] w-[50%] h-[50%] rounded-full blur-[20px] mix-blend-screen ${preset.colors.blob3}`} />
                                             </div>
                                             <span className="text-sm font-medium">{preset.name}</span>
                                             {bgPreset.id === preset.id && (

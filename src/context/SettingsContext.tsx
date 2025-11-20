@@ -9,16 +9,77 @@ type Language = 'en' | 'fr' | 'cn';
 export type BgPreset = {
     id: string;
     name: string;
-    type: 'gradient' | 'solid' | 'animated';
-    value: string;
+    type: 'animated';
+    colors: {
+        blob1: string;
+        blob2: string;
+        blob3: string;
+        blob4: string;
+        blob5: string;
+    };
 };
 
 export const bgPresets: BgPreset[] = [
-    { id: 'default', name: 'Default (Animated)', type: 'animated', value: '' },
-    { id: 'blue', name: 'Ocean Blue', type: 'gradient', value: 'linear-gradient(to bottom right, #2563eb, #06b6d4)' },
-    { id: 'purple', name: 'Deep Purple', type: 'gradient', value: 'linear-gradient(to bottom right, #7c3aed, #c026d3)' },
-    { id: 'dark', name: 'Midnight', type: 'solid', value: '#0f172a' },
-    { id: 'sunset', name: 'Sunset', type: 'gradient', value: 'linear-gradient(to bottom right, #f97316, #db2777)' },
+    {
+        id: 'default',
+        name: 'Default',
+        type: 'animated',
+        colors: {
+            blob1: 'bg-blue-600/30',
+            blob2: 'bg-purple-600/30',
+            blob3: 'bg-orange-600/30',
+            blob4: 'bg-yellow-600/20',
+            blob5: 'bg-red-600/20'
+        }
+    },
+    {
+        id: 'ocean',
+        name: 'Ocean',
+        type: 'animated',
+        colors: {
+            blob1: 'bg-cyan-600/30',
+            blob2: 'bg-blue-600/30',
+            blob3: 'bg-teal-600/30',
+            blob4: 'bg-sky-600/20',
+            blob5: 'bg-indigo-600/20'
+        }
+    },
+    {
+        id: 'sunset',
+        name: 'Sunset',
+        type: 'animated',
+        colors: {
+            blob1: 'bg-orange-600/30',
+            blob2: 'bg-red-600/30',
+            blob3: 'bg-pink-600/30',
+            blob4: 'bg-yellow-600/20',
+            blob5: 'bg-rose-600/20'
+        }
+    },
+    {
+        id: 'forest',
+        name: 'Forest',
+        type: 'animated',
+        colors: {
+            blob1: 'bg-green-600/30',
+            blob2: 'bg-emerald-600/30',
+            blob3: 'bg-lime-600/30',
+            blob4: 'bg-teal-600/20',
+            blob5: 'bg-cyan-600/20'
+        }
+    },
+    {
+        id: 'lavender',
+        name: 'Lavender',
+        type: 'animated',
+        colors: {
+            blob1: 'bg-purple-600/30',
+            blob2: 'bg-violet-600/30',
+            blob3: 'bg-fuchsia-600/30',
+            blob4: 'bg-indigo-600/20',
+            blob5: 'bg-pink-600/20'
+        }
+    }
 ];
 
 interface SettingsContextType {

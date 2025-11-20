@@ -23,13 +23,13 @@ import { FileSystemProvider } from '@/context/FileSystemContext';
 import { useSettings } from '@/context/SettingsContext';
 
 const DesktopContent = () => {
-    const { bgPreset } = useSettings();
+    const { bgPreset, theme } = useSettings();
 
     return (
         <div className="fixed inset-0 bg-black text-white overflow-hidden font-sans selection:bg-white/20">
             {/* Background */}
-            <div className="absolute inset-0 z-0" style={{ background: bgPreset.type !== 'animated' ? bgPreset.value : undefined }}>
-                {bgPreset.type === 'animated' && <AnimatedBackground />}
+            <div className="absolute inset-0 z-0">
+                <AnimatedBackground preset={bgPreset} theme={theme} />
             </div>
 
             {/* OS Interface */}
