@@ -25,59 +25,71 @@ export const bgPresets: BgPreset[] = [
         name: 'Default',
         type: 'animated',
         colors: {
-            blob1: 'bg-blue-600/30',
-            blob2: 'bg-purple-600/30',
-            blob3: 'bg-orange-600/30',
-            blob4: 'bg-yellow-600/20',
-            blob5: 'bg-red-600/20'
+            blob1: 'bg-[#2563eb]/30', // Blue 600
+            blob2: 'bg-[#9333ea]/30', // Purple 600
+            blob3: 'bg-[#ea580c]/30', // Orange 600
+            blob4: 'bg-[#ca8a04]/20', // Yellow 600
+            blob5: 'bg-[#dc2626]/20'  // Red 600
         }
     },
     {
-        id: 'ocean',
-        name: 'Ocean',
+        id: 'ocean-depths',
+        name: 'Ocean Depths',
         type: 'animated',
         colors: {
-            blob1: 'bg-cyan-600/30',
-            blob2: 'bg-blue-600/30',
-            blob3: 'bg-teal-600/30',
-            blob4: 'bg-sky-600/20',
-            blob5: 'bg-indigo-600/20'
+            blob1: 'bg-[#1d4ed8]/30', // Blue 700
+            blob2: 'bg-[#14b8a6]/30', // Teal 500
+            blob3: 'bg-[#4f46e5]/30', // Indigo 600
+            blob4: 'bg-[#a855f7]/20', // Purple 500
+            blob5: 'bg-[#4ade80]/20'  // Green 400
         }
     },
     {
-        id: 'sunset',
-        name: 'Sunset',
+        id: 'sunset-glow',
+        name: 'Sunset Glow',
         type: 'animated',
         colors: {
-            blob1: 'bg-orange-600/30',
-            blob2: 'bg-red-600/30',
-            blob3: 'bg-pink-600/30',
-            blob4: 'bg-yellow-600/20',
-            blob5: 'bg-rose-600/20'
+            blob1: 'bg-[#dc2626]/30', // Red 600
+            blob2: 'bg-[#f97316]/30', // Orange 500
+            blob3: 'bg-[#eab308]/30', // Yellow 500
+            blob4: 'bg-[#9333ea]/20', // Purple 600
+            blob5: 'bg-[#ec4899]/20'  // Pink 500
         }
     },
     {
-        id: 'forest',
-        name: 'Forest',
+        id: 'mystic-forest',
+        name: 'Mystic Forest',
         type: 'animated',
         colors: {
-            blob1: 'bg-green-600/30',
-            blob2: 'bg-emerald-600/30',
-            blob3: 'bg-lime-600/30',
-            blob4: 'bg-teal-600/20',
-            blob5: 'bg-cyan-600/20'
+            blob1: 'bg-[#16a34a]/30', // Green 600
+            blob2: 'bg-[#0d9488]/30', // Teal 600
+            blob3: 'bg-[#facc15]/30', // Yellow 400
+            blob4: 'bg-[#a855f7]/20', // Purple 500
+            blob5: 'bg-[#60a5fa]/20'  // Blue 400
         }
     },
     {
-        id: 'lavender',
-        name: 'Lavender',
+        id: 'royal-velvet',
+        name: 'Royal Velvet',
         type: 'animated',
         colors: {
-            blob1: 'bg-purple-600/30',
-            blob2: 'bg-violet-600/30',
-            blob3: 'bg-fuchsia-600/30',
-            blob4: 'bg-indigo-600/20',
-            blob5: 'bg-pink-600/20'
+            blob1: 'bg-[#7e22ce]/30', // Purple 700
+            blob2: 'bg-[#db2777]/30', // Pink 600
+            blob3: 'bg-[#4f46e5]/30', // Indigo 600
+            blob4: 'bg-[#ef4444]/20', // Red 500
+            blob5: 'bg-[#3b82f6]/20'  // Blue 500
+        }
+    },
+    {
+        id: 'cherry-blossom',
+        name: 'Cherry Blossom',
+        type: 'animated',
+        colors: {
+            blob1: 'bg-[#ec4899]/30', // Pink 500
+            blob2: 'bg-[#f87171]/30', // Red 400
+            blob3: 'bg-[#22c55e]/30', // Green 500
+            blob4: 'bg-[#c084fc]/20', // Purple 400
+            blob5: 'bg-[#fef08a]/20'  // Yellow 200
         }
     }
 ];

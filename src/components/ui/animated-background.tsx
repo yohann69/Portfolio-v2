@@ -31,6 +31,7 @@ export const AnimatedBackground = ({
 
     // Determine if we should use light base
     const isLight = theme === 'light' || (theme === 'system' && typeof window !== 'undefined' && !window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const blendMode = isLight ? "mix-blend-normal" : "mix-blend-screen";
 
     return (
         <div className={cn("absolute inset-0 overflow-hidden transition-colors duration-500", isLight ? "bg-gray-100" : "bg-slate-900", className)}>
@@ -39,19 +40,19 @@ export const AnimatedBackground = ({
             {/* Warm tones: Blue, Yellow, Orange, Red, Purple */}
 
             {/* Blue/Purple Orb */}
-            <div className={cn("absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full blur-[100px] animate-blob mix-blend-screen transition-colors duration-500", colors.blob1)} />
+            <div className={cn("absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full blur-[100px] animate-blob transition-colors duration-500", blendMode, colors.blob1)} />
 
             {/* Purple/Pink Orb */}
-            <div className={cn("absolute top-[20%] right-[-10%] w-[40%] h-[40%] rounded-full blur-[100px] animate-blob animation-delay-2000 mix-blend-screen transition-colors duration-500", colors.blob2)} />
+            <div className={cn("absolute top-[20%] right-[-10%] w-[40%] h-[40%] rounded-full blur-[100px] animate-blob animation-delay-2000 transition-colors duration-500", blendMode, colors.blob2)} />
 
             {/* Orange/Red Orb */}
-            <div className={cn("absolute bottom-[-10%] left-[20%] w-[50%] h-[50%] rounded-full blur-[100px] animate-blob animation-delay-4000 mix-blend-screen transition-colors duration-500", colors.blob3)} />
+            <div className={cn("absolute bottom-[-10%] left-[20%] w-[50%] h-[50%] rounded-full blur-[100px] animate-blob animation-delay-4000 transition-colors duration-500", blendMode, colors.blob3)} />
 
             {/* Yellow/Amber Orb */}
-            <div className={cn("absolute bottom-[20%] right-[20%] w-[30%] h-[30%] rounded-full blur-[80px] animate-blob animation-delay-6000 mix-blend-screen transition-colors duration-500", colors.blob4)} />
+            <div className={cn("absolute bottom-[20%] right-[20%] w-[30%] h-[30%] rounded-full blur-[80px] animate-blob animation-delay-6000 transition-colors duration-500", blendMode, colors.blob4)} />
 
             {/* Red/Pink Orb */}
-            <div className={cn("absolute top-[40%] left-[40%] w-[40%] h-[40%] rounded-full blur-[90px] animate-blob animation-delay-8000 mix-blend-screen transition-colors duration-500", colors.blob5)} />
+            <div className={cn("absolute top-[40%] left-[40%] w-[40%] h-[40%] rounded-full blur-[90px] animate-blob animation-delay-8000 transition-colors duration-500", blendMode, colors.blob5)} />
 
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay pointer-events-none" />
         </div>
