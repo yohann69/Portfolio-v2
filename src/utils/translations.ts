@@ -107,6 +107,9 @@ export const translations = {
         'sysinfo.skills.title': '> Installed_Packages (Skills)',
         'sysinfo.tools.title': '> Tools & Environment',
         'sysinfo.job.title': 'Full Stack Developer',
+
+        // Calendar
+        'calendar.weekdays': 'S,M,T,W,T,F,S',
     },
     fr: {
         // System
@@ -216,6 +219,9 @@ export const translations = {
         'sysinfo.skills.title': '> Paquets_Installés (Compétences)',
         'sysinfo.tools.title': '> Outils & Environnement',
         'sysinfo.job.title': 'Développeur Full Stack',
+
+        // Calendar
+        'calendar.weekdays': 'D,L,M,M,J,V,S',
     },
     cn: {
         // System
@@ -325,6 +331,9 @@ export const translations = {
         'sysinfo.skills.title': '> 已安装软件包 (技能)',
         'sysinfo.tools.title': '> 工具与环境',
         'sysinfo.job.title': '全栈开发人员',
+
+        // Calendar
+        'calendar.weekdays': '日,一,二,三,四,五,六',
     }
 };
 

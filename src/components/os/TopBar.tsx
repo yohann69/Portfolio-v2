@@ -15,6 +15,8 @@ export const TopBar = () => {
     const { openWindow } = useWindowManager();
     const menuRef = useRef<HTMLDivElement>(null);
 
+    const [displayDate, setDisplayDate] = useState(new Date());
+
     useEffect(() => {
         const updateTime = () => {
             const now = new Date();
@@ -25,6 +27,59 @@ export const TopBar = () => {
         const interval = setInterval(updateTime, 1000);
         return () => clearInterval(interval);
     }, [language]);
+
+    useEffect(() => {
+        if (showCalendar) {
+            setDisplayDate(new Date());
+        }
+    }, [showCalendar]);
+
+    const handlePrevMonth = () => {
+        setDisplayDate(new Date(displayDate.getFullYear(), displayDate.getMonth() - 1, 1));
+    };
+
+    const handleNextMonth = () => {
+        setDisplayDate(new Date(displayDate.getFullYear(), displayDate.getMonth() + 1, 1));
+    };
+
+    const getDaysInMonth = (date: Date) => {
+        return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    };
+
+    const getFirstDayOfMonth = (date: Date) => {
+        return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+    };
+
+    const renderCalendarDays = () => {
+        const daysInMonth = getDaysInMonth(displayDate);
+        const firstDay = getFirstDayOfMonth(displayDate);
+        const days = [];
+
+        // Empty slots for previous month
+        for (let i = 0; i < firstDay; i++) {
+            days.push(<div key={`empty-${i}`} className="aspect-square" />);
+        }
+
+        // Days of current month
+        const today = new Date();
+        const isCurrentMonth = today.getMonth() === displayDate.getMonth() && today.getFullYear() === displayDate.getFullYear();
+
+        for (let i = 1; i <= daysInMonth; i++) {
+            const isToday = isCurrentMonth && i === today.getDate();
+            days.push(
+                <div
+                    key={i}
+                    className={`aspect-square flex items-center justify-center rounded-full text-sm cursor-pointer transition-colors
+                        ${isToday ? 'bg-blue-500 text-white font-bold' : 'hover:bg-black/5 dark:hover:bg-white/10'}
+                    `}
+                >
+                    {i}
+                </div>
+            );
+        }
+
+        return days;
+    };
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -93,15 +148,15 @@ export const TopBar = () => {
                             <MenuDropdown>
                                 <MenuItem label={t('system.about')} onClick={() => openWindow('about')} />
                                 <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
-                                <MenuItem label={t('system.settings')} onClick={() => openWindow('settings')} />
-                                <MenuItem label="App Store..." />
+                                <MenuItem label={t('system.preferences')} onClick={() => openWindow('settings')} />
+                                <MenuItem label={t('system.appstore')} />
                                 <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
-                                <MenuItem label="Recent Items" hasSubmenu>
+                                <MenuItem label={t('system.recent')} hasSubmenu>
                                     <MenuItem label="Project 1" />
                                     <MenuItem label="Project 2" />
                                 </MenuItem>
                                 <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
-                                <MenuItem label={t('system.forceQuit')} shortcut="⌥⌘Esc" />
+                                <MenuItem label={t('system.forcequit')} shortcut="⌥⌘Esc" />
                                 <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
                                 <MenuItem label={t('system.sleep')} />
                                 <MenuItem label={t('system.restart')} onClick={() => window.location.reload()} />
@@ -119,11 +174,11 @@ export const TopBar = () => {
                     <AnimatePresence>
                         {activeMenu === 'file' && (
                             <MenuDropdown>
-                                <MenuItem label={t('system.newWindow')} shortcut="⌘N" />
-                                <MenuItem label={t('system.newFolder')} shortcut="⇧⌘N" />
+                                <MenuItem label={t('system.newwindow')} shortcut="⌘N" />
+                                <MenuItem label={t('system.newfolder')} shortcut="⇧⌘N" />
                                 <MenuItem label={t('system.open')} shortcut="⌘O" />
                                 <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
-                                <MenuItem label={t('system.closeWindow')} shortcut="⌘W" />
+                                <MenuItem label={t('system.close')} shortcut="⌘W" />
                             </MenuDropdown>
                         )}
                     </AnimatePresence>
@@ -139,13 +194,13 @@ export const TopBar = () => {
                     <AnimatePresence>
                         {activeMenu === 'edit' && (
                             <MenuDropdown>
-                                <MenuItem label="Undo" shortcut="⌘Z" />
-                                <MenuItem label="Redo" shortcut="⇧⌘Z" />
+                                <MenuItem label={t('system.undo')} shortcut="⌘Z" />
+                                <MenuItem label={t('system.redo')} shortcut="⇧⌘Z" />
                                 <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
-                                <MenuItem label="Cut" shortcut="⌘X" />
-                                <MenuItem label="Copy" shortcut="⌘C" />
-                                <MenuItem label="Paste" shortcut="⌘V" />
-                                <MenuItem label="Select All" shortcut="⌘A" />
+                                <MenuItem label={t('system.cut')} shortcut="⌘X" />
+                                <MenuItem label={t('system.copy')} shortcut="⌘C" />
+                                <MenuItem label={t('system.paste')} shortcut="⌘V" />
+                                <MenuItem label={t('system.selectall')} shortcut="⌘A" />
                             </MenuDropdown>
                         )}
                     </AnimatePresence>
@@ -172,7 +227,7 @@ export const TopBar = () => {
                                     <MenuItem label="Chinese" onClick={() => setLanguage('cn')} />
                                 </MenuItem>
                                 <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
-                                <MenuItem label="Enter Full Screen" shortcut="Fn F" />
+                                <MenuItem label={t('system.fullscreen')} shortcut="Fn F" />
                             </MenuDropdown>
                         )}
                     </AnimatePresence>
@@ -201,28 +256,31 @@ export const TopBar = () => {
                                 className="absolute top-full right-0 mt-2 w-64 bg-white/90 dark:bg-[#1e1e1e]/90 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-xl shadow-2xl p-4 z-50 text-black dark:text-white"
                             >
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="font-bold text-lg">{new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
+                                    <span className="font-bold text-lg capitalize">
+                                        {displayDate.toLocaleString(language === 'fr' ? 'fr-FR' : language === 'cn' ? 'zh-CN' : 'en-US', { month: 'long', year: 'numeric' })}
+                                    </span>
                                     <div className="flex gap-2">
-                                        <div className="w-6 h-6 rounded-full hover:bg-black/5 dark:hover:bg-white/10 flex items-center justify-center cursor-pointer">
+                                        <div
+                                            className="w-6 h-6 rounded-full hover:bg-black/5 dark:hover:bg-white/10 flex items-center justify-center cursor-pointer"
+                                            onClick={handlePrevMonth}
+                                        >
                                             <ChevronRight className="w-4 h-4 rotate-180" />
                                         </div>
-                                        <div className="w-6 h-6 rounded-full hover:bg-black/5 dark:hover:bg-white/10 flex items-center justify-center cursor-pointer">
+                                        <div
+                                            className="w-6 h-6 rounded-full hover:bg-black/5 dark:hover:bg-white/10 flex items-center justify-center cursor-pointer"
+                                            onClick={handleNextMonth}
+                                        >
                                             <ChevronRight className="w-4 h-4" />
                                         </div>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-7 gap-1 text-center text-xs mb-2 opacity-50">
-                                    <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                                <div className="grid grid-cols-7 gap-1 text-center text-xs mb-2 opacity-50 font-medium">
+                                    {t('calendar.weekdays').split(',').map((day, i) => (
+                                        <span key={i}>{day}</span>
+                                    ))}
                                 </div>
                                 <div className="grid grid-cols-7 gap-1 text-center text-sm">
-                                    {Array.from({ length: 30 }, (_, i) => (
-                                        <div
-                                            key={i}
-                                            className={`aspect-square flex items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer ${i + 1 === new Date().getDate() ? 'bg-blue-500 text-white' : ''}`}
-                                        >
-                                            {i + 1}
-                                        </div>
-                                    ))}
+                                    {renderCalendarDays()}
                                 </div>
                             </motion.div>
                         )}

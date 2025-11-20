@@ -35,21 +35,24 @@ function DockIcon({ mouseX, app, isOpen, isActive, onClick }: { mouseX: MotionVa
             onClick={onClick}
         >
             {/* Tooltip */}
-            <span className="absolute -top-12 opacity-0 group-hover:opacity-100 transition-opacity text-xs bg-[#1e1e1e]/90 text-white px-3 py-1.5 rounded-lg border border-white/10 whitespace-nowrap pointer-events-none shadow-xl backdrop-blur-md">
+            <span className="absolute -top-12 opacity-0 group-hover:opacity-100 transition-opacity text-xs bg-white/90 dark:bg-[#1e1e1e]/90 text-black dark:text-white px-3 py-1.5 rounded-lg border border-black/10 dark:border-white/10 whitespace-nowrap pointer-events-none shadow-xl backdrop-blur-md">
                 {app.label}
             </span>
 
             {/* Icon Container */}
             <div className={cn(
-                "w-full h-full rounded-2xl flex items-center justify-center transition-all duration-300 border border-white/10 shadow-lg",
-                isActive ? "bg-white/20 backdrop-blur-md border-white/30" : "bg-white/5 hover:bg-white/10 backdrop-blur-sm"
+                "w-full h-full rounded-2xl flex items-center justify-center transition-all duration-300 border shadow-lg",
+                "border-black/10 dark:border-white/10",
+                isActive
+                    ? "bg-black/10 dark:bg-white/20 backdrop-blur-md border-black/20 dark:border-white/30"
+                    : "bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 backdrop-blur-sm"
             )}>
-                <app.icon className={cn("w-1/2 h-1/2", isActive ? "text-white" : "text-white/80")} />
+                <app.icon className={cn("w-1/2 h-1/2", isActive ? "text-black dark:text-white" : "text-black/80 dark:text-white/80")} />
             </div>
 
             {/* Active Dot */}
             <div className={cn(
-                "absolute -bottom-2 w-1 h-1 rounded-full bg-white transition-all duration-300",
+                "absolute -bottom-2 w-1 h-1 rounded-full bg-black dark:bg-white transition-all duration-300",
                 isOpen ? "opacity-100" : "opacity-0"
             )} />
         </motion.div>
@@ -65,7 +68,7 @@ export const Taskbar = () => {
             <motion.div
                 onMouseMove={(e) => mouseX.set(e.pageX)}
                 onMouseLeave={() => mouseX.set(Infinity)}
-                className="flex items-end gap-3 px-4 py-3 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl"
+                className="flex items-end gap-3 px-4 py-3 bg-black/5 dark:bg-white/5 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-3xl shadow-2xl"
             >
                 {apps.map((app) => (
                     <DockIcon
