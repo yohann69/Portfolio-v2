@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { useWindowManager } from '../WindowManager';
+import { useSettings } from '@/context/SettingsContext';
 
 type FileType = 'folder' | 'project' | 'contribution' | 'app' | 'pdf' | 'video' | 'image';
 
@@ -44,33 +45,37 @@ interface FileItem {
     date?: string;
     icon?: React.ElementType;
     url?: string; // For media files or browser
+    translationKey?: string; // For translating name
+    descriptionKey?: string; // For translating description
+    contentKey?: string; // For translating content
 }
 
 const fileSystem: Record<string, FileItem[]> = {
     '/': [
-        { id: 'home', name: 'Home', type: 'folder', date: 'Today' },
-        { id: 'desktop', name: 'Desktop', type: 'folder', date: 'Today' },
-        { id: 'documents', name: 'Documents', type: 'folder', date: 'Today' },
-        { id: 'downloads', name: 'Downloads', type: 'folder', date: 'Yesterday' },
-        { id: 'applications', name: 'Applications', type: 'folder', date: '2024-01-01' },
-        { id: 'gallery', name: 'Gallery', type: 'folder', date: '2024-01-01' },
+        { id: 'home', name: 'Home', type: 'folder', date: 'Today', translationKey: 'explorer.home' },
+        { id: 'desktop', name: 'Desktop', type: 'folder', date: 'Today', translationKey: 'explorer.desktop' },
+        { id: 'documents', name: 'Documents', type: 'folder', date: 'Today', translationKey: 'explorer.documents' },
+        { id: 'downloads', name: 'Downloads', type: 'folder', date: 'Yesterday', translationKey: 'explorer.downloads' },
+        { id: 'applications', name: 'Applications', type: 'folder', date: '2024-01-01', translationKey: 'explorer.applications' },
+        { id: 'gallery', name: 'Gallery', type: 'folder', date: '2024-01-01', translationKey: 'app.gallery' },
     ],
     '/home': [
-        { id: 'contributions', name: 'Contributions', type: 'folder', date: 'Last week' },
+        { id: 'projects', name: 'Projects', type: 'folder', date: 'Today', translationKey: 'app.projects' },
+        { id: 'contributions', name: 'Contributions', type: 'folder', date: 'Last week', translationKey: 'content.contributions.desc' },
     ],
     '/desktop': [],
     '/documents': [
-        { id: 'cv', name: 'CV_Yohann_CHAVANEL.pdf', type: 'pdf', size: '2.4 MB', date: '2024-03-15', url: '/CV_2024_Yohann_CHAVANEL.pdf' }
+        { id: 'cv', name: 'CV_Yohann_CHAVANEL.pdf', type: 'pdf', size: '2.4 MB', date: '2024-03-15', url: '/CV_2024_Yohann_CHAVANEL.pdf', translationKey: 'content.cv' }
     ],
     '/downloads': [
-        { id: 'rick', name: 'secret_video.mp4', type: 'video', size: '15 MB', date: '2024-04-01', url: '/rr.mp4' }
+        { id: 'rick', name: 'secret_video.mp4', type: 'video', size: '15 MB', date: '2024-04-01', url: '/rr.mp4', translationKey: 'content.secret' }
     ],
     '/applications': [
-        { id: 'projects', name: 'Projects', type: 'folder', date: 'Today' },
-        { id: 'snake-app', name: 'Snake Game', type: 'app', appId: 'snake', icon: Gamepad2, description: 'Classic Snake Game', size: '1.2 MB', date: '2024-01-01' },
-        { id: 'browser-app', name: 'Web Browser', type: 'app', appId: 'browser', icon: Globe, description: 'Internet Explorer... but faster', size: '50 MB', date: '2024-01-01' },
-        { id: 'pdf-app', name: 'PDF Viewer', type: 'app', appId: 'pdf-viewer', icon: FileText, description: 'View PDF documents', size: '10 MB', date: '2024-01-01' },
-        { id: 'video-app', name: 'Video Player', type: 'app', appId: 'video-player', icon: Play, description: 'Play video files', size: '20 MB', date: '2024-01-01' },
+        { id: 'projects', name: 'Projects', type: 'folder', date: 'Today', translationKey: 'app.projects' },
+        { id: 'snake-app', name: 'Snake Game', type: 'app', appId: 'snake', icon: Gamepad2, description: 'Classic Snake Game', size: '1.2 MB', date: '2024-01-01', translationKey: 'app.snake' },
+        { id: 'browser-app', name: 'Web Browser', type: 'app', appId: 'browser', icon: Globe, description: 'Internet Explorer... but faster', size: '50 MB', date: '2024-01-01', translationKey: 'app.browser' },
+        { id: 'pdf-app', name: 'PDF Viewer', type: 'app', appId: 'pdf-viewer', icon: FileText, description: 'View PDF documents', size: '10 MB', date: '2024-01-01', translationKey: 'app.pdf' },
+        { id: 'video-app', name: 'Video Player', type: 'app', appId: 'video-player', icon: Play, description: 'Play video files', size: '20 MB', date: '2024-01-01', translationKey: 'app.video' },
     ],
     '/gallery': [
         { id: 'img1', name: 'Mountain.jpg', type: 'image', size: '2.1 MB', date: '2023-12-01', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop' },
@@ -86,9 +91,11 @@ const fileSystem: Record<string, FileItem[]> = {
             icon: Globe,
             tags: ['Golang', 'SolidJS', 'PostGIS'],
             description: "Outil d'éligibilité à la fibre optique pour l'Ardèche et la Drôme.",
+            descriptionKey: 'project.adn.desc',
             url: "https://ardechedromenumerique.fr/eligibilite",
             image: "/adnlogo-300x262.png",
             content: "Application web permettant aux habitants de vérifier leur éligibilité à la fibre. Carte interactive, backend Go, frontend SolidJS.",
+            contentKey: 'project.adn.content',
             size: '15 MB',
             date: '2023-11-20'
         },
@@ -100,8 +107,10 @@ const fileSystem: Record<string, FileItem[]> = {
             icon: Globe,
             tags: ['React Native', 'Golang', 'Firebase', 'PostgreSQL'],
             description: "Application mobile de mise en relation pour visites immobilières.",
+            descriptionKey: 'project.voyo.desc',
             image: "/banner-voyo-full-wws.png",
             content: "Projet scolaire de groupe. App mobile Android/iOS. Backend Go, Chat Firebase, Base de données PostgreSQL avec PostGIS.",
+            contentKey: 'project.voyo.content',
             size: '45 MB',
             date: '2023-06-15'
         },
@@ -113,9 +122,11 @@ const fileSystem: Record<string, FileItem[]> = {
             icon: Globe,
             tags: ['JavaScript', 'Golang', 'API'],
             description: "Interface responsive pour les emplois du temps de l'IUT.",
+            descriptionKey: 'project.ade.desc',
             url: "https://ade.pages.dev",
             image: "/calendaricon.png",
             content: "Site web palliant au manque d'interface responsive. API Golang pour parser l'ICS en JSON.",
+            contentKey: 'project.ade.content',
             size: '2 MB',
             date: '2023-09-01'
         }
@@ -127,8 +138,10 @@ const fileSystem: Record<string, FileItem[]> = {
             type: 'contribution',
             tags: ['Community Management', 'Moderation'],
             description: "Modérateur de la communauté Xiaomi France.",
+            descriptionKey: 'contribution.xiaomi.desc',
             image: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Xiaomi_logo_%282021-%29.svg",
             content: "Animation de communauté, organisation d'événements, support utilisateurs. Membre de l'équipe photographie Xiaomi Global.",
+            contentKey: 'contribution.xiaomi.content',
             date: 'Ongoing'
         },
         {
@@ -137,7 +150,9 @@ const fileSystem: Record<string, FileItem[]> = {
             type: 'contribution',
             tags: ['Translation', 'Proton', '2FAS'],
             description: "Traduction de projets open source (Proton, 2FAS).",
+            descriptionKey: 'contribution.translation.desc',
             content: "Contribution bénévole à la traduction française de services utilisés quotidiennement.",
+            contentKey: 'contribution.translation.content',
             date: 'Ongoing'
         },
         {
@@ -146,8 +161,10 @@ const fileSystem: Record<string, FileItem[]> = {
             type: 'contribution',
             tags: ['QA', 'IoT', 'Xiaomi Home'],
             description: "Tests de produits IoT et application Xiaomi Home.",
+            descriptionKey: 'contribution.iot.desc',
             image: "/mijalogo.png",
             content: "Test de versions beta, rapport de bugs, suggestions d'amélioration pour l'écosystème Xiaomi Home.",
+            contentKey: 'contribution.iot.content',
             date: 'Ongoing'
         }
     ]
@@ -161,6 +178,7 @@ export default function ProjectsExplorer() {
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [searchQuery, setSearchQuery] = useState('');
     const { openWindow } = useWindowManager();
+    const { t } = useSettings();
 
     const navigate = (path: string) => {
         const newHistory = history.slice(0, historyIndex + 1);
@@ -195,20 +213,22 @@ export default function ProjectsExplorer() {
     };
 
     const handleItemClick = (item: FileItem) => {
+        setSelectedFile(item);
+    };
+
+    const handleItemDoubleClick = (item: FileItem) => {
         if (item.type === 'folder') {
             const newPath = currentPath === '/' ? `/${item.id}` : `${currentPath}/${item.id}`;
             navigate(newPath);
         } else if (item.type === 'app' && item.appId) {
             openWindow(item.appId as any, { url: item.url });
         } else if (item.type === 'pdf') {
-            openWindow('pdf-viewer', { file: item.url, title: item.name });
+            openWindow('pdf-viewer', { file: item.url, title: item.translationKey ? t(item.translationKey as any) : item.name });
         } else if (item.type === 'video') {
-            openWindow('video-player', { src: item.url, title: item.name });
+            openWindow('video-player', { src: item.url, title: item.translationKey ? t(item.translationKey as any) : item.name });
         } else if (item.type === 'image') {
             // For now, just select it to show preview in details pane
             // Or open gallery if we had a specific image viewer mode in gallery
-            setSelectedFile(item);
-        } else {
             setSelectedFile(item);
         }
     };
@@ -232,12 +252,12 @@ export default function ProjectsExplorer() {
         if (searchQuery) {
             const allFiles = getAllFiles();
             return allFiles.filter(item =>
-                item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                item.description?.toLowerCase().includes(searchQuery.toLowerCase())
+                (item.translationKey ? t(item.translationKey as any) : item.name).toLowerCase().includes(searchQuery.toLowerCase()) ||
+                (item.descriptionKey ? t(item.descriptionKey as any) : item.description)?.toLowerCase().includes(searchQuery.toLowerCase())
             );
         }
         return fileSystem[currentPath] || [];
-    }, [currentPath, searchQuery]);
+    }, [currentPath, searchQuery, t]);
 
     return (
         <div className="flex flex-col h-full bg-[#202020] text-gray-100 font-sans select-none">
@@ -259,7 +279,7 @@ export default function ProjectsExplorer() {
                     <Monitor className="w-4 h-4 text-gray-400" />
                     <div className="flex items-center gap-1 text-gray-300">
                         {searchQuery ? (
-                            <span>Search Results</span>
+                            <span>{t('explorer.search')}</span>
                         ) : (
                             currentPath.split('/').map((part, i) => (
                                 <React.Fragment key={i}>
@@ -271,7 +291,15 @@ export default function ProjectsExplorer() {
                                             navigate(newPath);
                                         }}
                                     >
-                                        {part || 'This PC'}
+                                        {part ? (
+                                            part === 'home' ? t('explorer.home') :
+                                                part === 'desktop' ? t('explorer.desktop') :
+                                                    part === 'documents' ? t('explorer.documents') :
+                                                        part === 'downloads' ? t('explorer.downloads') :
+                                                            part === 'applications' ? t('explorer.applications') :
+                                                                part === 'gallery' ? t('app.gallery') :
+                                                                    part
+                                        ) : t('explorer.thispc')}
                                     </span>
                                 </React.Fragment>
                             ))
@@ -283,7 +311,7 @@ export default function ProjectsExplorer() {
                     <Search className="w-4 h-4 text-gray-400 mr-2" />
                     <input
                         type="text"
-                        placeholder="Search"
+                        placeholder={t('explorer.search')}
                         className="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
@@ -295,7 +323,7 @@ export default function ProjectsExplorer() {
             <div className="h-10 bg-[#202020] border-b border-[#1a1a1a] flex items-center px-4 gap-2 text-sm">
                 <button className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-white/5 text-blue-400">
                     <div className="w-4 h-4 border-2 border-blue-400 rounded-full flex items-center justify-center text-[10px] font-bold">+</div>
-                    New
+                    {t('explorer.new')}
                 </button>
                 <div className="w-px h-4 bg-gray-600 mx-2" />
                 <button
@@ -318,31 +346,31 @@ export default function ProjectsExplorer() {
                     <div className="px-2 mb-2">
                         <div className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-white/5 cursor-pointer text-sm" onClick={() => navigate('/home')}>
                             <Home className="w-4 h-4 text-blue-400" />
-                            <span>Home</span>
+                            <span>{t('explorer.home')}</span>
                         </div>
                         <div className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-white/5 cursor-pointer text-sm" onClick={() => navigate('/desktop')}>
                             <Monitor className="w-4 h-4 text-purple-400" />
-                            <span>Desktop</span>
+                            <span>{t('explorer.desktop')}</span>
                         </div>
                         <div className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-white/5 cursor-pointer text-sm" onClick={() => navigate('/documents')}>
                             <Folder className="w-4 h-4 text-yellow-400" />
-                            <span>Documents</span>
+                            <span>{t('explorer.documents')}</span>
                         </div>
                         <div className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-white/5 cursor-pointer text-sm" onClick={() => navigate('/downloads')}>
                             <Download className="w-4 h-4 text-green-400" />
-                            <span>Downloads</span>
+                            <span>{t('explorer.downloads')}</span>
                         </div>
                         <div className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-white/5 cursor-pointer text-sm" onClick={() => navigate('/applications')}>
                             <AppWindow className="w-4 h-4 text-red-400" />
-                            <span>Applications</span>
+                            <span>{t('explorer.applications')}</span>
                         </div>
                         <div className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-white/5 cursor-pointer text-sm" onClick={() => navigate('/gallery')}>
                             <ImageIcon className="w-4 h-4 text-pink-400" />
-                            <span>Gallery</span>
+                            <span>{t('app.gallery')}</span>
                         </div>
                     </div>
                     <div className="w-full h-px bg-gray-700 my-1" />
-                    <div className="px-4 py-2 text-xs font-bold text-gray-500 uppercase">Favorites</div>
+                    <div className="px-4 py-2 text-xs font-bold text-gray-500 uppercase">{t('explorer.favorites')}</div>
                     {/* Add favorites here if needed */}
                 </div>
 
@@ -355,6 +383,7 @@ export default function ProjectsExplorer() {
                                     <div
                                         key={item.id}
                                         onClick={(e) => { e.stopPropagation(); handleItemClick(item); }}
+                                        onDoubleClick={(e) => { e.stopPropagation(); handleItemDoubleClick(item); }}
                                         className={cn(
                                             "flex flex-col items-center gap-2 p-2 rounded border border-transparent hover:bg-white/5 cursor-pointer transition-all group",
                                             selectedFile?.id === item.id ? "bg-blue-500/20 border-blue-500/50" : ""
@@ -383,21 +412,24 @@ export default function ProjectsExplorer() {
                                                 <FileCode className="w-12 h-12 text-blue-400" />
                                             )}
                                         </div>
-                                        <span className="text-xs text-center break-all line-clamp-2 group-hover:text-white text-gray-300">{item.name}</span>
+                                        <span className="text-xs text-center break-all line-clamp-2 group-hover:text-white text-gray-300">
+                                            {item.translationKey ? t(item.translationKey as any) : item.name}
+                                        </span>
                                     </div>
                                 ))}
                             </div>
                         ) : (
                             <div className="flex flex-col">
                                 <div className="grid grid-cols-[2fr_1fr_1fr] gap-4 px-4 py-2 text-xs text-gray-500 border-b border-gray-700">
-                                    <span>Name</span>
-                                    <span>Date modified</span>
-                                    <span>Type</span>
+                                    <span>{t('explorer.name')}</span>
+                                    <span>{t('explorer.date')}</span>
+                                    <span>{t('explorer.type')}</span>
                                 </div>
                                 {currentItems.map(item => (
                                     <div
                                         key={item.id}
                                         onClick={(e) => { e.stopPropagation(); handleItemClick(item); }}
+                                        onDoubleClick={(e) => { e.stopPropagation(); handleItemDoubleClick(item); }}
                                         className={cn(
                                             "grid grid-cols-[2fr_1fr_1fr] gap-4 px-4 py-2 text-sm hover:bg-white/5 cursor-pointer items-center",
                                             selectedFile?.id === item.id ? "bg-blue-500/20" : ""
@@ -417,7 +449,7 @@ export default function ProjectsExplorer() {
                                             ) : (
                                                 <FileCode className="w-4 h-4 text-blue-400" />
                                             )}
-                                            <span>{item.name}</span>
+                                            <span>{item.translationKey ? t(item.translationKey as any) : item.name}</span>
                                         </div>
                                         <span className="text-gray-400 text-xs">{item.date}</span>
                                         <span className="text-gray-400 text-xs capitalize">{item.type}</span>
@@ -446,7 +478,9 @@ export default function ProjectsExplorer() {
                                 )}
                             </div>
 
-                            <h3 className="text-lg font-bold text-white mb-1 break-all">{selectedFile.name}</h3>
+                            <h3 className="text-lg font-bold text-white mb-1 break-all">
+                                {selectedFile.translationKey ? t(selectedFile.translationKey as any) : selectedFile.name}
+                            </h3>
                             <div className="text-xs text-gray-500 mb-4">{selectedFile.type} • {selectedFile.size || 'Unknown size'}</div>
 
                             {selectedFile.tags && (
@@ -460,7 +494,9 @@ export default function ProjectsExplorer() {
                             )}
 
                             <div className="text-sm text-gray-300 mb-6 leading-relaxed">
-                                {selectedFile.content || selectedFile.description}
+                                {selectedFile.contentKey ? t(selectedFile.contentKey as any) :
+                                    selectedFile.content ||
+                                    (selectedFile.descriptionKey ? t(selectedFile.descriptionKey as any) : selectedFile.description)}
                             </div>
 
                             {selectedFile.link && (
@@ -471,17 +507,17 @@ export default function ProjectsExplorer() {
                                     className="mt-auto flex items-center justify-center gap-2 w-full py-2 bg-blue-600 hover:bg-blue-500 text-white rounded transition-colors text-sm font-medium shadow-lg"
                                 >
                                     <ExternalLink className="w-4 h-4" />
-                                    Open
+                                    {t('explorer.open')}
                                 </a>
                             )}
 
                             {(selectedFile.type === 'pdf' || selectedFile.type === 'video' || (selectedFile.type === 'app' && selectedFile.appId)) && (
                                 <button
-                                    onClick={() => handleItemClick(selectedFile)}
+                                    onClick={() => handleItemDoubleClick(selectedFile)}
                                     className="mt-auto flex items-center justify-center gap-2 w-full py-2 bg-blue-600 hover:bg-blue-500 text-white rounded transition-colors text-sm font-medium shadow-lg"
                                 >
                                     <ExternalLink className="w-4 h-4" />
-                                    Open
+                                    {t('explorer.open')}
                                 </button>
                             )}
                         </div>
@@ -491,3 +527,5 @@ export default function ProjectsExplorer() {
         </div>
     );
 }
+
+

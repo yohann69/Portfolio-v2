@@ -10,7 +10,7 @@ export default function SystemInfo() {
                 {/* Profile Section */}
                 <div className="w-full md:w-1/3 flex flex-col items-center text-center border-r border-white/10 pr-8">
                     <div className="relative w-48 h-48 mb-6 rounded-full overflow-hidden border-2 border-green-500/50 shadow-[0_0_20px_rgba(34,197,94,0.2)]">
-                        <img src="/mevertical.png" alt="Yohann CHAVANEL" className="object-cover w-full h-full" />
+                        <img src="/mevertical.jpg" alt="Yohann CHAVANEL" className="object-cover w-full h-full" />
                     </div>
                     <h1 className="text-2xl font-bold text-green-400 mb-2">Yohann CHAVANEL</h1>
                     <p className="text-sm text-gray-400 mb-4">Full Stack Developer</p>

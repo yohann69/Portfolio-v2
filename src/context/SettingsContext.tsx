@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { translations, TranslationKey } from '@/utils/translations';
 
 type Theme = 'light' | 'dark' | 'system';
 type Language = 'en' | 'fr' | 'cn';
@@ -10,6 +11,7 @@ interface SettingsContextType {
     setTheme: (theme: Theme) => void;
     language: Language;
     setLanguage: (lang: Language) => void;
+    t: (key: TranslationKey) => string;
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
@@ -38,8 +40,12 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
         }
     }, [theme]);
 
+    const t = (key: TranslationKey): string => {
+        return translations[language][key] || key;
+    };
+
     return (
-        <SettingsContext.Provider value={{ theme, setTheme, language, setLanguage }}>
+        <SettingsContext.Provider value={{ theme, setTheme, language, setLanguage, t }}>
             {children}
         </SettingsContext.Provider>
     );

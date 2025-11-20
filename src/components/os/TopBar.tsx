@@ -11,20 +11,20 @@ export const TopBar = () => {
     const [date, setDate] = useState<string>('');
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
     const [showCalendar, setShowCalendar] = useState(false);
-    const { theme, setTheme, language, setLanguage } = useSettings();
+    const { theme, setTheme, language, setLanguage, t } = useSettings();
     const { openWindow } = useWindowManager();
     const menuRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const updateTime = () => {
             const now = new Date();
-            setTime(now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
-            setDate(now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }));
+            setTime(now.toLocaleTimeString(language === 'fr' ? 'fr-FR' : language === 'cn' ? 'zh-CN' : 'en-US', { hour: '2-digit', minute: '2-digit' }));
+            setDate(now.toLocaleDateString(language === 'fr' ? 'fr-FR' : language === 'cn' ? 'zh-CN' : 'en-US', { weekday: 'short', month: 'short', day: 'numeric' }));
         };
         updateTime();
         const interval = setInterval(updateTime, 1000);
         return () => clearInterval(interval);
-    }, []);
+    }, [language]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -91,9 +91,9 @@ export const TopBar = () => {
                     <AnimatePresence>
                         {activeMenu === 'apple' && (
                             <MenuDropdown>
-                                <MenuItem label="About PortfoliOS" onClick={() => openWindow('about')} />
+                                <MenuItem label={t('system.about')} onClick={() => openWindow('about')} />
                                 <div className="h-px bg-white/10 my-1" />
-                                <MenuItem label="System Preferences..." onClick={() => openWindow('settings')} />
+                                <MenuItem label={t('system.settings')} onClick={() => openWindow('settings')} />
                                 <MenuItem label="App Store..." />
                                 <div className="h-px bg-white/10 my-1" />
                                 <MenuItem label="Recent Items" hasSubmenu>
@@ -101,11 +101,11 @@ export const TopBar = () => {
                                     <MenuItem label="Project 2" />
                                 </MenuItem>
                                 <div className="h-px bg-white/10 my-1" />
-                                <MenuItem label="Force Quit..." shortcut="⌥⌘Esc" />
+                                <MenuItem label={t('system.forceQuit')} shortcut="⌥⌘Esc" />
                                 <div className="h-px bg-white/10 my-1" />
-                                <MenuItem label="Sleep" />
-                                <MenuItem label="Restart..." onClick={() => window.location.reload()} />
-                                <MenuItem label="Shut Down..." />
+                                <MenuItem label={t('system.sleep')} />
+                                <MenuItem label={t('system.restart')} onClick={() => window.location.reload()} />
+                                <MenuItem label={t('system.shutdown')} />
                             </MenuDropdown>
                         )}
                     </AnimatePresence>
@@ -114,16 +114,16 @@ export const TopBar = () => {
                         className={`px-3 py-1 rounded hover:bg-white/10 cursor-pointer transition-colors ${activeMenu === 'file' ? 'bg-white/10' : ''}`}
                         onClick={() => toggleMenu('file')}
                     >
-                        <span>File</span>
+                        <span>{t('system.file')}</span>
                     </div>
                     <AnimatePresence>
                         {activeMenu === 'file' && (
                             <MenuDropdown>
-                                <MenuItem label="New Window" shortcut="⌘N" />
-                                <MenuItem label="New Folder" shortcut="⇧⌘N" />
-                                <MenuItem label="Open..." shortcut="⌘O" />
+                                <MenuItem label={t('system.newWindow')} shortcut="⌘N" />
+                                <MenuItem label={t('system.newFolder')} shortcut="⇧⌘N" />
+                                <MenuItem label={t('system.open')} shortcut="⌘O" />
                                 <div className="h-px bg-white/10 my-1" />
-                                <MenuItem label="Close Window" shortcut="⌘W" />
+                                <MenuItem label={t('system.closeWindow')} shortcut="⌘W" />
                             </MenuDropdown>
                         )}
                     </AnimatePresence>
@@ -134,7 +134,7 @@ export const TopBar = () => {
                         className={`px-3 py-1 rounded hover:bg-white/10 cursor-pointer transition-colors ${activeMenu === 'edit' ? 'bg-white/10' : ''}`}
                         onClick={() => toggleMenu('edit')}
                     >
-                        <span>Edit</span>
+                        <span>{t('system.edit')}</span>
                     </div>
                     <AnimatePresence>
                         {activeMenu === 'edit' && (
@@ -156,17 +156,17 @@ export const TopBar = () => {
                         className={`px-3 py-1 rounded hover:bg-white/10 cursor-pointer transition-colors ${activeMenu === 'view' ? 'bg-white/10' : ''}`}
                         onClick={() => toggleMenu('view')}
                     >
-                        <span>View</span>
+                        <span>{t('system.view')}</span>
                     </div>
                     <AnimatePresence>
                         {activeMenu === 'view' && (
                             <MenuDropdown>
-                                <MenuItem label="Theme" hasSubmenu>
-                                    <MenuItem label="Light" onClick={() => setTheme('light')} />
-                                    <MenuItem label="Dark" onClick={() => setTheme('dark')} />
-                                    <MenuItem label="System" onClick={() => setTheme('system')} />
+                                <MenuItem label={t('settings.theme')} hasSubmenu>
+                                    <MenuItem label={t('settings.light')} onClick={() => setTheme('light')} />
+                                    <MenuItem label={t('settings.dark')} onClick={() => setTheme('dark')} />
+                                    <MenuItem label={t('settings.system')} onClick={() => setTheme('system')} />
                                 </MenuItem>
-                                <MenuItem label="Language" hasSubmenu>
+                                <MenuItem label={t('settings.language')} hasSubmenu>
                                     <MenuItem label="English" onClick={() => setLanguage('en')} />
                                     <MenuItem label="Français" onClick={() => setLanguage('fr')} />
                                     <MenuItem label="Chinese" onClick={() => setLanguage('cn')} />

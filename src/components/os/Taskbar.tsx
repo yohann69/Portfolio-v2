@@ -12,7 +12,7 @@ const apps = [
     { id: 'experience', icon: Clock, label: 'Timeline' },
     { id: 'gallery', icon: ImageIcon, label: 'Gallery' },
     { id: 'messenger', icon: MessageSquare, label: 'Contact' },
-    { id: 'settings', icon: Settings, label: 'Settings' },
+    // { id: 'settings', icon: Settings, label: 'Settings' },
     // { id: 'snake', icon: Gamepad2, label: 'Snake' }, // Easter egg app
 ] as const;
 
