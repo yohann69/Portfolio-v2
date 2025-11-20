@@ -147,22 +147,22 @@ export default function ProjectsExplorer() {
         }
     };
 
-    const getAllFiles = (path: string = '/'): FileItem[] => {
-        let files: FileItem[] = [];
-        const items = fileSystem[path] || [];
-
-        items.forEach(item => {
-            files.push(item);
-            if (item.type === 'folder') {
-                const subPath = path === '/' ? `/${item.id}` : `${path}/${item.id}`;
-                files = [...files, ...getAllFiles(subPath)];
-            }
-        });
-
-        return files;
-    };
-
     const currentItems = useMemo(() => {
+        const getAllFiles = (path: string = '/'): FileItem[] => {
+            let files: FileItem[] = [];
+            const items = fileSystem[path] || [];
+
+            items.forEach(item => {
+                files.push(item);
+                if (item.type === 'folder') {
+                    const subPath = path === '/' ? `/${item.id}` : `${path}/${item.id}`;
+                    files = [...files, ...getAllFiles(subPath)];
+                }
+            });
+
+            return files;
+        };
+
         if (searchQuery) {
             const allFiles = getAllFiles();
             return allFiles.filter(item =>

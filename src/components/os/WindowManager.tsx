@@ -88,15 +88,13 @@ export const WindowManagerProvider = ({ children }: { children: ReactNode }) => 
         }));
     };
 
-    const closeWindow = (id: AppId) => {
+    const closeWindow = React.useCallback((id: AppId) => {
         setWindows((prev) => ({
             ...prev,
             [id]: { ...prev[id], isOpen: false, isMaximized: false },
         }));
-        if (activeWindowId === id) {
-            setActiveWindowId(null);
-        }
-    };
+        setActiveWindowId((prev) => prev === id ? null : prev);
+    }, []);
 
     const minimizeWindow = (id: AppId) => {
         setWindows((prev) => ({
@@ -130,7 +128,7 @@ export const WindowManagerProvider = ({ children }: { children: ReactNode }) => 
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [activeWindowId]);
+    }, [activeWindowId, closeWindow]);
 
     return (
         <WindowContext.Provider

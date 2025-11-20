@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { X, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 const images = [
     "https://i.imgur.com/T5TkJpy.jpeg",
@@ -71,7 +72,7 @@ export default function Gallery() {
                     transition={{ delay: 0.2 }}
                     className="text-gray-600 dark:text-gray-400 text-sm md:text-base max-w-2xl mx-auto font-light italic"
                 >
-                    "Amateur photographer exploring the world through a lens. Finding beauty in the ordinary and stories in the silence."
+                    &quot;Amateur photographer exploring the world through a lens. Finding beauty in the ordinary and stories in the silence.&quot;
                 </motion.p>
             </div>            <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
                 {images.map((src, index) => (
@@ -80,11 +81,12 @@ export default function Gallery() {
                         className="relative group break-inside-avoid cursor-pointer overflow-hidden rounded-lg"
                         onClick={() => setSelectedIndex(index)}
                     >
-                        <img
+                        <Image
                             src={src}
                             alt={`Gallery image ${index + 1}`}
+                            width={500}
+                            height={500}
                             className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
-                            loading="lazy"
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
                             <ZoomIn className="text-white w-8 h-8 drop-shadow-lg" />
