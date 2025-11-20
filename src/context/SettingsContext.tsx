@@ -25,8 +25,16 @@ export const useSettings = () => {
 };
 
 export const SettingsProvider = ({ children }: { children: ReactNode }) => {
-    const [theme, setTheme] = useState<Theme>('dark');
+    const [theme, setTheme] = useState<Theme>('system');
     const [language, setLanguage] = useState<Language>('en');
+
+    useEffect(() => {
+        // Set initial language based on browser
+        const browserLang = navigator.language.split('-')[0];
+        if (browserLang === 'fr') setLanguage('fr');
+        else if (browserLang === 'zh') setLanguage('cn');
+        else setLanguage('en');
+    }, []);
 
     useEffect(() => {
         const root = window.document.documentElement;

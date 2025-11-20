@@ -49,7 +49,7 @@ export const TopBar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.1 }}
-            className={`absolute top-full left-0 mt-1 w-48 bg-[#1e1e1e]/90 backdrop-blur-xl border border-white/10 rounded-lg shadow-2xl py-1 z-50 ${className}`}
+            className={`absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-[#1e1e1e]/90 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-lg shadow-2xl py-1 z-50 ${className}`}
         >
             {children}
         </motion.div>
@@ -60,17 +60,17 @@ export const TopBar = () => {
 
         return (
             <div
-                className="relative px-4 py-1.5 hover:bg-blue-500 hover:text-white cursor-default flex items-center justify-between group text-xs"
+                className="relative px-4 py-1.5 hover:bg-blue-500 hover:text-white cursor-default flex items-center justify-between group text-xs text-black dark:text-white"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onClick={onClick}
             >
                 <span>{label}</span>
-                {shortcut && <span className="text-white/40 group-hover:text-white/80 ml-4">{shortcut}</span>}
+                {shortcut && <span className="text-black/40 dark:text-white/40 group-hover:text-white/80 ml-4">{shortcut}</span>}
                 {hasSubmenu && <ChevronRight className="w-3 h-3 ml-2 opacity-50" />}
 
                 {hasSubmenu && isHovered && (
-                    <div className="absolute left-full top-0 ml-0.5 w-40 bg-[#1e1e1e]/90 backdrop-blur-xl border border-white/10 rounded-lg shadow-2xl py-1">
+                    <div className="absolute left-full top-0 ml-0.5 w-40 bg-white/90 dark:bg-[#1e1e1e]/90 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-lg shadow-2xl py-1">
                         {children}
                     </div>
                 )}
@@ -79,11 +79,11 @@ export const TopBar = () => {
     };
 
     return (
-        <div className="fixed top-0 left-0 right-0 h-8 bg-black/20 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-4 z-50 select-none text-xs font-medium text-white/80" ref={menuRef}>
+        <div className="fixed top-0 left-0 right-0 h-8 bg-white/50 dark:bg-black/20 backdrop-blur-md border-b border-black/5 dark:border-white/5 flex items-center justify-between px-4 z-50 select-none text-xs font-medium text-black/80 dark:text-white/80 transition-colors duration-200" ref={menuRef}>
             <div className="flex items-center gap-1">
                 <div className="relative">
                     <div
-                        className={`px-3 py-1 rounded hover:bg-white/10 cursor-pointer transition-colors ${activeMenu === 'apple' ? 'bg-white/10' : ''}`}
+                        className={`px-3 py-1 rounded hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer transition-colors ${activeMenu === 'apple' ? 'bg-black/5 dark:bg-white/10' : ''}`}
                         onClick={() => toggleMenu('apple')}
                     >
                         <span className="font-bold">PortfoliOS</span>
@@ -92,17 +92,17 @@ export const TopBar = () => {
                         {activeMenu === 'apple' && (
                             <MenuDropdown>
                                 <MenuItem label={t('system.about')} onClick={() => openWindow('about')} />
-                                <div className="h-px bg-white/10 my-1" />
+                                <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
                                 <MenuItem label={t('system.settings')} onClick={() => openWindow('settings')} />
                                 <MenuItem label="App Store..." />
-                                <div className="h-px bg-white/10 my-1" />
+                                <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
                                 <MenuItem label="Recent Items" hasSubmenu>
                                     <MenuItem label="Project 1" />
                                     <MenuItem label="Project 2" />
                                 </MenuItem>
-                                <div className="h-px bg-white/10 my-1" />
+                                <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
                                 <MenuItem label={t('system.forceQuit')} shortcut="⌥⌘Esc" />
-                                <div className="h-px bg-white/10 my-1" />
+                                <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
                                 <MenuItem label={t('system.sleep')} />
                                 <MenuItem label={t('system.restart')} onClick={() => window.location.reload()} />
                                 <MenuItem label={t('system.shutdown')} />
@@ -111,7 +111,7 @@ export const TopBar = () => {
                     </AnimatePresence>
                 </div>                <div className="relative">
                     <div
-                        className={`px-3 py-1 rounded hover:bg-white/10 cursor-pointer transition-colors ${activeMenu === 'file' ? 'bg-white/10' : ''}`}
+                        className={`px-3 py-1 rounded hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer transition-colors ${activeMenu === 'file' ? 'bg-black/5 dark:bg-white/10' : ''}`}
                         onClick={() => toggleMenu('file')}
                     >
                         <span>{t('system.file')}</span>
@@ -122,7 +122,7 @@ export const TopBar = () => {
                                 <MenuItem label={t('system.newWindow')} shortcut="⌘N" />
                                 <MenuItem label={t('system.newFolder')} shortcut="⇧⌘N" />
                                 <MenuItem label={t('system.open')} shortcut="⌘O" />
-                                <div className="h-px bg-white/10 my-1" />
+                                <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
                                 <MenuItem label={t('system.closeWindow')} shortcut="⌘W" />
                             </MenuDropdown>
                         )}
@@ -131,7 +131,7 @@ export const TopBar = () => {
 
                 <div className="relative">
                     <div
-                        className={`px-3 py-1 rounded hover:bg-white/10 cursor-pointer transition-colors ${activeMenu === 'edit' ? 'bg-white/10' : ''}`}
+                        className={`px-3 py-1 rounded hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer transition-colors ${activeMenu === 'edit' ? 'bg-black/5 dark:bg-white/10' : ''}`}
                         onClick={() => toggleMenu('edit')}
                     >
                         <span>{t('system.edit')}</span>
@@ -141,7 +141,7 @@ export const TopBar = () => {
                             <MenuDropdown>
                                 <MenuItem label="Undo" shortcut="⌘Z" />
                                 <MenuItem label="Redo" shortcut="⇧⌘Z" />
-                                <div className="h-px bg-white/10 my-1" />
+                                <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
                                 <MenuItem label="Cut" shortcut="⌘X" />
                                 <MenuItem label="Copy" shortcut="⌘C" />
                                 <MenuItem label="Paste" shortcut="⌘V" />
@@ -153,7 +153,7 @@ export const TopBar = () => {
 
                 <div className="relative">
                     <div
-                        className={`px-3 py-1 rounded hover:bg-white/10 cursor-pointer transition-colors ${activeMenu === 'view' ? 'bg-white/10' : ''}`}
+                        className={`px-3 py-1 rounded hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer transition-colors ${activeMenu === 'view' ? 'bg-black/5 dark:bg-white/10' : ''}`}
                         onClick={() => toggleMenu('view')}
                     >
                         <span>{t('system.view')}</span>
@@ -171,7 +171,7 @@ export const TopBar = () => {
                                     <MenuItem label="Français" onClick={() => setLanguage('fr')} />
                                     <MenuItem label="Chinese" onClick={() => setLanguage('cn')} />
                                 </MenuItem>
-                                <div className="h-px bg-white/10 my-1" />
+                                <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
                                 <MenuItem label="Enter Full Screen" shortcut="Fn F" />
                             </MenuDropdown>
                         )}
@@ -187,7 +187,7 @@ export const TopBar = () => {
                 </div>
                 <div className="relative calendar-trigger">
                     <span
-                        className="px-2 hover:bg-white/10 rounded cursor-pointer py-1 transition-colors"
+                        className="px-2 hover:bg-black/5 dark:hover:bg-white/10 rounded cursor-pointer py-1 transition-colors"
                         onClick={() => setShowCalendar(!showCalendar)}
                     >
                         {date} &nbsp; {time}
@@ -198,15 +198,15 @@ export const TopBar = () => {
                                 initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                className="absolute top-full right-0 mt-2 w-64 bg-[#1e1e1e]/90 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-4 z-50"
+                                className="absolute top-full right-0 mt-2 w-64 bg-white/90 dark:bg-[#1e1e1e]/90 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-xl shadow-2xl p-4 z-50 text-black dark:text-white"
                             >
                                 <div className="flex items-center justify-between mb-4">
                                     <span className="font-bold text-lg">{new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
                                     <div className="flex gap-2">
-                                        <div className="w-6 h-6 rounded-full hover:bg-white/10 flex items-center justify-center cursor-pointer">
+                                        <div className="w-6 h-6 rounded-full hover:bg-black/5 dark:hover:bg-white/10 flex items-center justify-center cursor-pointer">
                                             <ChevronRight className="w-4 h-4 rotate-180" />
                                         </div>
-                                        <div className="w-6 h-6 rounded-full hover:bg-white/10 flex items-center justify-center cursor-pointer">
+                                        <div className="w-6 h-6 rounded-full hover:bg-black/5 dark:hover:bg-white/10 flex items-center justify-center cursor-pointer">
                                             <ChevronRight className="w-4 h-4" />
                                         </div>
                                     </div>
@@ -218,7 +218,7 @@ export const TopBar = () => {
                                     {Array.from({ length: 30 }, (_, i) => (
                                         <div
                                             key={i}
-                                            className={`aspect-square flex items-center justify-center rounded-full hover:bg-white/10 cursor-pointer ${i + 1 === new Date().getDate() ? 'bg-blue-500 text-white' : ''}`}
+                                            className={`aspect-square flex items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer ${i + 1 === new Date().getDate() ? 'bg-blue-500 text-white' : ''}`}
                                         >
                                             {i + 1}
                                         </div>
