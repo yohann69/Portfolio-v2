@@ -14,6 +14,9 @@ import Messenger from './apps/Messenger';
 import SnakeGame from './apps/SnakeGame';
 import Settings from './apps/Settings';
 import About from './apps/About';
+import Browser from './apps/Browser';
+import PDFViewer from './apps/PDFViewer';
+import VideoPlayer from './apps/VideoPlayer';
 
 export const Desktop = () => {
     return (
@@ -58,6 +61,15 @@ export const Desktop = () => {
                                 </Window>
                                 <Window id="about" initialPosition={{ x: 500, y: 250 }} initialSize={{ width: 400, height: 350 }}>
                                     <About />
+                                </Window>
+                                <Window id="browser" initialPosition={{ x: 100, y: 100 }} initialSize={{ width: 1000, height: 700 }}>
+                                    <Browser />
+                                </Window>
+                                <Window id="pdf-viewer" initialPosition={{ x: 150, y: 100 }} initialSize={{ width: 800, height: 900 }}>
+                                    <PDFViewer />
+                                </Window>
+                                <Window id="video-player" initialPosition={{ x: 200, y: 150 }} initialSize={{ width: 800, height: 600 }}>
+                                    <VideoPlayer />
                                 </Window>
                             </div>
                         </div>                        <Taskbar />

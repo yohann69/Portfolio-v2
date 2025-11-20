@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
     Folder,
     FileCode,
@@ -17,12 +17,18 @@ import {
     Monitor,
     AppWindow,
     Gamepad2,
-    ExternalLink
+    ExternalLink,
+    FileText,
+    Video,
+    Image as ImageIcon,
+    Globe,
+    Chrome,
+    Play
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { useWindowManager } from '../WindowManager';
 
-type FileType = 'folder' | 'project' | 'contribution' | 'app';
+type FileType = 'folder' | 'project' | 'contribution' | 'app' | 'pdf' | 'video' | 'image';
 
 interface FileItem {
     id: string;
@@ -37,6 +43,7 @@ interface FileItem {
     size?: string;
     date?: string;
     icon?: React.ElementType;
+    url?: string; // For media files or browser
 }
 
 const fileSystem: Record<string, FileItem[]> = {
@@ -46,27 +53,40 @@ const fileSystem: Record<string, FileItem[]> = {
         { id: 'documents', name: 'Documents', type: 'folder', date: 'Today' },
         { id: 'downloads', name: 'Downloads', type: 'folder', date: 'Yesterday' },
         { id: 'applications', name: 'Applications', type: 'folder', date: '2024-01-01' },
+        { id: 'gallery', name: 'Gallery', type: 'folder', date: '2024-01-01' },
     ],
     '/home': [
-        { id: 'projects', name: 'Projects', type: 'folder', date: 'Today' },
         { id: 'contributions', name: 'Contributions', type: 'folder', date: 'Last week' },
     ],
     '/desktop': [],
     '/documents': [
-        { id: 'cv', name: 'CV_Yohann_CHAVANEL.pdf', type: 'project', size: '2.4 MB', date: '2024-03-15', link: '/CV_2024_Yohann_CHAVANEL.pdf' }
+        { id: 'cv', name: 'CV_Yohann_CHAVANEL.pdf', type: 'pdf', size: '2.4 MB', date: '2024-03-15', url: '/CV_2024_Yohann_CHAVANEL.pdf' }
     ],
-    '/downloads': [],
+    '/downloads': [
+        { id: 'rick', name: 'secret_video.mp4', type: 'video', size: '15 MB', date: '2024-04-01', url: '/rr.mp4' }
+    ],
     '/applications': [
-        { id: 'snake-app', name: 'Snake Game', type: 'app', appId: 'snake', icon: Gamepad2, description: 'Classic Snake Game', size: '1.2 MB', date: '2024-01-01' }
-    ] as any[],
-    '/home/projects': [
+        { id: 'projects', name: 'Projects', type: 'folder', date: 'Today' },
+        { id: 'snake-app', name: 'Snake Game', type: 'app', appId: 'snake', icon: Gamepad2, description: 'Classic Snake Game', size: '1.2 MB', date: '2024-01-01' },
+        { id: 'browser-app', name: 'Web Browser', type: 'app', appId: 'browser', icon: Globe, description: 'Internet Explorer... but faster', size: '50 MB', date: '2024-01-01' },
+        { id: 'pdf-app', name: 'PDF Viewer', type: 'app', appId: 'pdf-viewer', icon: FileText, description: 'View PDF documents', size: '10 MB', date: '2024-01-01' },
+        { id: 'video-app', name: 'Video Player', type: 'app', appId: 'video-player', icon: Play, description: 'Play video files', size: '20 MB', date: '2024-01-01' },
+    ],
+    '/gallery': [
+        { id: 'img1', name: 'Mountain.jpg', type: 'image', size: '2.1 MB', date: '2023-12-01', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop' },
+        { id: 'img2', name: 'Code.png', type: 'image', size: '1.5 MB', date: '2023-12-05', image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop' },
+        { id: 'img3', name: 'Setup.jpg', type: 'image', size: '3.2 MB', date: '2023-12-10', image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop' },
+    ],
+    '/applications/projects': [
         {
             id: 'adn',
             name: 'Eligibilite_ADN',
-            type: 'project',
+            type: 'app',
+            appId: 'browser',
+            icon: Globe,
             tags: ['Golang', 'SolidJS', 'PostGIS'],
             description: "Outil d'éligibilité à la fibre optique pour l'Ardèche et la Drôme.",
-            link: "https://ardechedromenumerique.fr/eligibilite",
+            url: "https://ardechedromenumerique.fr/eligibilite",
             image: "/adnlogo-300x262.png",
             content: "Application web permettant aux habitants de vérifier leur éligibilité à la fibre. Carte interactive, backend Go, frontend SolidJS.",
             size: '15 MB',
@@ -75,7 +95,9 @@ const fileSystem: Record<string, FileItem[]> = {
         {
             id: 'voyo',
             name: 'VOYO_App',
-            type: 'project',
+            type: 'app',
+            appId: 'browser',
+            icon: Globe,
             tags: ['React Native', 'Golang', 'Firebase', 'PostgreSQL'],
             description: "Application mobile de mise en relation pour visites immobilières.",
             image: "/banner-voyo-full-wws.png",
@@ -86,10 +108,12 @@ const fileSystem: Record<string, FileItem[]> = {
         {
             id: 'ade',
             name: 'ADE_Calendar',
-            type: 'project',
+            type: 'app',
+            appId: 'browser',
+            icon: Globe,
             tags: ['JavaScript', 'Golang', 'API'],
             description: "Interface responsive pour les emplois du temps de l'IUT.",
-            link: "https://ade.pages.dev",
+            url: "https://ade.pages.dev",
             image: "/calendaricon.png",
             content: "Site web palliant au manque d'interface responsive. API Golang pour parser l'ICS en JSON.",
             size: '2 MB',
@@ -135,6 +159,7 @@ export default function ProjectsExplorer() {
     const [historyIndex, setHistoryIndex] = useState(0);
     const [selectedFile, setSelectedFile] = useState<FileItem | null>(null);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+    const [searchQuery, setSearchQuery] = useState('');
     const { openWindow } = useWindowManager();
 
     const navigate = (path: string) => {
@@ -144,6 +169,7 @@ export default function ProjectsExplorer() {
         setHistoryIndex(newHistory.length - 1);
         setCurrentPath(path);
         setSelectedFile(null);
+        setSearchQuery('');
     };
 
     const goBack = () => {
@@ -173,13 +199,45 @@ export default function ProjectsExplorer() {
             const newPath = currentPath === '/' ? `/${item.id}` : `${currentPath}/${item.id}`;
             navigate(newPath);
         } else if (item.type === 'app' && item.appId) {
-            openWindow(item.appId as any);
+            openWindow(item.appId as any, { url: item.url });
+        } else if (item.type === 'pdf') {
+            openWindow('pdf-viewer', { file: item.url, title: item.name });
+        } else if (item.type === 'video') {
+            openWindow('video-player', { src: item.url, title: item.name });
+        } else if (item.type === 'image') {
+            // For now, just select it to show preview in details pane
+            // Or open gallery if we had a specific image viewer mode in gallery
+            setSelectedFile(item);
         } else {
             setSelectedFile(item);
         }
     };
 
-    const currentItems = fileSystem[currentPath] || [];
+    const getAllFiles = (path: string = '/'): FileItem[] => {
+        let files: FileItem[] = [];
+        const items = fileSystem[path] || [];
+
+        items.forEach(item => {
+            files.push(item);
+            if (item.type === 'folder') {
+                const subPath = path === '/' ? `/${item.id}` : `${path}/${item.id}`;
+                files = [...files, ...getAllFiles(subPath)];
+            }
+        });
+
+        return files;
+    };
+
+    const currentItems = useMemo(() => {
+        if (searchQuery) {
+            const allFiles = getAllFiles();
+            return allFiles.filter(item =>
+                item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                item.description?.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        }
+        return fileSystem[currentPath] || [];
+    }, [currentPath, searchQuery]);
 
     return (
         <div className="flex flex-col h-full bg-[#202020] text-gray-100 font-sans select-none">
@@ -200,26 +258,36 @@ export default function ProjectsExplorer() {
                 <div className="flex-1 bg-[#202020] border border-[#3e3e3e] rounded flex items-center px-3 py-1.5 text-sm gap-2">
                     <Monitor className="w-4 h-4 text-gray-400" />
                     <div className="flex items-center gap-1 text-gray-300">
-                        {currentPath.split('/').map((part, i) => (
-                            <React.Fragment key={i}>
-                                {i > 0 && <ChevronRight className="w-3 h-3 text-gray-500" />}
-                                <span
-                                    className="hover:bg-white/10 px-1 rounded cursor-pointer"
-                                    onClick={() => {
-                                        const newPath = currentPath.split('/').slice(0, i + 1).join('/') || '/';
-                                        navigate(newPath);
-                                    }}
-                                >
-                                    {part || 'This PC'}
-                                </span>
-                            </React.Fragment>
-                        ))}
+                        {searchQuery ? (
+                            <span>Search Results</span>
+                        ) : (
+                            currentPath.split('/').map((part, i) => (
+                                <React.Fragment key={i}>
+                                    {i > 0 && <ChevronRight className="w-3 h-3 text-gray-500" />}
+                                    <span
+                                        className="hover:bg-white/10 px-1 rounded cursor-pointer"
+                                        onClick={() => {
+                                            const newPath = currentPath.split('/').slice(0, i + 1).join('/') || '/';
+                                            navigate(newPath);
+                                        }}
+                                    >
+                                        {part || 'This PC'}
+                                    </span>
+                                </React.Fragment>
+                            ))
+                        )}
                     </div>
                 </div>
 
                 <div className="bg-[#202020] border border-[#3e3e3e] rounded flex items-center px-3 py-1.5 w-48">
                     <Search className="w-4 h-4 text-gray-400 mr-2" />
-                    <input type="text" placeholder="Search" className="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500" />
+                    <input
+                        type="text"
+                        placeholder="Search"
+                        className="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
                 </div>
             </div>
 
@@ -268,6 +336,10 @@ export default function ProjectsExplorer() {
                             <AppWindow className="w-4 h-4 text-red-400" />
                             <span>Applications</span>
                         </div>
+                        <div className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-white/5 cursor-pointer text-sm" onClick={() => navigate('/gallery')}>
+                            <ImageIcon className="w-4 h-4 text-pink-400" />
+                            <span>Gallery</span>
+                        </div>
                     </div>
                     <div className="w-full h-px bg-gray-700 my-1" />
                     <div className="px-4 py-2 text-xs font-bold text-gray-500 uppercase">Favorites</div>
@@ -295,6 +367,16 @@ export default function ProjectsExplorer() {
                                                 <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-700 rounded-xl flex items-center justify-center shadow-lg">
                                                     {item.icon ? <item.icon className="w-8 h-8 text-white" /> : <Gamepad2 className="w-8 h-8 text-white" />}
                                                 </div>
+                                            ) : item.type === 'pdf' ? (
+                                                <FileText className="w-12 h-12 text-red-400" />
+                                            ) : item.type === 'video' ? (
+                                                <Video className="w-12 h-12 text-purple-400" />
+                                            ) : item.type === 'image' ? (
+                                                item.image ? (
+                                                    <img src={item.image} alt={item.name} className="w-full h-full object-cover rounded shadow-sm" />
+                                                ) : (
+                                                    <ImageIcon className="w-12 h-12 text-pink-400" />
+                                                )
                                             ) : item.image ? (
                                                 <img src={item.image} alt={item.name} className="w-full h-full object-contain rounded shadow-sm" />
                                             ) : (
@@ -326,6 +408,12 @@ export default function ProjectsExplorer() {
                                                 <Folder className="w-4 h-4 text-yellow-400" />
                                             ) : item.type === 'app' ? (
                                                 <Gamepad2 className="w-4 h-4 text-green-400" />
+                                            ) : item.type === 'pdf' ? (
+                                                <FileText className="w-4 h-4 text-red-400" />
+                                            ) : item.type === 'video' ? (
+                                                <Video className="w-4 h-4 text-purple-400" />
+                                            ) : item.type === 'image' ? (
+                                                <ImageIcon className="w-4 h-4 text-pink-400" />
                                             ) : (
                                                 <FileCode className="w-4 h-4 text-blue-400" />
                                             )}
@@ -340,11 +428,19 @@ export default function ProjectsExplorer() {
                     </div>
 
                     {/* Details Pane */}
-                    {selectedFile && selectedFile.type !== 'folder' && selectedFile.type !== 'app' && (
+                    {selectedFile && selectedFile.type !== 'folder' && (
                         <div className="w-72 bg-[#202020] border-l border-[#1a1a1a] p-4 flex flex-col overflow-y-auto">
                             <div className="w-full aspect-video bg-black/20 rounded-lg mb-4 flex items-center justify-center overflow-hidden border border-white/5">
                                 {selectedFile.image ? (
                                     <img src={selectedFile.image} alt={selectedFile.name} className="w-full h-full object-contain" />
+                                ) : selectedFile.type === 'pdf' ? (
+                                    <FileText className="w-12 h-12 text-red-400" />
+                                ) : selectedFile.type === 'video' ? (
+                                    <Video className="w-12 h-12 text-purple-400" />
+                                ) : selectedFile.type === 'app' ? (
+                                    <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-700 rounded-xl flex items-center justify-center shadow-lg">
+                                        {selectedFile.icon ? <selectedFile.icon className="w-8 h-8 text-white" /> : <Gamepad2 className="w-8 h-8 text-white" />}
+                                    </div>
                                 ) : (
                                     <FileCode className="w-12 h-12 text-gray-600" />
                                 )}
@@ -377,6 +473,16 @@ export default function ProjectsExplorer() {
                                     <ExternalLink className="w-4 h-4" />
                                     Open
                                 </a>
+                            )}
+
+                            {(selectedFile.type === 'pdf' || selectedFile.type === 'video' || (selectedFile.type === 'app' && selectedFile.appId)) && (
+                                <button
+                                    onClick={() => handleItemClick(selectedFile)}
+                                    className="mt-auto flex items-center justify-center gap-2 w-full py-2 bg-blue-600 hover:bg-blue-500 text-white rounded transition-colors text-sm font-medium shadow-lg"
+                                >
+                                    <ExternalLink className="w-4 h-4" />
+                                    Open
+                                </button>
                             )}
                         </div>
                     )}

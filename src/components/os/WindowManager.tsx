@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-export type AppId = 'system-info' | 'projects' | 'experience' | 'gallery' | 'messenger' | 'settings' | 'snake' | 'about';
+export type AppId = 'system-info' | 'projects' | 'experience' | 'gallery' | 'messenger' | 'settings' | 'snake' | 'about' | 'browser' | 'pdf-viewer' | 'video-player';
 
 interface WindowState {
     id: AppId;
@@ -12,12 +12,13 @@ interface WindowState {
     zIndex: number;
     title: string;
     icon?: React.ReactNode;
+    data?: any;
 }
 
 interface WindowContextType {
     windows: Record<AppId, WindowState>;
     activeWindowId: AppId | null;
-    openWindow: (id: AppId) => void;
+    openWindow: (id: AppId, data?: any) => void;
     closeWindow: (id: AppId) => void;
     minimizeWindow: (id: AppId) => void;
     maximizeWindow: (id: AppId) => void;
@@ -43,6 +44,9 @@ const initialWindows: Record<AppId, WindowState> = {
     'settings': { id: 'settings', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'Settings' },
     'snake': { id: 'snake', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'Snake Game' },
     'about': { id: 'about', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'About PortfoliOS' },
+    'browser': { id: 'browser', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'Web Browser' },
+    'pdf-viewer': { id: 'pdf-viewer', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'PDF Viewer' },
+    'video-player': { id: 'video-player', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'Video Player' },
 };
 
 export const WindowManagerProvider = ({ children }: { children: ReactNode }) => {
@@ -62,8 +66,15 @@ export const WindowManagerProvider = ({ children }: { children: ReactNode }) => 
         }
     };
 
-    const openWindow = (id: AppId) => {
+    const openWindow = (id: AppId, data?: any) => {
         if (windows[id].isOpen) {
+            // If data is provided, update it even if window is open
+            if (data) {
+                setWindows((prev) => ({
+                    ...prev,
+                    [id]: { ...prev[id], data },
+                }));
+            }
             focusWindow(id);
             return;
         }
@@ -72,7 +83,7 @@ export const WindowManagerProvider = ({ children }: { children: ReactNode }) => 
         setActiveWindowId(id);
         setWindows((prev) => ({
             ...prev,
-            [id]: { ...prev[id], isOpen: true, isMinimized: false, zIndex: newZIndex },
+            [id]: { ...prev[id], isOpen: true, isMinimized: false, zIndex: newZIndex, data },
         }));
     };
 
