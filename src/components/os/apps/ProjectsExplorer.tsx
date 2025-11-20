@@ -23,7 +23,8 @@ import {
     Image as ImageIcon,
     Globe,
     Chrome,
-    Play
+    Play,
+    Trash2
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { useWindowManager } from '../WindowManager';
@@ -41,7 +42,7 @@ export default function ProjectsExplorer() {
     const [renameValue, setRenameValue] = useState('');
     const { openWindow } = useWindowManager();
     const { t } = useSettings();
-    const { fileSystem, createFile, renameFile } = useFileSystem();
+    const { fileSystem, createFile, renameFile, deleteFile } = useFileSystem();
 
     const navigate = (path: string) => {
         const newHistory = history.slice(0, historyIndex + 1);
@@ -139,6 +140,13 @@ export default function ProjectsExplorer() {
         }
     };
 
+    const handleDeleteFile = () => {
+        if (selectedFile && selectedFile.type === 'txt') {
+            deleteFile(currentPath, selectedFile.id);
+            setSelectedFile(null);
+        }
+    };
+
     const getAllFiles = (path: string = '/'): FileItem[] => {
         let files: FileItem[] = [];
         const items = fileSystem[path] || [];
@@ -163,7 +171,7 @@ export default function ProjectsExplorer() {
             );
         }
         return fileSystem[currentPath] || [];
-    }, [currentPath, searchQuery, t]);
+    }, [currentPath, searchQuery, t, fileSystem]);
 
     return (
         <div className="flex flex-col h-full bg-white dark:bg-[#202020] text-gray-900 dark:text-gray-100 font-sans select-none transition-colors duration-200">
@@ -233,6 +241,14 @@ export default function ProjectsExplorer() {
                 >
                     <div className="w-4 h-4 border-2 border-blue-500 dark:border-blue-400 rounded-full flex items-center justify-center text-[10px] font-bold">+</div>
                     {t('explorer.new')}
+                </button>
+                <button
+                    onClick={handleDeleteFile}
+                    disabled={!selectedFile || selectedFile.type !== 'txt'}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 text-red-500 dark:text-red-400 disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                    <Trash2 className="w-4 h-4" />
+                    {t('explorer.delete')}
                 </button>
                 <div className="w-px h-4 bg-gray-300 dark:bg-gray-600 mx-2" />
                 <button

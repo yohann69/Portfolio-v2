@@ -36,6 +36,7 @@ interface FileSystemContextType {
     createFile: (path: string, file: FileItem) => void;
     updateFileContent: (path: string, fileId: string, content: string) => void;
     renameFile: (path: string, fileId: string, newName: string) => void;
+    deleteFile: (path: string, fileId: string) => void;
     getFile: (path: string, fileId: string) => FileItem | undefined;
     findFile: (fileId: string) => { file: FileItem, path: string } | undefined;
 }
@@ -227,6 +228,17 @@ export const FileSystemProvider = ({ children }: { children: React.ReactNode }) 
         });
     }, []);
 
+    const deleteFile = useCallback((path: string, fileId: string) => {
+        setFileSystem(prev => {
+            const currentFiles = prev[path] || [];
+            const updatedFiles = currentFiles.filter(f => f.id !== fileId);
+            return {
+                ...prev,
+                [path]: updatedFiles
+            };
+        });
+    }, []);
+
     const getFile = useCallback((path: string, fileId: string) => {
         return fileSystem[path]?.find(f => f.id === fileId);
     }, [fileSystem]);
@@ -240,7 +252,7 @@ export const FileSystemProvider = ({ children }: { children: React.ReactNode }) 
     }, [fileSystem]);
 
     return (
-        <FileSystemContext.Provider value={{ fileSystem, createFile, updateFileContent, renameFile, getFile, findFile }}>
+        <FileSystemContext.Provider value={{ fileSystem, createFile, updateFileContent, renameFile, deleteFile, getFile, findFile }}>
             {children}
         </FileSystemContext.Provider>
     );
