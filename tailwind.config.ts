@@ -27,8 +27,23 @@ const config: Config = {
 				scroll:
 					"scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
 				spotlight: "spotlight 2s ease .75s 1 forwards",
+				blob: "blob 20s infinite",
 			},
 			keyframes: {
+				blob: {
+					"0%": {
+						transform: "translate(0px, 0px) scale(1)",
+					},
+					"33%": {
+						transform: "translate(30px, -50px) scale(1.1)",
+					},
+					"66%": {
+						transform: "translate(-20px, 20px) scale(0.9)",
+					},
+					"100%": {
+						transform: "translate(0px, 0px) scale(1)",
+					},
+				},
 				scroll: {
 					to: {
 						transform: "translate(calc(-50% - 0.5rem))",

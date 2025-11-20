@@ -17,6 +17,7 @@ import About from './apps/About';
 import Browser from './apps/Browser';
 import PDFViewer from './apps/PDFViewer';
 import VideoPlayer from './apps/VideoPlayer';
+import { AnimatedBackground } from '../ui/animated-background';
 
 export const Desktop = () => {
     return (
@@ -25,8 +26,7 @@ export const Desktop = () => {
                 <div className="fixed inset-0 bg-black text-white overflow-hidden font-sans selection:bg-white/20">
                     {/* Background */}
                     <div className="absolute inset-0 z-0">
-                        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900 via-[#000] to-black" />
-                        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay" />
+                        <AnimatedBackground />
                     </div>
 
                     {/* OS Interface */}
