@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
-import { X, ZoomIn } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { X, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const images = [
@@ -30,7 +30,30 @@ const images = [
 ];
 
 export default function Gallery() {
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+    const handleNext = useCallback((e?: React.MouseEvent) => {
+        e?.stopPropagation();
+        setSelectedIndex(prev => prev === null ? null : (prev + 1) % images.length);
+    }, []);
+
+    const handlePrev = useCallback((e?: React.MouseEvent) => {
+        e?.stopPropagation();
+        setSelectedIndex(prev => prev === null ? null : (prev - 1 + images.length) % images.length);
+    }, []);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (selectedIndex === null) return;
+
+            if (e.key === 'ArrowRight') handleNext();
+            if (e.key === 'ArrowLeft') handlePrev();
+            if (e.key === 'Escape') setSelectedIndex(null);
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [selectedIndex, handleNext, handlePrev]);
 
     return (
         <div className="h-full bg-black overflow-y-auto p-4">
@@ -39,7 +62,7 @@ export default function Gallery() {
                     <div
                         key={index}
                         className="relative group break-inside-avoid cursor-pointer overflow-hidden rounded-lg"
-                        onClick={() => setSelectedImage(src)}
+                        onClick={() => setSelectedIndex(index)}
                     >
                         <img
                             src={src}
@@ -55,25 +78,50 @@ export default function Gallery() {
             </div>
 
             <AnimatePresence>
-                {selectedImage && (
+                {selectedIndex !== null && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="absolute inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
-                        onClick={() => setSelectedImage(null)}
+                        className="absolute inset-0 z-50 bg-black/95 flex items-center justify-center"
+                        onClick={() => setSelectedIndex(null)}
                     >
                         <button
-                            className="absolute top-4 right-4 text-white/70 hover:text-white p-2"
-                            onClick={() => setSelectedImage(null)}
+                            className="absolute top-4 right-4 text-white/70 hover:text-white p-2 z-50"
+                            onClick={() => setSelectedIndex(null)}
                         >
                             <X className="w-8 h-8" />
                         </button>
-                        <img
-                            src={selectedImage}
+
+                        <button
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white p-2 z-50 transition-colors"
+                            onClick={handlePrev}
+                        >
+                            <ChevronLeft className="w-12 h-12" />
+                        </button>
+
+                        <button
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white p-2 z-50 transition-colors"
+                            onClick={handleNext}
+                        >
+                            <ChevronRight className="w-12 h-12" />
+                        </button>
+
+                        <motion.img
+                            key={selectedIndex}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            src={images[selectedIndex]}
                             alt="Full screen"
-                            className="max-w-full max-h-full object-contain shadow-2xl"
+                            className="max-w-full max-h-full object-contain shadow-2xl p-4 select-none"
+                            onClick={(e) => e.stopPropagation()}
                         />
+
+                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 text-sm">
+                            {selectedIndex + 1} / {images.length}
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>

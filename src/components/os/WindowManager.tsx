@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-export type AppId = 'system-info' | 'projects' | 'experience' | 'gallery' | 'messenger' | 'settings';
+export type AppId = 'system-info' | 'projects' | 'experience' | 'gallery' | 'messenger' | 'settings' | 'snake';
 
 interface WindowState {
     id: AppId;
@@ -41,6 +41,7 @@ const initialWindows: Record<AppId, WindowState> = {
     'gallery': { id: 'gallery', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'Media Gallery' },
     'messenger': { id: 'messenger', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'Encrypted Messenger' },
     'settings': { id: 'settings', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'Settings' },
+    'snake': { id: 'snake', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'Snake Game' },
 };
 
 export const WindowManagerProvider = ({ children }: { children: ReactNode }) => {
@@ -103,6 +104,22 @@ export const WindowManagerProvider = ({ children }: { children: ReactNode }) => 
         }));
         focusWindow(id);
     };
+
+    // Global keyboard shortcuts
+    React.useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // Close active window with Cmd+W or Ctrl+W
+            if ((e.metaKey || e.ctrlKey) && e.key === 'w') {
+                e.preventDefault();
+                if (activeWindowId) {
+                    closeWindow(activeWindowId);
+                }
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [activeWindowId]);
 
     return (
         <WindowContext.Provider
