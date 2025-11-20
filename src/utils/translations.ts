@@ -89,6 +89,24 @@ export const translations = {
         'contribution.translation.content': 'Volunteer contribution to the French translation of daily used services.',
         'contribution.iot.desc': 'Testing of IoT products and Xiaomi Home application.',
         'contribution.iot.content': 'Beta version testing, bug reporting, improvement suggestions for the Xiaomi Home ecosystem.',
+
+        // Timeline
+        'timeline.title': 'System_Event_Log',
+        'timeline.running': 'Running',
+        'timeline.pid': 'PID',
+        'timeline.user': 'User',
+        'timeline.end': '_ End of log stream _',
+
+        // System Info
+        'sysinfo.role': 'Role',
+        'sysinfo.company': 'Company',
+        'sysinfo.school': 'School',
+        'sysinfo.location': 'Location',
+        'sysinfo.bio.title': '> System_Bio',
+        'sysinfo.bio.text': "Accepted into computer engineering training at IMT Atlantique (Nantes), I am pleased to join the La Poste group as a full stack developer in a work-study program starting in September 2024.",
+        'sysinfo.skills.title': '> Installed_Packages (Skills)',
+        'sysinfo.tools.title': '> Tools & Environment',
+        'sysinfo.job.title': 'Full Stack Developer',
     },
     fr: {
         // System
@@ -180,6 +198,24 @@ export const translations = {
         'contribution.translation.content': "Contribution bénévole à la traduction française de services utilisés quotidiennement.",
         'contribution.iot.desc': "Tests de produits IoT et application Xiaomi Home.",
         'contribution.iot.content': "Test de versions beta, rapport de bugs, suggestions d'amélioration pour l'écosystème Xiaomi Home.",
+
+        // Timeline
+        'timeline.title': 'Journal_Evénements_Système',
+        'timeline.running': 'Exécution',
+        'timeline.pid': 'PID',
+        'timeline.user': 'Utilisateur',
+        'timeline.end': '_ Fin du flux de journal _',
+
+        // System Info
+        'sysinfo.role': 'Rôle',
+        'sysinfo.company': 'Entreprise',
+        'sysinfo.school': 'École',
+        'sysinfo.location': 'Lieu',
+        'sysinfo.bio.title': '> Bio_Système',
+        'sysinfo.bio.text': "Accepté en formation d'ingénieur informatique à l'école IMT Atlantique (Nantes), j'ai le plaisir d'intégrer le groupe La Poste en tant que développeur full stack en alternance à partir de septembre 2024.",
+        'sysinfo.skills.title': '> Paquets_Installés (Compétences)',
+        'sysinfo.tools.title': '> Outils & Environnement',
+        'sysinfo.job.title': 'Développeur Full Stack',
     },
     cn: {
         // System
@@ -271,6 +307,24 @@ export const translations = {
         'contribution.translation.content': '志愿为日常使用的服务提供法语翻译。',
         'contribution.iot.desc': '测试IoT产品和小米之家应用程序。',
         'contribution.iot.content': '测试Beta版本，报告错误，为小米之家生态系统提供改进建议。',
+
+        // Timeline
+        'timeline.title': '系统事件日志',
+        'timeline.running': '运行中',
+        'timeline.pid': '进程ID',
+        'timeline.user': '用户',
+        'timeline.end': '_ 日志流结束 _',
+
+        // System Info
+        'sysinfo.role': '角色',
+        'sysinfo.company': '公司',
+        'sysinfo.school': '学校',
+        'sysinfo.location': '地点',
+        'sysinfo.bio.title': '> 系统简介',
+        'sysinfo.bio.text': "已被IMT Atlantique（南特）计算机工程培训录取，我很高兴从2024年9月开始作为全栈开发人员加入La Poste集团进行勤工俭学。",
+        'sysinfo.skills.title': '> 已安装软件包 (技能)',
+        'sysinfo.tools.title': '> 工具与环境',
+        'sysinfo.job.title': '全栈开发人员',
     }
 };
 

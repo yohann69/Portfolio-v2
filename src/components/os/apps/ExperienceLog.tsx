@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Clock, Calendar, MapPin, Briefcase, GraduationCap } from 'lucide-react';
+import { useSettings } from '@/context/SettingsContext';
 
 const events = [
     {
@@ -52,15 +53,17 @@ const events = [
 ];
 
 export default function ExperienceLog() {
+    const { t } = useSettings();
+
     return (
         <div className="h-full bg-[#0d1117] text-gray-300 font-mono p-6 overflow-auto">
             <div className="max-w-3xl mx-auto">
                 <div className="mb-8 border-b border-gray-800 pb-4">
-                    <h1 className="text-2xl font-bold text-white mb-2">System_Event_Log</h1>
+                    <h1 className="text-2xl font-bold text-white mb-2">{t('timeline.title')}</h1>
                     <div className="flex items-center gap-4 text-sm text-gray-500">
-                        <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-green-500"></div> Running</span>
-                        <span>PID: 1337</span>
-                        <span>User: yohann</span>
+                        <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-green-500"></div> {t('timeline.running')}</span>
+                        <span>{t('timeline.pid')}: 1337</span>
+                        <span>{t('timeline.user')}: yohann</span>
                     </div>
                 </div>
 
@@ -107,7 +110,7 @@ export default function ExperienceLog() {
                 </div>
 
                 <div className="mt-8 text-center text-xs text-gray-600 animate-pulse">
-                    _ End of log stream _
+                    {t('timeline.end')}
                 </div>
             </div>
         </div>

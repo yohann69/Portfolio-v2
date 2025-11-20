@@ -32,8 +32,8 @@ import { useSettings } from '@/context/SettingsContext';
 import { useFileSystem, FileItem } from '@/context/FileSystemContext';
 
 export default function ProjectsExplorer() {
-    const [currentPath, setCurrentPath] = useState<string>('/home');
-    const [history, setHistory] = useState<string[]>(['/home']);
+    const [currentPath, setCurrentPath] = useState<string>('/documents');
+    const [history, setHistory] = useState<string[]>(['/documents']);
     const [historyIndex, setHistoryIndex] = useState(0);
     const [selectedFile, setSelectedFile] = useState<FileItem | null>(null);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
