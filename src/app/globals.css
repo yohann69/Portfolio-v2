@@ -10,11 +10,9 @@
 
 body {
     color: rgb(var(--foreground-rgb));
-    background: linear-gradient(
-            to bottom,
+    background: linear-gradient(to bottom,
             transparent,
-            rgb(var(--background-end-rgb))
-    ) rgb(var(--background-start-rgb));
+            rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
@@ -68,8 +66,10 @@ section .description p {
 
 /* For IE, Edge and Firefox */
 .scrollbar-hide {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 
@@ -90,7 +90,8 @@ section .description p {
     align-items: center;
 }
 
-#competences section, .progLanguages {
+#competences section,
+.progLanguages {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -98,7 +99,8 @@ section .description p {
     justify-content: center;
 }
 
-#competences > div, #competences > section > div {
+#competences>div,
+#competences>section>div {
     text-align: center;
     width: 370px;
     padding: 10px 20px;
@@ -109,7 +111,7 @@ section .description p {
     /*-webkit-backdrop-filter: blur(10px);*/
 }
 
-#competences > div {
+#competences>div {
     max-width: 550px;
 }
 
@@ -132,7 +134,8 @@ section .description p {
     padding: 5px;
 }
 
-#competences > section > div > div, #competences > div > div {
+#competences>section>div>div,
+#competences>div>div {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -164,3 +167,21 @@ section .description p {
     --card-color: rgba(43, 43, 43, 0.56);
 }
 
+/* Custom Scrollbar for OS Windows */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
