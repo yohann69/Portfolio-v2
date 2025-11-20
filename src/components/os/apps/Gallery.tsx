@@ -58,14 +58,14 @@ export default function Gallery() {
     return (
         <div className="h-full bg-black overflow-y-auto p-4">
             <div className="mb-8 text-center space-y-2 pt-4">
-                <motion.h1 
+                <motion.h1
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500"
                 >
                     Capturing Moments
                 </motion.h1>
-                <motion.p 
+                <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.2 }}
