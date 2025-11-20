@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-export type AppId = 'system-info' | 'projects' | 'experience' | 'gallery' | 'messenger' | 'settings' | 'snake';
+export type AppId = 'system-info' | 'projects' | 'experience' | 'gallery' | 'messenger' | 'settings' | 'snake' | 'about';
 
 interface WindowState {
     id: AppId;
@@ -42,6 +42,7 @@ const initialWindows: Record<AppId, WindowState> = {
     'messenger': { id: 'messenger', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'Encrypted Messenger' },
     'settings': { id: 'settings', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'Settings' },
     'snake': { id: 'snake', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'Snake Game' },
+    'about': { id: 'about', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'About PortfoliOS' },
 };
 
 export const WindowManagerProvider = ({ children }: { children: ReactNode }) => {
@@ -62,19 +63,17 @@ export const WindowManagerProvider = ({ children }: { children: ReactNode }) => 
     };
 
     const openWindow = (id: AppId) => {
-        setWindows((prev) => {
-            const isOpen = prev[id].isOpen;
-            if (isOpen && !prev[id].isMinimized) {
-                return prev;
-            }
-            const newZIndex = maxZIndex + 1;
-            setMaxZIndex(newZIndex);
-            setActiveWindowId(id);
-            return {
-                ...prev,
-                [id]: { ...prev[id], isOpen: true, isMinimized: false, zIndex: newZIndex },
-            };
-        });
+        if (windows[id].isOpen) {
+            focusWindow(id);
+            return;
+        }
+        const newZIndex = maxZIndex + 1;
+        setMaxZIndex(newZIndex);
+        setActiveWindowId(id);
+        setWindows((prev) => ({
+            ...prev,
+            [id]: { ...prev[id], isOpen: true, isMinimized: false, zIndex: newZIndex },
+        }));
     };
 
     const closeWindow = (id: AppId) => {

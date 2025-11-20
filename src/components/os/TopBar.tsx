@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Wifi, Battery, Volume2, Search, Apple, Calendar as CalendarIcon, ChevronRight, Check } from 'lucide-react';
 import { useSettings } from '@/context/SettingsContext';
+import { useWindowManager } from './WindowManager';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const TopBar = () => {
@@ -11,6 +12,7 @@ export const TopBar = () => {
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
     const [showCalendar, setShowCalendar] = useState(false);
     const { theme, setTheme, language, setLanguage } = useSettings();
+    const { openWindow } = useWindowManager();
     const menuRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -84,14 +86,14 @@ export const TopBar = () => {
                         className={`px-3 py-1 rounded hover:bg-white/10 cursor-pointer transition-colors ${activeMenu === 'apple' ? 'bg-white/10' : ''}`}
                         onClick={() => toggleMenu('apple')}
                     >
-                        <span className="font-bold"></span>
+                        <span className="font-bold">PortfoliOS</span>
                     </div>
                     <AnimatePresence>
                         {activeMenu === 'apple' && (
                             <MenuDropdown>
-                                <MenuItem label="About This OS" onClick={() => alert("Portfolio OS v2.0\nBuilt with Next.js & Tailwind")} />
+                                <MenuItem label="About PortfoliOS" onClick={() => openWindow('about')} />
                                 <div className="h-px bg-white/10 my-1" />
-                                <MenuItem label="System Preferences..." />
+                                <MenuItem label="System Preferences..." onClick={() => openWindow('settings')} />
                                 <MenuItem label="App Store..." />
                                 <div className="h-px bg-white/10 my-1" />
                                 <MenuItem label="Recent Items" hasSubmenu>
@@ -107,9 +109,7 @@ export const TopBar = () => {
                             </MenuDropdown>
                         )}
                     </AnimatePresence>
-                </div>
-
-                <div className="relative">
+                </div>                <div className="relative">
                     <div
                         className={`px-3 py-1 rounded hover:bg-white/10 cursor-pointer transition-colors ${activeMenu === 'file' ? 'bg-white/10' : ''}`}
                         onClick={() => toggleMenu('file')}

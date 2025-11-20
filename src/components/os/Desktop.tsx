@@ -12,6 +12,8 @@ import ExperienceLog from './apps/ExperienceLog';
 import Gallery from './apps/Gallery';
 import Messenger from './apps/Messenger';
 import SnakeGame from './apps/SnakeGame';
+import Settings from './apps/Settings';
+import About from './apps/About';
 
 export const Desktop = () => {
     return (
@@ -50,6 +52,12 @@ export const Desktop = () => {
                                 </Window>
                                 <Window id="snake" initialPosition={{ x: 350, y: 200 }} initialSize={{ width: 400, height: 440 }}>
                                     <SnakeGame />
+                                </Window>
+                                <Window id="settings" initialPosition={{ x: 400, y: 150 }} initialSize={{ width: 700, height: 500 }}>
+                                    <Settings />
+                                </Window>
+                                <Window id="about" initialPosition={{ x: 500, y: 250 }} initialSize={{ width: 400, height: 350 }}>
+                                    <About />
                                 </Window>
                             </div>
                         </div>                        <Taskbar />
