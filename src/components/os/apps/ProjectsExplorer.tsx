@@ -28,159 +28,7 @@ import {
 import { cn } from '@/utils/cn';
 import { useWindowManager } from '../WindowManager';
 import { useSettings } from '@/context/SettingsContext';
-
-type FileType = 'folder' | 'project' | 'contribution' | 'app' | 'pdf' | 'video' | 'image';
-
-interface FileItem {
-    id: string;
-    name: string;
-    type: FileType;
-    description?: string;
-    content?: React.ReactNode;
-    tags?: string[];
-    link?: string;
-    image?: string;
-    appId?: string; // For launching apps
-    size?: string;
-    date?: string;
-    icon?: React.ElementType;
-    url?: string; // For media files or browser
-    translationKey?: string; // For translating name
-    descriptionKey?: string; // For translating description
-    contentKey?: string; // For translating content
-    targetPath?: string; // For shortcuts
-}
-
-const fileSystem: Record<string, FileItem[]> = {
-    '/': [
-        { id: 'home', name: 'Home', type: 'folder', date: 'Today', translationKey: 'explorer.home', targetPath: '/home' },
-        { id: 'desktop', name: 'Desktop', type: 'folder', date: 'Today', translationKey: 'explorer.desktop', targetPath: '/desktop' },
-        { id: 'documents', name: 'Documents', type: 'folder', date: 'Today', translationKey: 'explorer.documents', targetPath: '/documents' },
-        { id: 'downloads', name: 'Downloads', type: 'folder', date: 'Yesterday', translationKey: 'explorer.downloads', targetPath: '/downloads' },
-        { id: 'applications', name: 'Applications', type: 'folder', date: '2024-01-01', translationKey: 'explorer.applications', targetPath: '/applications' },
-        { id: 'gallery', name: 'Gallery', type: 'folder', date: '2024-01-01', translationKey: 'app.gallery', targetPath: '/gallery' },
-    ],
-    '/home': [
-        { id: 'desktop', name: 'Desktop', type: 'folder', date: 'Today', translationKey: 'explorer.desktop', targetPath: '/desktop' },
-        { id: 'documents', name: 'Documents', type: 'folder', date: 'Today', translationKey: 'explorer.documents', targetPath: '/documents' },
-        { id: 'downloads', name: 'Downloads', type: 'folder', date: 'Yesterday', translationKey: 'explorer.downloads', targetPath: '/downloads' },
-        { id: 'applications', name: 'Applications', type: 'folder', date: '2024-01-01', translationKey: 'explorer.applications', targetPath: '/applications' },
-        { id: 'gallery', name: 'Gallery', type: 'folder', date: '2024-01-01', translationKey: 'app.gallery', targetPath: '/gallery' },
-    ],
-    '/desktop': [],
-    '/documents': [
-        { id: 'projects', name: 'Projects', type: 'folder', date: 'Today', translationKey: 'app.projects' },
-        { id: 'contributions', name: 'Contributions', type: 'folder', date: 'Last week', translationKey: 'content.contributions.desc' },
-        { id: 'cv', name: 'CV_Yohann_CHAVANEL.pdf', type: 'pdf', size: '2.4 MB', date: '2024-03-15', url: '/CV_2024_Yohann_CHAVANEL.pdf', translationKey: 'content.cv' }
-    ],
-    '/downloads': [
-        { id: 'rick', name: 'secret_video.mp4', type: 'video', size: '15 MB', date: '2024-04-01', url: '/rr.mp4', translationKey: 'content.secret' }
-    ],
-    '/applications': [
-        { id: 'snake-app', name: 'Snake Game', type: 'app', appId: 'snake', icon: Gamepad2, description: 'Classic Snake Game', size: '1.2 MB', date: '2024-01-01', translationKey: 'app.snake' },
-        { id: 'browser-app', name: 'Web Browser', type: 'app', appId: 'browser', icon: Globe, description: 'Internet Explorer... but faster', size: '50 MB', date: '2024-01-01', translationKey: 'app.browser' },
-        { id: 'pdf-app', name: 'PDF Viewer', type: 'app', appId: 'pdf-viewer', icon: FileText, description: 'View PDF documents', size: '10 MB', date: '2024-01-01', translationKey: 'app.pdf' },
-        { id: 'video-app', name: 'Video Player', type: 'app', appId: 'video-player', icon: Play, description: 'Play video files', size: '20 MB', date: '2024-01-01', translationKey: 'app.video' },
-    ],
-    '/gallery': [
-        { id: 'img1', name: 'Image 1', type: 'image', size: '2.1 MB', date: '2023-12-01', image: "https://i.imgur.com/T5TkJpy.jpeg" },
-        { id: 'img2', name: 'Image 2', type: 'image', size: '1.5 MB', date: '2023-12-05', image: "https://i.imgur.com/D8hNFOO.jpeg" },
-        { id: 'img3', name: 'Image 3', type: 'image', size: '3.2 MB', date: '2023-12-10', image: "https://i.imgur.com/otXQSG6.jpeg" },
-        { id: 'img4', name: 'Image 4', type: 'image', size: '2.8 MB', date: '2023-12-12', image: "https://i.imgur.com/8ZRK2ll.jpeg" },
-        { id: 'img5', name: 'Image 5', type: 'image', size: '1.9 MB', date: '2023-12-15', image: "https://i.imgur.com/GMjjoK9.jpeg" },
-        { id: 'img6', name: 'Image 6', type: 'image', size: '2.5 MB', date: '2023-12-18', image: "https://i.imgur.com/eyNajEN.jpeg" },
-        { id: 'img7', name: 'Image 7', type: 'image', size: '3.0 MB', date: '2023-12-20', image: "https://i.imgur.com/m4IATPa.jpeg" },
-        { id: 'img8', name: 'Image 8', type: 'image', size: '2.2 MB', date: '2023-12-22', image: "https://i.imgur.com/SAk0orU.jpeg" },
-        { id: 'img9', name: 'Image 9', type: 'image', size: '1.8 MB', date: '2023-12-25', image: "https://i.imgur.com/5u53X9s.jpeg" },
-        { id: 'img10', name: 'Image 10', type: 'image', size: '2.6 MB', date: '2023-12-28', image: "https://i.imgur.com/rVthYYW.jpeg" },
-    ],
-    '/documents/projects': [
-        {
-            id: 'adn',
-            name: 'Eligibilite_ADN',
-            type: 'app',
-            appId: 'browser',
-            icon: Globe,
-            tags: ['Golang', 'SolidJS', 'PostGIS'],
-            description: "Outil d'éligibilité à la fibre optique pour l'Ardèche et la Drôme.",
-            descriptionKey: 'project.adn.desc',
-            url: "https://ardechedromenumerique.fr/eligibilite",
-            image: "/adnlogo-300x262.png",
-            content: "Application web permettant aux habitants de vérifier leur éligibilité à la fibre. Carte interactive, backend Go, frontend SolidJS.",
-            contentKey: 'project.adn.content',
-            size: '15 MB',
-            date: '2023-11-20'
-        },
-        {
-            id: 'voyo',
-            name: 'VOYO_App',
-            type: 'app',
-            appId: 'browser',
-            icon: Globe,
-            tags: ['React Native', 'Golang', 'Firebase', 'PostgreSQL'],
-            description: "Application mobile de mise en relation pour visites immobilières.",
-            descriptionKey: 'project.voyo.desc',
-            image: "/banner-voyo-full-wws.png",
-            content: "Projet scolaire de groupe. App mobile Android/iOS. Backend Go, Chat Firebase, Base de données PostgreSQL avec PostGIS.",
-            contentKey: 'project.voyo.content',
-            size: '45 MB',
-            date: '2023-06-15'
-        },
-        {
-            id: 'ade',
-            name: 'ADE_Calendar',
-            type: 'app',
-            appId: 'browser',
-            icon: Globe,
-            tags: ['JavaScript', 'Golang', 'API'],
-            description: "Interface responsive pour les emplois du temps de l'IUT.",
-            descriptionKey: 'project.ade.desc',
-            url: "https://ade.pages.dev",
-            image: "/calendaricon.png",
-            content: "Site web palliant au manque d'interface responsive. API Golang pour parser l'ICS en JSON.",
-            contentKey: 'project.ade.content',
-            size: '2 MB',
-            date: '2023-09-01'
-        }
-    ],
-    '/documents/contributions': [
-        {
-            id: 'xiaomi',
-            name: 'Xiaomi_Community',
-            type: 'contribution',
-            tags: ['Community Management', 'Moderation'],
-            description: "Modérateur de la communauté Xiaomi France.",
-            descriptionKey: 'contribution.xiaomi.desc',
-            image: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Xiaomi_logo_%282021-%29.svg",
-            content: "Animation de communauté, organisation d'événements, support utilisateurs. Membre de l'équipe photographie Xiaomi Global.",
-            contentKey: 'contribution.xiaomi.content',
-            date: 'Ongoing'
-        },
-        {
-            id: 'translation',
-            name: 'OpenSource_Translation',
-            type: 'contribution',
-            tags: ['Translation', 'Proton', '2FAS'],
-            description: "Traduction de projets open source (Proton, 2FAS).",
-            descriptionKey: 'contribution.translation.desc',
-            content: "Contribution bénévole à la traduction française de services utilisés quotidiennement.",
-            contentKey: 'contribution.translation.content',
-            date: 'Ongoing'
-        },
-        {
-            id: 'iot',
-            name: 'IoT_Beta_Testing',
-            type: 'contribution',
-            tags: ['QA', 'IoT', 'Xiaomi Home'],
-            description: "Tests de produits IoT et application Xiaomi Home.",
-            descriptionKey: 'contribution.iot.desc',
-            image: "/mijalogo.png",
-            content: "Test de versions beta, rapport de bugs, suggestions d'amélioration pour l'écosystème Xiaomi Home.",
-            contentKey: 'contribution.iot.content',
-            date: 'Ongoing'
-        }
-    ]
-};
+import { useFileSystem, FileItem } from '@/context/FileSystemContext';
 
 export default function ProjectsExplorer() {
     const [currentPath, setCurrentPath] = useState<string>('/home');
@@ -189,8 +37,11 @@ export default function ProjectsExplorer() {
     const [selectedFile, setSelectedFile] = useState<FileItem | null>(null);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [searchQuery, setSearchQuery] = useState('');
+    const [renamingFileId, setRenamingFileId] = useState<string | null>(null);
+    const [renameValue, setRenameValue] = useState('');
     const { openWindow } = useWindowManager();
     const { t } = useSettings();
+    const { fileSystem, createFile, renameFile } = useFileSystem();
 
     const navigate = (path: string) => {
         const newHistory = history.slice(0, historyIndex + 1);
@@ -242,10 +93,49 @@ export default function ProjectsExplorer() {
             openWindow('pdf-viewer', { file: item.url, title: item.translationKey ? t(item.translationKey as any) : item.name });
         } else if (item.type === 'video') {
             openWindow('video-player', { src: item.url, title: item.translationKey ? t(item.translationKey as any) : item.name });
+        } else if (item.type === 'txt') {
+            openWindow('text-editor', { fileId: item.id });
         } else if (item.type === 'image') {
             // For now, just select it to show preview in details pane
             // Or open gallery if we had a specific image viewer mode in gallery
             setSelectedFile(item);
+        }
+    };
+
+    const handleNewFile = () => {
+        const newFileId = `file-${Date.now()}`;
+        const newFile: FileItem = {
+            id: newFileId,
+            name: 'New Text Document.txt',
+            type: 'txt',
+            date: 'Just now',
+            size: '0 B',
+            textContent: '',
+        };
+        createFile(currentPath, newFile);
+        
+        // Start renaming immediately
+        setRenamingFileId(newFileId);
+        setRenameValue('New Text Document.txt');
+    };
+
+    const handleRenameSubmit = () => {
+        if (renamingFileId && renameValue.trim()) {
+            renameFile(currentPath, renamingFileId, renameValue.trim());
+            
+            // Open the file after renaming if it's the one we just created
+            // We can check if it's a text file and open it
+            const file = fileSystem[currentPath]?.find(f => f.id === renamingFileId);
+            if (file && file.type === 'txt') {
+                openWindow('text-editor', { fileId: renamingFileId });
+            }
+            
+            setRenamingFileId(null);
+            setRenameValue('');
+        } else {
+            // If empty name, cancel rename or revert to original? 
+            // For now, just cancel
+            setRenamingFileId(null);
         }
     };
 
@@ -337,7 +227,10 @@ export default function ProjectsExplorer() {
 
             {/* Sub-toolbar */}
             <div className="h-10 bg-white dark:bg-[#202020] border-b border-gray-200 dark:border-[#1a1a1a] flex items-center px-4 gap-2 text-sm transition-colors duration-200">
-                <button className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 text-blue-500 dark:text-blue-400">
+                <button 
+                    onClick={handleNewFile}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 text-blue-500 dark:text-blue-400"
+                >
                     <div className="w-4 h-4 border-2 border-blue-500 dark:border-blue-400 rounded-full flex items-center justify-center text-[10px] font-bold">+</div>
                     {t('explorer.new')}
                 </button>
@@ -434,6 +327,8 @@ export default function ProjectsExplorer() {
                                                 <FileText className="w-12 h-12 text-red-500 dark:text-red-400" />
                                             ) : item.type === 'video' ? (
                                                 <Video className="w-12 h-12 text-purple-500 dark:text-purple-400" />
+                                            ) : item.type === 'txt' ? (
+                                                <FileText className="w-12 h-12 text-gray-500 dark:text-gray-400" />
                                             ) : item.type === 'image' ? (
                                                 item.image ? (
                                                     <img src={item.image} alt={item.name} className="w-full h-full object-cover rounded shadow-sm" />
@@ -446,9 +341,24 @@ export default function ProjectsExplorer() {
                                                 <FileCode className="w-12 h-12 text-blue-500 dark:text-blue-400" />
                                             )}
                                         </div>
-                                        <span className="text-xs text-center break-all line-clamp-2 text-gray-700 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white">
-                                            {item.translationKey ? t(item.translationKey as any) : item.name}
-                                        </span>
+                                        {renamingFileId === item.id ? (
+                                            <input
+                                                type="text"
+                                                value={renameValue}
+                                                onChange={(e) => setRenameValue(e.target.value)}
+                                                onBlur={handleRenameSubmit}
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter') handleRenameSubmit();
+                                                }}
+                                                autoFocus
+                                                className="w-full text-xs text-center bg-white dark:bg-[#333] border border-blue-500 rounded px-1 outline-none text-black dark:text-white"
+                                                onClick={(e) => e.stopPropagation()}
+                                            />
+                                        ) : (
+                                            <span className="text-xs text-center break-all line-clamp-2 text-gray-700 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white">
+                                                {item.translationKey ? t(item.translationKey as any) : item.name}
+                                            </span>
+                                        )}
                                     </div>
                                 ))}
                             </div>
@@ -478,12 +388,29 @@ export default function ProjectsExplorer() {
                                                 <FileText className="w-4 h-4 text-red-500 dark:text-red-400" />
                                             ) : item.type === 'video' ? (
                                                 <Video className="w-4 h-4 text-purple-500 dark:text-purple-400" />
+                                            ) : item.type === 'txt' ? (
+                                                <FileText className="w-4 h-4 text-gray-500 dark:text-gray-400" />
                                             ) : item.type === 'image' ? (
                                                 <ImageIcon className="w-4 h-4 text-pink-500 dark:text-pink-400" />
                                             ) : (
                                                 <FileCode className="w-4 h-4 text-blue-500 dark:text-blue-400" />
                                             )}
-                                            <span>{item.translationKey ? t(item.translationKey as any) : item.name}</span>
+                                            {renamingFileId === item.id ? (
+                                                <input
+                                                    type="text"
+                                                    value={renameValue}
+                                                    onChange={(e) => setRenameValue(e.target.value)}
+                                                    onBlur={handleRenameSubmit}
+                                                    onKeyDown={(e) => {
+                                                        if (e.key === 'Enter') handleRenameSubmit();
+                                                    }}
+                                                    autoFocus
+                                                    className="flex-1 bg-white dark:bg-[#333] border border-blue-500 rounded px-1 outline-none text-black dark:text-white h-6"
+                                                    onClick={(e) => e.stopPropagation()}
+                                                />
+                                            ) : (
+                                                <span>{item.translationKey ? t(item.translationKey as any) : item.name}</span>
+                                            )}
                                         </div>
                                         <span className="text-gray-500 dark:text-gray-400 text-xs">{item.date}</span>
                                         <span className="text-gray-500 dark:text-gray-400 text-xs capitalize">{item.type}</span>
@@ -503,6 +430,8 @@ export default function ProjectsExplorer() {
                                     <FileText className="w-12 h-12 text-red-500 dark:text-red-400" />
                                 ) : selectedFile.type === 'video' ? (
                                     <Video className="w-12 h-12 text-purple-500 dark:text-purple-400" />
+                                ) : selectedFile.type === 'txt' ? (
+                                    <FileText className="w-12 h-12 text-gray-500 dark:text-gray-400" />
                                 ) : selectedFile.type === 'app' ? (
                                     <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-700 rounded-xl flex items-center justify-center shadow-lg">
                                         {selectedFile.icon ? <selectedFile.icon className="w-8 h-8 text-white" /> : <Gamepad2 className="w-8 h-8 text-white" />}
@@ -530,6 +459,7 @@ export default function ProjectsExplorer() {
                             <div className="text-sm text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                                 {selectedFile.contentKey ? t(selectedFile.contentKey as any) :
                                     selectedFile.content ||
+                                    selectedFile.textContent ||
                                     (selectedFile.descriptionKey ? t(selectedFile.descriptionKey as any) : selectedFile.description)}
                             </div>
 
@@ -545,7 +475,7 @@ export default function ProjectsExplorer() {
                                 </a>
                             )}
 
-                            {(selectedFile.type === 'pdf' || selectedFile.type === 'video' || (selectedFile.type === 'app' && selectedFile.appId)) && (
+                            {(selectedFile.type === 'pdf' || selectedFile.type === 'video' || selectedFile.type === 'txt' || (selectedFile.type === 'app' && selectedFile.appId)) && (
                                 <button
                                     onClick={() => handleItemDoubleClick(selectedFile)}
                                     className="mt-auto flex items-center justify-center gap-2 w-full py-2 bg-blue-600 hover:bg-blue-500 text-white rounded transition-colors text-sm font-medium shadow-lg"

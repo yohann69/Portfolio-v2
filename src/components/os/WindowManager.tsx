@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-export type AppId = 'system-info' | 'projects' | 'experience' | 'gallery' | 'messenger' | 'settings' | 'snake' | 'about' | 'browser' | 'pdf-viewer' | 'video-player';
+export type AppId = 'system-info' | 'projects' | 'experience' | 'gallery' | 'messenger' | 'settings' | 'snake' | 'about' | 'browser' | 'pdf-viewer' | 'video-player' | 'text-editor';
 
 interface WindowState {
     id: AppId;
@@ -47,6 +47,7 @@ const initialWindows: Record<AppId, WindowState> = {
     'browser': { id: 'browser', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'Web Browser' },
     'pdf-viewer': { id: 'pdf-viewer', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'PDF Viewer' },
     'video-player': { id: 'video-player', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'Video Player' },
+    'text-editor': { id: 'text-editor', isOpen: false, isMinimized: false, isMaximized: false, zIndex: 0, title: 'Text Editor' },
 };
 
 export const WindowManagerProvider = ({ children }: { children: ReactNode }) => {

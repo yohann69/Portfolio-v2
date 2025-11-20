@@ -38,6 +38,7 @@ export const translations = {
         'app.pdf': 'PDF Viewer',
         'app.video': 'Video Player',
         'app.terminal': 'Terminal',
+        'app.texteditor': 'Text Editor',
 
         // Explorer
         'explorer.home': 'Home',
@@ -127,6 +128,7 @@ export const translations = {
         'app.pdf': 'Lecteur PDF',
         'app.video': 'Lecteur Vidéo',
         'app.terminal': 'Terminal',
+        'app.texteditor': 'Éditeur de texte',
 
         // Explorer
         'explorer.home': 'Accueil',
@@ -216,6 +218,7 @@ export const translations = {
         'app.pdf': 'PDF阅读器',
         'app.video': '视频播放器',
         'app.terminal': '终端',
+        'app.texteditor': '文本编辑器',
 
         // Explorer
         'explorer.home': '主页',
