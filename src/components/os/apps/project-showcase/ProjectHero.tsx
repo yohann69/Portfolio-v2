@@ -1,9 +1,11 @@
 import React, { useMemo } from 'react';
-import { ExternalLink, ChevronRight } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { GlassPanel } from './GlassPanel';
 import type { ProjectData } from './types';
+import { useSettings } from '@/context/SettingsContext';
 
 export function ProjectHero({ project }: { project: ProjectData }) {
+    const { t } = useSettings();
     const gradientText = useMemo(() => {
         const accent = project.colors.accent ?? project.colors.secondary;
         return `linear-gradient(90deg, ${project.colors.primary}, ${project.colors.secondary}, ${accent})`;
@@ -39,10 +41,10 @@ export function ProjectHero({ project }: { project: ProjectData }) {
                             </h1>
 
                             <p className="mt-3 text-xl md:text-2xl text-white/80 font-medium">
-                                {project.tagline}
+                                {t(project.taglineKey)}
                             </p>
                             <p className="mt-6 max-w-2xl text-base md:text-lg text-white/70 leading-relaxed">
-                                {project.description}
+                                {t(project.descriptionKey)}
                             </p>
 
                             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -53,12 +55,12 @@ export function ProjectHero({ project }: { project: ProjectData }) {
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 hover:bg-white/15 px-5 py-2.5 text-sm font-semibold transition-all"
                                     >
-                                        Open project
+                                        {t('showcase.open')}
                                         <ExternalLink className="w-4 h-4" />
                                     </a>
                                 ) : (
                                     <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-5 py-2.5 text-sm text-white/60">
-                                        Private link
+                                        {t('showcase.private')}
                                     </div>
                                 )}
                             </div>
@@ -83,10 +85,6 @@ export function ProjectHero({ project }: { project: ProjectData }) {
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="mt-10 flex items-center justify-center opacity-70">
-                        <ChevronRight className="w-6 h-6 rotate-90" />
                     </div>
                 </div>
             </GlassPanel>

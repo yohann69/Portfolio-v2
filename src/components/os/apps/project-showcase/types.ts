@@ -1,3 +1,5 @@
+import type { TranslationKey } from '@/utils/translations';
+
 export type ScreenshotAspect = 'portrait' | 'landscape';
 
 export interface TechStack {
@@ -12,21 +14,21 @@ export interface ProjectColors {
 }
 
 export interface ProjectStory {
-    title: string;
-    body: string[];
+    titleKey: TranslationKey;
+    bodyKeys: TranslationKey[];
 }
 
 export interface ProjectData {
     id: string;
     name: string;
-    tagline: string;
-    description: string;
+    taglineKey: TranslationKey;
+    descriptionKey: TranslationKey;
     story: ProjectStory;
     screenshots: string[];
     screenshotsAspect: ScreenshotAspect;
     techStack: TechStack;
     link?: string;
     colors: ProjectColors;
-    quote: string;
+    quoteKey: TranslationKey;
     year: string;
 }

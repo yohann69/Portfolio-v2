@@ -2,8 +2,10 @@ import React from 'react';
 import { Star } from 'lucide-react';
 import { GlassPanel } from './GlassPanel';
 import type { ProjectData } from './types';
+import { useSettings } from '@/context/SettingsContext';
 
 export function ProjectQuote({ project }: { project: ProjectData }) {
+    const { t } = useSettings();
     return (
         <div className="px-8 pb-10">
             <GlassPanel className="p-10 overflow-hidden relative">
@@ -19,7 +21,7 @@ export function ProjectQuote({ project }: { project: ProjectData }) {
                 <div className="relative text-center">
                     <Star className="w-10 h-10 mx-auto mb-5" style={{ color: project.colors.secondary }} />
                     <blockquote className="text-xl md:text-2xl font-semibold leading-relaxed text-white/85">
-                        “{project.quote}”
+                        “{t(project.quoteKey)}”
                     </blockquote>
                 </div>
             </GlassPanel>

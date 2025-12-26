@@ -1,5 +1,6 @@
 import React from 'react';
 import { Play } from 'lucide-react';
+import Image from 'next/image';
 import { GlassPanel } from './GlassPanel';
 import type { ProjectData } from './types';
 
@@ -31,13 +32,14 @@ export function ScreenshotsGrid({ project }: { project: ProjectData }) {
                             />
 
                             <div className={"relative " + aspectClass}>
-                                <img
+                                <Image
                                     src={src}
                                     alt={`${project.name} screenshot ${idx + 1}`}
-                                    className="absolute inset-0 h-full w-full object-cover"
+                                    fill
+                                    className="object-cover"
+                                    sizes="(max-width: 768px) 100vw, 33vw"
                                     onError={(e) => {
-                                        const img = e.currentTarget;
-                                        img.style.display = 'none';
+                                        (e.currentTarget as any).style.display = 'none';
                                     }}
                                 />
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import React, { useState, useMemo } from 'react';
 import {
     Folder,
@@ -353,12 +354,30 @@ export default function ProjectsExplorer() {
                                                 <FileText className="w-12 h-12 text-gray-500 dark:text-gray-400" />
                                             ) : item.type === 'image' ? (
                                                 item.image ? (
-                                                    <img src={item.image} alt={item.name} className="w-full h-full object-cover rounded shadow-sm" />
+                                                    <div className="relative w-full h-full">
+                                                        <Image
+                                                            src={item.image}
+                                                            alt={item.name}
+                                                            fill
+                                                            sizes="64px"
+                                                            unoptimized
+                                                            className="object-cover rounded shadow-sm"
+                                                        />
+                                                    </div>
                                                 ) : (
                                                     <ImageIcon className="w-12 h-12 text-pink-500 dark:text-pink-400" />
                                                 )
                                             ) : item.image ? (
-                                                <img src={item.image} alt={item.name} className="w-full h-full object-contain rounded shadow-sm" />
+                                                <div className="relative w-full h-full">
+                                                    <Image
+                                                        src={item.image}
+                                                        alt={item.name}
+                                                        fill
+                                                        sizes="64px"
+                                                        unoptimized
+                                                        className="object-contain rounded shadow-sm"
+                                                    />
+                                                </div>
                                             ) : (
                                                 <FileCode className="w-12 h-12 text-blue-500 dark:text-blue-400" />
                                             )}
@@ -447,9 +466,16 @@ export default function ProjectsExplorer() {
                     {/* Details Pane */}
                     {selectedFile && selectedFile.type !== 'folder' && (
                         <div className="w-72 bg-gray-50 dark:bg-[#202020] border-l border-gray-200 dark:border-[#1a1a1a] p-4 flex flex-col overflow-y-auto transition-colors duration-200">
-                            <div className="w-full aspect-video bg-black/5 dark:bg-black/20 rounded-lg mb-4 flex items-center justify-center overflow-hidden border border-black/5 dark:border-white/5">
+                            <div className="relative w-full aspect-video bg-black/5 dark:bg-black/20 rounded-lg mb-4 flex items-center justify-center overflow-hidden border border-black/5 dark:border-white/5">
                                 {selectedFile.image ? (
-                                    <img src={selectedFile.image} alt={selectedFile.name} className="w-full h-full object-contain" />
+                                    <Image
+                                        src={selectedFile.image}
+                                        alt={selectedFile.name}
+                                        fill
+                                        sizes="288px"
+                                        unoptimized
+                                        className="object-contain"
+                                    />
                                 ) : selectedFile.type === 'pdf' ? (
                                     <FileText className="w-12 h-12 text-red-500 dark:text-red-400" />
                                 ) : selectedFile.type === 'video' ? (

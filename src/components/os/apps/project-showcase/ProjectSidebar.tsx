@@ -3,6 +3,7 @@ import { Sparkles } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { GlassPanel } from './GlassPanel';
 import type { ProjectData } from './types';
+import { useSettings } from '@/context/SettingsContext';
 
 export function ProjectSidebar({
     projects,
@@ -15,15 +16,16 @@ export function ProjectSidebar({
     onSelect: (index: number) => void;
     accentColor: string;
 }) {
+    const { t } = useSettings();
     return (
         <div className="relative z-10 w-72 p-4">
             <GlassPanel className="h-full overflow-hidden shadow-[0_0_0_1px_rgba(255,255,255,0.06)]">
                 <div className="p-4 border-b border-white/10">
                     <h2 className="text-base font-semibold flex items-center gap-2">
                         <Sparkles className="w-5 h-5" style={{ color: accentColor }} />
-                        Selected work
+                        {t('showcase.title')}
                     </h2>
-                    <p className="text-xs text-white/60 mt-1">Product-grade UI, fast backends, strong taste.</p>
+                    <p className="text-xs text-white/60 mt-1">{t('showcase.subtitle')}</p>
                 </div>
 
                 <div className="p-3 flex flex-col gap-2">
@@ -63,7 +65,7 @@ export function ProjectSidebar({
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <div className="font-medium text-sm truncate">{proj.name}</div>
-                                        <div className="text-xs text-white/60 truncate">{proj.tagline}</div>
+                                        <div className="text-xs text-white/60 truncate">{t(proj.taglineKey)}</div>
                                     </div>
                                 </div>
                             </button>

@@ -1,8 +1,10 @@
 import React from 'react';
 import { GlassPanel } from './GlassPanel';
 import type { ProjectData } from './types';
+import { useSettings } from '@/context/SettingsContext';
 
 export function ProjectStory({ project }: { project: ProjectData }) {
+    const { t } = useSettings();
     return (
         <div className="px-8 pb-10">
             <GlassPanel className="p-10 overflow-hidden relative">
@@ -17,11 +19,11 @@ export function ProjectStory({ project }: { project: ProjectData }) {
                 />
 
                 <div className="relative">
-                    <h2 className="text-2xl md:text-3xl font-extrabold">{project.story.title}</h2>
+                    <h2 className="text-2xl md:text-3xl font-extrabold">{t(project.story.titleKey)}</h2>
                     <div className="mt-4 space-y-4 text-white/75 leading-relaxed">
-                        {project.story.body.map((p) => (
-                            <p key={p} className="text-base md:text-lg">
-                                {p}
+                        {project.story.bodyKeys.map((key) => (
+                            <p key={key} className="text-base md:text-lg">
+                                {t(key)}
                             </p>
                         ))}
                     </div>

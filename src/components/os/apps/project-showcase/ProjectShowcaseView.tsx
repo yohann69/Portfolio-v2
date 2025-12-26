@@ -7,9 +7,10 @@ import { PROJECTS } from './data';
 import { LavaBackground } from './LavaBackground';
 import { usePointerCssVars } from './usePointerCssVars';
 import { ProjectSidebar } from './ProjectSidebar';
+import { ProjectTopNav } from './ProjectTopNav';
 import { ProjectHero } from './ProjectHero';
 import { TechStackPanels } from './TechStackPanels';
-import { ScreenshotsGrid } from './ScreenshotsGrid';
+import { ScreenshotsCarousel } from './ScreenshotsCarousel';
 import { ProjectStory } from './ProjectStory';
 import { ProjectQuote } from './ProjectQuote';
 import { FooterNav } from './FooterNav';
@@ -59,31 +60,37 @@ export function ProjectShowcaseView({ projectId: propProjectId }: { projectId?: 
     return (
         <div
             ref={rootRef}
-            className="relative flex h-full w-full text-white overflow-hidden"
+            className="relative flex h-full w-full text-white overflow-hidden flex-col md:flex-row"
             onMouseMove={onMouseMove}
             onMouseLeave={onMouseLeave}
             style={cssVars}
         >
             <LavaBackground colors={project.colors} />
 
-            <ProjectSidebar
-                projects={PROJECTS}
-                selectedIndex={selectedIndex}
-                onSelect={handleSelect}
-                accentColor={project.colors.secondary}
-            />
+            <div className="md:hidden">
+                <ProjectTopNav projects={PROJECTS} selectedIndex={selectedIndex} onSelect={handleSelect} />
+            </div>
+
+            <div className="hidden md:block">
+                <ProjectSidebar
+                    projects={PROJECTS}
+                    selectedIndex={selectedIndex}
+                    onSelect={handleSelect}
+                    accentColor={project.colors.secondary}
+                />
+            </div>
 
             <div
                 ref={containerRef}
                 className={cn(
-                    'relative z-10 flex-1 overflow-y-auto transition-opacity duration-300',
+                    'relative z-10 flex-1 min-h-0 overflow-y-auto transition-opacity duration-300',
                     isAnimating ? 'opacity-0' : 'opacity-100'
                 )}
             >
                 <ProjectHero project={project} />
                 <TechStackPanels project={project} />
                 <ProjectStory project={project} />
-                <ScreenshotsGrid project={project} />
+                <ScreenshotsCarousel key={project.id} project={project} />
                 <ProjectQuote project={project} />
                 <FooterNav
                     projects={PROJECTS}

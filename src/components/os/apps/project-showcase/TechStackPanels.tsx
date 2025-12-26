@@ -2,6 +2,7 @@ import React from 'react';
 import { Code2, Database, Terminal } from 'lucide-react';
 import { GlassPanel } from './GlassPanel';
 import type { ProjectData } from './types';
+import { useSettings } from '@/context/SettingsContext';
 
 function TechPill({ icon, label }: { icon: React.ReactNode; label: string }) {
     return (
@@ -33,6 +34,7 @@ function getTechIcon(tech: string) {
 }
 
 export function TechStackPanels({ project }: { project: ProjectData }) {
+    const { t } = useSettings();
     return (
         <div className="px-8 py-10">
             <div className="grid lg:grid-cols-2 gap-6">
@@ -50,7 +52,7 @@ export function TechStackPanels({ project }: { project: ProjectData }) {
                             <div className="p-2.5 rounded-xl bg-white/10 border border-white/10">
                                 <Code2 className="w-5 h-5" />
                             </div>
-                            <h3 className="text-xl font-bold">Frontend</h3>
+                            <h3 className="text-xl font-bold">{t('showcase.frontend')}</h3>
                         </div>
 
                         <div className="flex flex-wrap gap-2">
@@ -75,7 +77,7 @@ export function TechStackPanels({ project }: { project: ProjectData }) {
                             <div className="p-2.5 rounded-xl bg-white/10 border border-white/10">
                                 <Database className="w-5 h-5" />
                             </div>
-                            <h3 className="text-xl font-bold">Backend</h3>
+                            <h3 className="text-xl font-bold">{t('showcase.backend')}</h3>
                         </div>
 
                         <div className="flex flex-wrap gap-2">
@@ -84,7 +86,7 @@ export function TechStackPanels({ project }: { project: ProjectData }) {
                                     <TechPill key={tech} icon={getTechIcon(tech)} label={tech} />
                                 ))
                             ) : (
-                                <span className="text-sm text-white/60">No backend for this project.</span>
+                                <span className="text-sm text-white/60">{t('showcase.noBackend')}</span>
                             )}
                         </div>
                     </div>
