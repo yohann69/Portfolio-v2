@@ -3,9 +3,11 @@
 import React from 'react';
 import Image from 'next/image';
 import { useSettings } from '@/context/SettingsContext';
+import { useWindowManager } from '../WindowManager';
 
 export default function SystemInfo() {
     const { t } = useSettings();
+    const { openWindow } = useWindowManager();
 
     return (
         <div className="p-8 text-white font-mono h-full bg-black/90">
@@ -13,16 +15,34 @@ export default function SystemInfo() {
                 {/* Profile Section */}
                 <div className="w-full md:w-1/3 flex flex-col items-center text-center border-r border-white/10 pr-8">
                     <div className="relative w-48 h-48 mb-6 rounded-full overflow-hidden border-2 border-green-500/50 shadow-[0_0_20px_rgba(34,197,94,0.2)]">
-                        <Image 
-                            src="/mevertical.jpg" 
-                            alt="Yohann CHAVANEL" 
-                            width={192} 
-                            height={192} 
-                            className="object-cover w-full h-full" 
+                        <Image
+                            src="/mevertical.jpg"
+                            alt="Yohann CHAVANEL"
+                            width={192}
+                            height={192}
+                            className="object-cover w-full h-full"
                         />
                     </div>
                     <h1 className="text-2xl font-bold text-green-400 mb-2">Yohann CHAVANEL</h1>
                     <p className="text-sm text-gray-400 mb-4">{t('sysinfo.job.title')}</p>
+
+                    <div className="w-full flex flex-col gap-2 mb-4">
+                        <button
+                            type="button"
+                            onClick={() => openWindow('projects')}
+                            className="w-full rounded-md border border-green-500/30 bg-green-500/10 hover:bg-green-500/15 text-green-200 text-sm py-2 transition-colors"
+                        >
+                            {t('sysinfo.openProjects')}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => openWindow('experience')}
+                            className="w-full rounded-md border border-green-500/30 bg-green-500/10 hover:bg-green-500/15 text-green-200 text-sm py-2 transition-colors"
+                        >
+                            {t('sysinfo.openTimeline')}
+                        </button>
+                    </div>
+
                     <div className="w-full h-px bg-white/10 my-4" />
                     <div className="text-xs text-left w-full space-y-2 text-gray-300">
                         <p><span className="text-green-500">{t('sysinfo.role')}:</span> Alternant Développeur</p>

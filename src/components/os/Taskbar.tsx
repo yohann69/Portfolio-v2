@@ -66,22 +66,26 @@ export const Taskbar = () => {
 
     return (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[100]">
-            <motion.div
-                onMouseMove={(e) => mouseX.set(e.pageX)}
-                onMouseLeave={() => mouseX.set(Infinity)}
-                className="flex items-end gap-3 px-4 py-3 bg-black/5 dark:bg-white/5 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-3xl shadow-2xl"
-            >
-                {apps.map((app) => (
-                    <DockIcon
-                        key={app.id}
-                        mouseX={mouseX}
-                        app={app}
-                        isOpen={windows[app.id].isOpen}
-                        isActive={activeWindowId === app.id}
-                        onClick={() => openWindow(app.id)}
-                    />
-                ))}
-            </motion.div>
+            <div className="relative h-20 w-fit overflow-visible">
+                <div className="absolute inset-0 bg-black/5 dark:bg-white/5 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-3xl shadow-2xl" />
+
+                <motion.div
+                    onMouseMove={(e) => mouseX.set(e.pageX)}
+                    onMouseLeave={() => mouseX.set(Infinity)}
+                    className="relative z-10 flex items-end gap-3 px-4 h-full overflow-visible pt-2 pb-3"
+                >
+                    {apps.map((app) => (
+                        <DockIcon
+                            key={app.id}
+                            mouseX={mouseX}
+                            app={app}
+                            isOpen={windows[app.id].isOpen}
+                            isActive={activeWindowId === app.id}
+                            onClick={() => openWindow(app.id)}
+                        />
+                    ))}
+                </motion.div>
+            </div>
         </div>
     );
 };
