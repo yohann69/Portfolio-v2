@@ -2,13 +2,14 @@
 
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, MotionValue } from 'framer-motion';
-import { Terminal, FolderOpen, Clock, Image as ImageIcon, MessageSquare, Settings, Gamepad2 } from 'lucide-react';
+import { Terminal, FolderOpen, Clock, Image as ImageIcon, MessageSquare, Settings, Gamepad2, Sparkles } from 'lucide-react';
 import { useWindowManager, AppId } from './WindowManager';
 import { cn } from '@/utils/cn';
 
 const apps = [
     { id: 'system-info', icon: Terminal, label: 'System Info' },
     { id: 'projects', icon: FolderOpen, label: 'Projects' },
+    { id: 'project-showcase', icon: Sparkles, label: 'Showcase' },
     { id: 'experience', icon: Clock, label: 'Timeline' },
     { id: 'gallery', icon: ImageIcon, label: 'Gallery' },
     { id: 'messenger', icon: MessageSquare, label: 'Contact' },

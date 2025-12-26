@@ -88,6 +88,8 @@ export default function ProjectsExplorer() {
                 const newPath = currentPath === '/' ? `/${item.id}` : `${currentPath}/${item.id}`;
                 navigate(newPath);
             }
+        } else if (item.type === 'project' && item.appId) {
+            openWindow(item.appId as any, { projectId: item.id });
         } else if (item.type === 'app' && item.appId) {
             openWindow(item.appId as any, { url: item.url });
         } else if (item.type === 'pdf') {

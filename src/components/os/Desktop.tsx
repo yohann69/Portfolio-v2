@@ -8,6 +8,7 @@ import { TopBar } from './TopBar';
 import { Window } from './Window';
 import SystemInfo from './apps/SystemInfo';
 import ProjectsExplorer from './apps/ProjectsExplorer';
+import ProjectShowcase from './apps/ProjectShowcase';
 import ExperienceLog from './apps/ExperienceLog';
 import Gallery from './apps/Gallery';
 import Messenger from './apps/Messenger';
@@ -93,6 +94,9 @@ const DesktopContent = () => {
                             </Window>
                             <Window id="text-editor" initialPosition={{ x: 250, y: 200 }} initialSize={{ width: 600, height: 400 }}>
                                 <TextEditor />
+                            </Window>
+                            <Window id="project-showcase" initialPosition={{ x: 100, y: 50 }} initialSize={{ width: 1200, height: 800 }}>
+                                <ProjectShowcase />
                             </Window>
                         </div>
                     </div>                        <Taskbar />
