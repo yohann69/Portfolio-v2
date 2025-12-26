@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { ExternalLink } from 'lucide-react';
+import Image from 'next/image';
 import { GlassPanel } from './GlassPanel';
 import type { ProjectData } from './types';
 import { useSettings } from '@/context/SettingsContext';
@@ -66,9 +67,9 @@ export function ProjectHero({ project }: { project: ProjectData }) {
                             </div>
                         </div>
 
-                        <div className="hidden md:block">
+                        <div className="block">
                             <div
-                                className="relative h-28 w-28 rounded-3xl border border-white/15 bg-white/10 backdrop-blur-2xl shadow-2xl"
+                                className="relative h-20 w-20 md:h-28 md:w-28 rounded-3xl border border-white/15 bg-white/10 backdrop-blur-2xl shadow-2xl"
                                 style={{
                                     transform: 'translate(calc(var(--mx) * -6px), calc(var(--my) * -6px))',
                                 }}
@@ -80,8 +81,19 @@ export function ProjectHero({ project }: { project: ProjectData }) {
                                         filter: 'blur(18px)',
                                     }}
                                 />
-                                <div className="relative h-full w-full flex items-center justify-center text-3xl font-black">
-                                    {project.name.substring(0, 2).toUpperCase()}
+                                <div className="relative h-full w-full flex items-center justify-center">
+                                    {project.logoSrc ? (
+                                        <Image
+                                            src={project.logoSrc}
+                                            alt={`${project.name} logo`}
+                                            width={72}
+                                            height={72}
+                                            className="object-contain"
+                                            priority
+                                        />
+                                    ) : (
+                                        <div className="text-3xl font-black">{project.name.substring(0, 2).toUpperCase()}</div>
+                                    )}
                                 </div>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import { GlassPanel } from './GlassPanel';
@@ -9,6 +9,8 @@ import { cn } from '@/utils/cn';
 export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
     const { t } = useSettings();
     const [index, setIndex] = useState(0);
+    const scrollerRef = useRef<HTMLDivElement>(null);
+    const rafRef = useRef<number | null>(null);
 
     useEffect(() => {
         setIndex(0);
@@ -25,6 +27,50 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
     const next = () => setIndex((v) => (v + 1) % total);
 
     if (total === 0) return null;
+
+    const aspectClass = project.screenshotsAspect === 'portrait' ? 'aspect-[9/16]' : 'aspect-video';
+
+    const scrollToIndex = (i: number) => {
+        const el = scrollerRef.current;
+        if (!el) return;
+        const slides = Array.from(el.querySelectorAll<HTMLElement>('[data-slide]'));
+        const slide = slides[i];
+        slide?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+    };
+
+    const handlePrev = () => {
+        const nextIndex = (index - 1 + total) % total;
+        setIndex(nextIndex);
+        scrollToIndex(nextIndex);
+    };
+
+    const handleNext = () => {
+        const nextIndex = (index + 1) % total;
+        setIndex(nextIndex);
+        scrollToIndex(nextIndex);
+    };
+
+    const onScroll = () => {
+        const el = scrollerRef.current;
+        if (!el) return;
+
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        rafRef.current = requestAnimationFrame(() => {
+            const slides = Array.from(el.querySelectorAll<HTMLElement>('[data-slide]'));
+            if (slides.length === 0) return;
+            const current = el.scrollLeft;
+            let bestIndex = 0;
+            let bestDist = Number.POSITIVE_INFINITY;
+            for (let i = 0; i < slides.length; i++) {
+                const dist = Math.abs(slides[i].offsetLeft - current);
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    bestIndex = i;
+                }
+            }
+            setIndex(bestIndex);
+        });
+    };
 
     return (
         <div className="px-8 pb-10">
@@ -50,14 +96,14 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                         {total > 1 ? (
                             <div className="hidden sm:flex items-center gap-2">
                                 <button
-                                    onClick={prev}
+                                    onClick={handlePrev}
                                     className="h-9 w-9 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 grid place-items-center transition"
                                     aria-label="Previous"
                                 >
                                     <ChevronLeft className="w-5 h-5" />
                                 </button>
                                 <button
-                                    onClick={next}
+                                    onClick={handleNext}
                                     className="h-9 w-9 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 grid place-items-center transition"
                                     aria-label="Next"
                                 >
@@ -71,27 +117,40 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                 <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/20">
                     <div className="absolute inset-0" style={{ background: overlayGradient }} />
 
-                    {/* Fixed size carousel viewport (all slides share the same size) */}
-                    <div className="relative aspect-video">
-                        <div
-                            className="absolute inset-0 flex transition-transform duration-500 ease-out"
-                            style={{ transform: `translateX(-${index * 100}%)` }}
-                        >
-                            {project.screenshots.map((s, i) => (
-                                <div key={s} className="relative h-full w-full shrink-0">
+                    {/* Slider: show ~1.5 slides to hint horizontal scrolling */}
+                    <div
+                        ref={scrollerRef}
+                        onScroll={onScroll}
+                        className={cn(
+                            'relative z-10 flex gap-4 overflow-x-auto scroll-smooth px-4 py-4',
+                            'snap-x snap-mandatory',
+                            '[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'
+                        )}
+                    >
+                        {project.screenshots.map((s, i) => (
+                            <div
+                                key={s}
+                                data-slide
+                                className={cn(
+                                    'snap-start shrink-0 basis-2/3 sm:basis-2/3',
+                                    'rounded-xl border bg-black/25 overflow-hidden',
+                                    i === index ? 'border-white/20' : 'border-white/10'
+                                )}
+                            >
+                                <div className={cn('relative w-full', aspectClass)}>
                                     <Image
                                         src={s}
                                         alt={`${project.name} screenshot ${i + 1}`}
                                         fill
                                         className="object-contain"
-                                        sizes="(max-width: 1024px) 100vw, 900px"
+                                        sizes="(max-width: 640px) 70vw, 45vw"
                                         onError={(e) => {
                                             (e.currentTarget as any).style.display = 'none';
                                         }}
                                     />
                                 </div>
-                            ))}
-                        </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
@@ -119,14 +178,14 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
 
                         <div className="flex sm:hidden items-center gap-2">
                             <button
-                                onClick={prev}
+                                onClick={handlePrev}
                                 className="h-9 w-9 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 grid place-items-center transition"
                                 aria-label="Previous"
                             >
                                 <ChevronLeft className="w-5 h-5" />
                             </button>
                             <button
-                                onClick={next}
+                                onClick={handleNext}
                                 className="h-9 w-9 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 grid place-items-center transition"
                                 aria-label="Next"
                             >

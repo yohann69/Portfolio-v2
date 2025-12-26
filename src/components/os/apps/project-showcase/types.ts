@@ -21,6 +21,7 @@ export interface ProjectStory {
 export interface ProjectData {
     id: string;
     name: string;
+    logoSrc?: string;
     taglineKey: TranslationKey;
     descriptionKey: TranslationKey;
     story: ProjectStory;
