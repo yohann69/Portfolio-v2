@@ -337,6 +337,10 @@ export default function ProjectsExplorer() {
                                         <div className="w-16 h-16 flex items-center justify-center">
                                             {item.type === 'folder' ? (
                                                 <Folder className="w-14 h-14 text-yellow-500 dark:text-yellow-400 fill-yellow-500/20 dark:fill-yellow-400/20" />
+                                            ) : item.type === 'project' ? (
+                                                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-700 rounded-xl flex items-center justify-center shadow-lg">
+                                                    <Globe className="w-8 h-8 text-white" />
+                                                </div>
                                             ) : item.type === 'app' ? (
                                                 <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-700 rounded-xl flex items-center justify-center shadow-lg">
                                                     {item.icon ? <item.icon className="w-8 h-8 text-white" /> : <Gamepad2 className="w-8 h-8 text-white" />}
@@ -400,6 +404,8 @@ export default function ProjectsExplorer() {
                                         <div className="flex items-center gap-2">
                                             {item.type === 'folder' ? (
                                                 <Folder className="w-4 h-4 text-yellow-500 dark:text-yellow-400" />
+                                            ) : item.type === 'project' ? (
+                                                <Globe className="w-4 h-4 text-blue-500 dark:text-blue-400" />
                                             ) : item.type === 'app' ? (
                                                 <Gamepad2 className="w-4 h-4 text-green-500 dark:text-green-400" />
                                             ) : item.type === 'pdf' ? (
@@ -493,7 +499,7 @@ export default function ProjectsExplorer() {
                                 </a>
                             )}
 
-                            {(selectedFile.type === 'pdf' || selectedFile.type === 'video' || selectedFile.type === 'txt' || (selectedFile.type === 'app' && selectedFile.appId)) && (
+                            {(selectedFile.type === 'project' || selectedFile.type === 'pdf' || selectedFile.type === 'video' || selectedFile.type === 'txt' || (selectedFile.type === 'app' && selectedFile.appId)) && (
                                 <button
                                     onClick={() => handleItemDoubleClick(selectedFile)}
                                     className="mt-auto flex items-center justify-center gap-2 w-full py-2 bg-blue-600 hover:bg-blue-500 text-white rounded transition-colors text-sm font-medium shadow-lg"
