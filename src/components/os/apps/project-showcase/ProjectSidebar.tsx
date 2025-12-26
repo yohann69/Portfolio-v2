@@ -1,5 +1,6 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
+import Image from 'next/image';
 import { cn } from '@/utils/cn';
 import { GlassPanel } from './GlassPanel';
 import type { ProjectData } from './types';
@@ -61,7 +62,17 @@ export function ProjectSidebar({
                                             background: itemGradient,
                                         }}
                                     >
-                                        {proj.name.substring(0, 2).toUpperCase()}
+                                        {proj.logoSrc ? (
+                                            <Image
+                                                src={proj.logoSrc}
+                                                alt={`${proj.name} logo`}
+                                                width={28}
+                                                height={28}
+                                                className="object-contain"
+                                            />
+                                        ) : (
+                                            proj.name.substring(0, 2).toUpperCase()
+                                        )}
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <div className="font-medium text-sm truncate">{proj.name}</div>

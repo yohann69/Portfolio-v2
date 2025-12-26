@@ -11,9 +11,26 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
     const [index, setIndex] = useState(0);
     const scrollerRef = useRef<HTMLDivElement>(null);
     const rafRef = useRef<number | null>(null);
+    const [ratios, setRatios] = useState<Record<string, number>>({});
 
     useEffect(() => {
         setIndex(0);
+    }, [project.id]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+
+        project.screenshots.forEach((src) => {
+            if (ratios[src]) return;
+            const img = new window.Image();
+            img.src = src;
+            img.onload = () => {
+                const w = img.naturalWidth || 1;
+                const h = img.naturalHeight || 1;
+                setRatios((prev) => ({ ...prev, [src]: w / h }));
+            };
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [project.id]);
 
     const total = project.screenshots.length;
@@ -23,12 +40,7 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
         return `linear-gradient(135deg, ${project.colors.primary}55, ${project.colors.secondary}35, ${(project.colors.accent ?? project.colors.secondary)}30)`;
     }, [project.colors.accent, project.colors.primary, project.colors.secondary]);
 
-    const prev = () => setIndex((v) => (v - 1 + total) % total);
-    const next = () => setIndex((v) => (v + 1) % total);
-
     if (total === 0) return null;
-
-    const aspectClass = project.screenshotsAspect === 'portrait' ? 'aspect-[9/16]' : 'aspect-video';
 
     const scrollToIndex = (i: number) => {
         const el = scrollerRef.current;
@@ -122,7 +134,7 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                         ref={scrollerRef}
                         onScroll={onScroll}
                         className={cn(
-                            'relative z-10 flex gap-4 overflow-x-auto scroll-smooth px-4 py-4',
+                            'relative z-10 flex gap-6 overflow-x-auto scroll-smooth px-6 py-5',
                             'snap-x snap-mandatory',
                             '[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'
                         )}
@@ -132,18 +144,19 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                                 key={s}
                                 data-slide
                                 className={cn(
-                                    'snap-start shrink-0 basis-2/3 sm:basis-2/3',
+                                    'snap-start shrink-0',
                                     'rounded-xl border bg-black/25 overflow-hidden',
                                     i === index ? 'border-white/20' : 'border-white/10'
                                 )}
                             >
-                                <div className={cn('relative w-full', aspectClass)}>
+                                <div className="px-3 py-3">
                                     <Image
                                         src={s}
                                         alt={`${project.name} screenshot ${i + 1}`}
-                                        fill
-                                        className="object-contain"
-                                        sizes="(max-width: 640px) 70vw, 45vw"
+                                        width={Math.max(1, Math.round((ratios[s] ?? 1) * 360))}
+                                        height={360}
+                                        className="block h-[260px] sm:h-[300px] md:h-[340px] w-auto max-w-none rounded-lg object-contain"
+                                        sizes="(max-width: 640px) 80vw, 60vw"
                                         onError={(e) => {
                                             (e.currentTarget as any).style.display = 'none';
                                         }}
