@@ -12,8 +12,10 @@ export const TopBar = () => {
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
     const [showCalendar, setShowCalendar] = useState(false);
     const { theme, setTheme, language, setLanguage, t } = useSettings();
-    const { openWindow } = useWindowManager();
+    const { openWindow, windows } = useWindowManager();
     const menuRef = useRef<HTMLDivElement>(null);
+
+    const isAnyWindowMaximized = Object.values(windows).some((w) => w.isOpen && w.isMaximized);
 
     const [displayDate, setDisplayDate] = useState(new Date());
 
@@ -134,7 +136,13 @@ export const TopBar = () => {
     };
 
     return (
-        <div className="fixed top-0 left-0 right-0 h-8 bg-white/50 dark:bg-black/20 backdrop-blur-md border-b border-black/5 dark:border-white/5 flex items-center justify-between px-4 z-50 select-none text-xs font-medium text-black/80 dark:text-white/80 transition-colors duration-200" ref={menuRef}>
+        <div
+            className={
+                `fixed top-0 left-0 right-0 h-8 bg-white/50 dark:bg-black/20 backdrop-blur-md border-b border-black/5 dark:border-white/5 flex items-center justify-between px-4 select-none text-xs font-medium text-black/80 dark:text-white/80 transition-colors transition-opacity duration-200 ` +
+                (isAnyWindowMaximized ? 'z-0 opacity-0 pointer-events-none' : 'z-50 opacity-100')
+            }
+            ref={menuRef}
+        >
             <div className="flex items-center gap-1">
                 <div className="relative">
                     <div

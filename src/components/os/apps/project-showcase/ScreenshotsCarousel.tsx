@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Image from 'next/image';
+import { AnimatePresence, motion } from 'framer-motion';
 import { GlassPanel } from './GlassPanel';
 import type { ProjectData } from './types';
 import { useSettings } from '@/context/SettingsContext';
@@ -11,6 +12,7 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
     const [index, setIndex] = useState(0);
     const [screenshots, setScreenshots] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [viewerIndex, setViewerIndex] = useState<number | null>(null);
     const scrollerRef = useRef<HTMLDivElement>(null);
     const rafRef = useRef<number | null>(null);
     const [ratios, setRatios] = useState<Record<string, number>>({});
@@ -67,11 +69,53 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
     }, [screenshots]);
 
     const total = screenshots.length;
-    const src = screenshots[index];
+    const viewerTotal = screenshots.length;
+    const viewerSrc = viewerIndex === null ? null : screenshots[viewerIndex];
 
     const overlayGradient = useMemo(() => {
         return `linear-gradient(135deg, ${project.colors.primary}55, ${project.colors.secondary}35, ${(project.colors.accent ?? project.colors.secondary)}30)`;
     }, [project.colors.accent, project.colors.primary, project.colors.secondary]);
+
+    const openViewer = (i: number) => {
+        setViewerIndex(i);
+    };
+
+    const closeViewer = () => {
+        setViewerIndex(null);
+    };
+
+    const viewerPrev = useCallback(() => {
+        setViewerIndex((prev) => {
+            if (prev === null) return prev;
+            return prev <= 0 ? prev : prev - 1;
+        });
+    }, []);
+
+    const viewerNext = useCallback(() => {
+        setViewerIndex((prev) => {
+            if (prev === null) return prev;
+            return prev >= viewerTotal - 1 ? prev : prev + 1;
+        });
+    }, [viewerTotal]);
+
+    useEffect(() => {
+        if (viewerIndex === null) return;
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') closeViewer();
+            if (e.key === 'ArrowLeft') viewerPrev();
+            if (e.key === 'ArrowRight') viewerNext();
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            document.body.style.overflow = previousOverflow;
+        };
+    }, [viewerIndex, viewerNext, viewerPrev]);
 
     if (isLoading || total === 0) return null;
 
@@ -190,6 +234,15 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                                     height={360}
                                     className="block h-[260px] sm:h-[300px] md:h-[340px] w-auto max-w-none object-contain"
                                     sizes="(max-width: 640px) 80vw, 60vw"
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={() => openViewer(i)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                            e.preventDefault();
+                                            openViewer(i);
+                                        }
+                                    }}
                                     onError={(e) => {
                                         (e.currentTarget as any).style.display = 'none';
                                     }}
@@ -253,6 +306,80 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                     </div>
                 ) : null}
             </GlassPanel>
+
+            <AnimatePresence>
+                {viewerIndex !== null && viewerSrc ? (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[1000] bg-black/95"
+                        onClick={closeViewer}
+                    >
+                        <button
+                            className="absolute top-4 right-4 text-white/70 hover:text-white p-2 z-[1001]"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                closeViewer();
+                            }}
+                            aria-label="Close"
+                        >
+                            <X className="w-8 h-8" />
+                        </button>
+
+                        <button
+                            className={cn(
+                                'absolute left-4 top-1/2 -translate-y-1/2 p-2 z-[1001] transition-colors',
+                                viewerIndex === 0
+                                    ? 'text-white/30 cursor-not-allowed'
+                                    : 'text-white/60 hover:text-white'
+                            )}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                viewerPrev();
+                            }}
+                            disabled={viewerIndex === 0}
+                            aria-label="Previous"
+                        >
+                            <ChevronLeft className="w-12 h-12" />
+                        </button>
+
+                        <button
+                            className={cn(
+                                'absolute right-4 top-1/2 -translate-y-1/2 p-2 z-[1001] transition-colors',
+                                viewerIndex === viewerTotal - 1
+                                    ? 'text-white/30 cursor-not-allowed'
+                                    : 'text-white/60 hover:text-white'
+                            )}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                viewerNext();
+                            }}
+                            disabled={viewerIndex === viewerTotal - 1}
+                            aria-label="Next"
+                        >
+                            <ChevronRight className="w-12 h-12" />
+                        </button>
+
+                        <div className="absolute inset-0 flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+                            <div className="relative w-full h-full">
+                                <Image
+                                    src={viewerSrc}
+                                    alt={`${project.name} screenshot ${viewerIndex + 1}`}
+                                    fill
+                                    sizes="100vw"
+                                    className="object-contain select-none"
+                                    priority
+                                />
+                            </div>
+                        </div>
+
+                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 text-sm z-[1001]">
+                            {viewerIndex + 1} / {viewerTotal}
+                        </div>
+                    </motion.div>
+                ) : null}
+            </AnimatePresence>
         </div>
     );
 }

@@ -68,7 +68,7 @@ export const Window = ({ id, children, initialPosition = { x: 50, y: 50 }, initi
             dragControls={dragControls}
             dragListener={false}
             dragMomentum={false}
-            dragConstraints={{ top: 32 }}
+            dragConstraints={{ top: 0 }}
             dragElastic={0}
             initial={{
                 opacity: 0,
