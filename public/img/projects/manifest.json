@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "generatedAt": "2025-12-27T16:02:47.409Z",
+  "projects": {
+    "ade": [
+      "/img/projects/ade/01.png",
+      "/img/projects/ade/02.png",
+      "/img/projects/ade/03.png"
+    ],
+    "adn": [
+      "/img/projects/adn/01.png",
+      "/img/projects/adn/02.png",
+      "/img/projects/adn/03.png",
+      "/img/projects/adn/04.png",
+      "/img/projects/adn/05.png",
+      "/img/projects/adn/06.png"
+    ],
+    "destimt": [
+      "/img/projects/destimt/01.png",
+      "/img/projects/destimt/02.png",
+      "/img/projects/destimt/03.png",
+      "/img/projects/destimt/04.png",
+      "/img/projects/destimt/05.png",
+      "/img/projects/destimt/06.png",
+      "/img/projects/destimt/07.png"
+    ],
+    "transat": [
+      "/img/projects/transat/01.png",
+      "/img/projects/transat/02.png",
+      "/img/projects/transat/03.png",
+      "/img/projects/transat/04.png",
+      "/img/projects/transat/05.png"
+    ],
+    "voyo": []
+  }
+}

@@ -25,11 +25,12 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
             setIndex(0);
 
             try {
-                const res = await fetch(`/api/project-images?projectId=${encodeURIComponent(project.id)}`);
-                if (!res.ok) throw new Error('Failed to fetch project images');
+                const res = await fetch('/img/projects/manifest.json', { cache: 'no-store' });
+                if (!res.ok) throw new Error('Failed to fetch project images manifest');
 
-                const data = (await res.json()) as { images?: unknown };
-                const images = Array.isArray(data.images) ? (data.images.filter((x) => typeof x === 'string') as string[]) : [];
+                const data = (await res.json()) as { projects?: Record<string, unknown> };
+                const raw = data.projects?.[project.id];
+                const images = Array.isArray(raw) ? (raw.filter((x) => typeof x === 'string') as string[]) : [];
 
                 if (!cancelled) {
                     setScreenshots(images);
