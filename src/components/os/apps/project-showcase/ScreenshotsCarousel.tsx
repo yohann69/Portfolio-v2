@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { GlassPanel } from './GlassPanel';
 import type { ProjectData } from './types';
@@ -84,13 +84,15 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
     };
 
     const handlePrev = () => {
-        const nextIndex = (index - 1 + total) % total;
+        if (index <= 0) return;
+        const nextIndex = index - 1;
         setIndex(nextIndex);
         scrollToIndex(nextIndex);
     };
 
     const handleNext = () => {
-        const nextIndex = (index + 1) % total;
+        if (index >= total - 1) return;
+        const nextIndex = index + 1;
         setIndex(nextIndex);
         scrollToIndex(nextIndex);
     };
@@ -127,29 +129,28 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <a
-                            href={src}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="h-9 px-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 inline-flex items-center gap-2 text-sm transition"
-                            aria-label={t('showcase.preview')}
-                        >
-                            {t('showcase.preview')}
-                            <ExternalLink className="w-4 h-4" />
-                        </a>
-
                         {total > 1 ? (
                             <div className="hidden sm:flex items-center gap-2">
                                 <button
                                     onClick={handlePrev}
-                                    className="h-9 w-9 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 grid place-items-center transition"
+                                    disabled={index === 0}
+                                    className={cn(
+                                        'h-9 w-9 rounded-full border border-white/10 grid place-items-center transition',
+                                        index === 0 ? 'bg-white/5 opacity-50 cursor-not-allowed' : 'bg-white/5 hover:bg-white/10'
+                                    )}
                                     aria-label="Previous"
                                 >
                                     <ChevronLeft className="w-5 h-5" />
                                 </button>
                                 <button
                                     onClick={handleNext}
-                                    className="h-9 w-9 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 grid place-items-center transition"
+                                    disabled={index === total - 1}
+                                    className={cn(
+                                        'h-9 w-9 rounded-full border border-white/10 grid place-items-center transition',
+                                        index === total - 1
+                                            ? 'bg-white/5 opacity-50 cursor-not-allowed'
+                                            : 'bg-white/5 hover:bg-white/10'
+                                    )}
                                     aria-label="Next"
                                 >
                                     <ChevronRight className="w-5 h-5" />
@@ -167,7 +168,7 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                         ref={scrollerRef}
                         onScroll={onScroll}
                         className={cn(
-                            'relative z-10 flex gap-6 overflow-x-auto scroll-smooth px-6 py-5',
+                            'relative z-10 flex gap-4 overflow-x-auto scroll-smooth p-0',
                             'snap-x snap-mandatory',
                             '[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'
                         )}
@@ -182,19 +183,17 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                                     i === index ? 'border-white/20' : 'border-white/10'
                                 )}
                             >
-                                <div className="px-3 py-3">
-                                    <Image
-                                        src={s}
-                                        alt={`${project.name} screenshot ${i + 1}`}
-                                        width={Math.max(1, Math.round((ratios[s] ?? 1) * 360))}
-                                        height={360}
-                                        className="block h-[260px] sm:h-[300px] md:h-[340px] w-auto max-w-none rounded-lg object-contain"
-                                        sizes="(max-width: 640px) 80vw, 60vw"
-                                        onError={(e) => {
-                                            (e.currentTarget as any).style.display = 'none';
-                                        }}
-                                    />
-                                </div>
+                                <Image
+                                    src={s}
+                                    alt={`${project.name} screenshot ${i + 1}`}
+                                    width={Math.max(1, Math.round((ratios[s] ?? 1) * 360))}
+                                    height={360}
+                                    className="block h-[260px] sm:h-[300px] md:h-[340px] w-auto max-w-none object-contain"
+                                    sizes="(max-width: 640px) 80vw, 60vw"
+                                    onError={(e) => {
+                                        (e.currentTarget as any).style.display = 'none';
+                                    }}
+                                />
                             </div>
                         ))}
                     </div>
@@ -228,14 +227,24 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                         <div className="flex sm:hidden items-center gap-2">
                             <button
                                 onClick={handlePrev}
-                                className="h-9 w-9 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 grid place-items-center transition"
+                                disabled={index === 0}
+                                className={cn(
+                                    'h-9 w-9 rounded-full border border-white/10 grid place-items-center transition',
+                                    index === 0 ? 'bg-white/5 opacity-50 cursor-not-allowed' : 'bg-white/5 hover:bg-white/10'
+                                )}
                                 aria-label="Previous"
                             >
                                 <ChevronLeft className="w-5 h-5" />
                             </button>
                             <button
                                 onClick={handleNext}
-                                className="h-9 w-9 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 grid place-items-center transition"
+                                disabled={index === total - 1}
+                                className={cn(
+                                    'h-9 w-9 rounded-full border border-white/10 grid place-items-center transition',
+                                    index === total - 1
+                                        ? 'bg-white/5 opacity-50 cursor-not-allowed'
+                                        : 'bg-white/5 hover:bg-white/10'
+                                )}
                                 aria-label="Next"
                             >
                                 <ChevronRight className="w-5 h-5" />
