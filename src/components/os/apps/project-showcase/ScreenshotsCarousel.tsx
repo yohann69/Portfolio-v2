@@ -9,18 +9,51 @@ import { cn } from '@/utils/cn';
 export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
     const { t } = useSettings();
     const [index, setIndex] = useState(0);
+    const [screenshots, setScreenshots] = useState<string[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
     const scrollerRef = useRef<HTMLDivElement>(null);
     const rafRef = useRef<number | null>(null);
     const [ratios, setRatios] = useState<Record<string, number>>({});
 
     useEffect(() => {
-        setIndex(0);
+        let cancelled = false;
+
+        async function load() {
+            setIsLoading(true);
+            setIndex(0);
+
+            try {
+                const res = await fetch(`/api/project-images?projectId=${encodeURIComponent(project.id)}`);
+                if (!res.ok) throw new Error('Failed to fetch project images');
+
+                const data = (await res.json()) as { images?: unknown };
+                const images = Array.isArray(data.images) ? (data.images.filter((x) => typeof x === 'string') as string[]) : [];
+
+                if (!cancelled) {
+                    setScreenshots(images);
+                }
+            } catch {
+                if (!cancelled) {
+                    setScreenshots([]);
+                }
+            } finally {
+                if (!cancelled) {
+                    setIsLoading(false);
+                }
+            }
+        }
+
+        load();
+
+        return () => {
+            cancelled = true;
+        };
     }, [project.id]);
 
     useEffect(() => {
         if (typeof window === 'undefined') return;
 
-        project.screenshots.forEach((src) => {
+        screenshots.forEach((src) => {
             if (ratios[src]) return;
             const img = new window.Image();
             img.src = src;
@@ -31,16 +64,16 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
             };
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [project.id]);
+    }, [screenshots]);
 
-    const total = project.screenshots.length;
-    const src = project.screenshots[index];
+    const total = screenshots.length;
+    const src = screenshots[index];
 
     const overlayGradient = useMemo(() => {
         return `linear-gradient(135deg, ${project.colors.primary}55, ${project.colors.secondary}35, ${(project.colors.accent ?? project.colors.secondary)}30)`;
     }, [project.colors.accent, project.colors.primary, project.colors.secondary]);
 
-    if (total === 0) return null;
+    if (isLoading || total === 0) return null;
 
     const scrollToIndex = (i: number) => {
         const el = scrollerRef.current;
@@ -139,7 +172,7 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                             '[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'
                         )}
                     >
-                        {project.screenshots.map((s, i) => (
+                        {screenshots.map((s, i) => (
                             <div
                                 key={s}
                                 data-slide
@@ -174,10 +207,13 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                         </div>
 
                         <div className="flex items-center gap-1.5">
-                            {project.screenshots.map((_, i) => (
+                            {screenshots.map((_, i) => (
                                 <button
                                     key={i}
-                                    onClick={() => setIndex(i)}
+                                    onClick={() => {
+                                        setIndex(i);
+                                        scrollToIndex(i);
+                                    }}
                                     className={cn(
                                         'h-1.5 w-6 rounded-full transition border',
                                         i === index
