@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { Monitor, Mail, Linkedin, Github, FileText, Briefcase, GraduationCap, MapPin, ExternalLink, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Monitor, User, Briefcase, Mail, Home, Sparkles, Linkedin, Github, FileText } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useSettings } from '@/context/SettingsContext';
 import { PROJECTS } from './os/apps/project-showcase/data';
 import { translations } from '@/utils/translations';
+import { MobileHero } from './mobile/MobileHero';
+import { MobileProjectCard } from './mobile/MobileProjectCard';
+import { MobileExperienceItem } from './mobile/MobileExperienceItem';
+import { MobileContactCard } from './mobile/MobileContactCard';
 
 const events = [
     {
@@ -14,7 +18,7 @@ const events = [
         endDate: '2027-07',
         title: 'Alternant développeur',
         company: 'La Poste',
-        type: 'work',
+        type: 'work' as const,
         description: "Contrat d'apprentissage de 3 ans pour devenir développeur full stack. Mise en pratique des compétences acquises et formation continue en développement web et gestion de projet."
     },
     {
@@ -23,7 +27,7 @@ const events = [
         endDate: '2027-07',
         title: 'Ingénieur informatique',
         company: 'IMT Atlantique',
-        type: 'education',
+        type: 'education' as const,
         description: "Formation d'ingénieur informatique, spécialité Ingénierie Logicielle. Approfondissement des connaissances en programmation et développement de compétences professionnelles."
     },
     {
@@ -32,7 +36,7 @@ const events = [
         endDate: '2024-02',
         title: 'Participation au MWC',
         company: 'Barcelone',
-        type: 'event',
+        type: 'event' as const,
         description: "Invité au Mobile World Congress et au lancement de la série Xiaomi 14. Membre de l'équipe photographie Xiaomi Global."
     },
     {
@@ -41,7 +45,7 @@ const events = [
         endDate: '2024-07',
         title: 'Alternant développeur full stack',
         company: 'Ardèche Drome Numérique',
-        type: 'work',
+        type: 'work' as const,
         description: "Développement de solutions internes en Go, SolidJS et PostGIS. Contribution à l'outil d'éligibilité fibre."
     },
     {
@@ -50,89 +54,190 @@ const events = [
         endDate: '2024-07',
         title: 'BUT Informatique',
         company: 'IUT de Valence',
-        type: 'education',
+        type: 'education' as const,
         description: "Acquisition de compétences solides en programmation, développement web et gestion de projet. Alternance en 3ème année."
     }
 ];
 
+const contactItems = [
+    {
+        icon: Mail,
+        label: 'Email',
+        value: 'yohann.chavanel@proton.me',
+        href: 'mailto:yohann.chavanel@proton.me',
+        color: 'text-blue-400',
+        bgColor: 'bg-blue-500/10',
+        borderColor: 'border-blue-500/30',
+    },
+    {
+        icon: Linkedin,
+        label: 'LinkedIn',
+        value: 'linkedin.com/in/yohann-chavanel',
+        href: 'https://www.linkedin.com/in/yohann-chavanel/',
+        color: 'text-blue-400',
+        bgColor: 'bg-blue-600/10',
+        borderColor: 'border-blue-600/30',
+    },
+    {
+        icon: Github,
+        label: 'GitHub',
+        value: 'github.com/yohann69',
+        href: 'https://github.com/yohann69',
+        color: 'text-gray-300',
+        bgColor: 'bg-gray-700/10',
+        borderColor: 'border-gray-700/30',
+    },
+    {
+        icon: FileText,
+        label: 'CV / Resume',
+        value: 'Download PDF',
+        href: '/CV_2024_Yohann_CHAVANEL.pdf',
+        color: 'text-red-400',
+        bgColor: 'bg-red-500/10',
+        borderColor: 'border-red-500/30',
+    },
+];
+
 export default function MobileView() {
     const { t, language } = useSettings();
-    const [activeSection, setActiveSection] = useState<'about' | 'projects' | 'experience' | 'contact'>('about');
+    const [activeSection, setActiveSection] = useState<'hero' | 'about' | 'projects' | 'experience' | 'contact'>('hero');
+    const [showNav, setShowNav] = useState(true);
+    const lastScrollY = useRef(0);
+    const sectionsRef = useRef<{ [key: string]: HTMLElement | null }>({});
 
     const getTranslation = (key: string) => {
         const lang = language || 'en';
         return translations[lang as keyof typeof translations]?.[key as keyof typeof translations[typeof lang]] || key;
     };
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            
+            // Show/hide nav on scroll
+            if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+                setShowNav(false);
+            } else {
+                setShowNav(true);
+            }
+            lastScrollY.current = currentScrollY;
+
+            // Update active section based on scroll position
+            const scrollPosition = currentScrollY + 200;
+            for (const [section, element] of Object.entries(sectionsRef.current)) {
+                if (element) {
+                    const { offsetTop, offsetHeight } = element;
+                    if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                        setActiveSection(section as any);
+                        break;
+                    }
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const scrollToSection = (section: string) => {
+        const element = sectionsRef.current[section];
+        if (element) {
+            const navHeight = 60;
+            const elementPosition = element.offsetTop - navHeight;
+            window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+            setActiveSection(section as any);
+        }
+    };
+
+    const navItems = [
+        { id: 'hero', label: 'Home', icon: Home },
+        { id: 'about', label: 'About', icon: User },
+        { id: 'projects', label: 'Projects', icon: Briefcase },
+        { id: 'experience', label: 'Experience', icon: Briefcase },
+        { id: 'contact', label: 'Contact', icon: Mail },
+    ];
+
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white scroll-smooth">
             {/* Banner Notice */}
-            <div className="bg-yellow-500/20 border-b border-yellow-500/30 px-4 py-3 text-center">
-                <div className="flex items-center justify-center gap-2 text-sm">
-                    <Monitor className="w-4 h-4 text-yellow-400" />
+            <div className="bg-yellow-500/20 border-b border-yellow-500/30 px-4 py-2.5 text-center">
+                <div className="flex items-center justify-center gap-2 text-xs">
+                    <Monitor className="w-3.5 h-3.5 text-yellow-400" />
                     <p className="text-yellow-200">
                         {getTranslation('mobile.banner') || 'For the best experience, please use a PC or tablet'}
                     </p>
                 </div>
             </div>
 
-            {/* Navigation */}
-            <nav className="sticky top-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
-                <div className="flex overflow-x-auto scrollbar-hide">
-                    {[
-                        { id: 'about', label: getTranslation('mobile.nav.about') || 'About' },
-                        { id: 'projects', label: getTranslation('mobile.nav.projects') || 'Projects' },
-                        { id: 'experience', label: getTranslation('mobile.nav.experience') || 'Experience' },
-                        { id: 'contact', label: getTranslation('mobile.nav.contact') || 'Contact' }
-                    ].map((item) => (
-                        <button
-                            key={item.id}
-                            onClick={() => setActiveSection(item.id as any)}
-                            className={`px-6 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
-                                activeSection === item.id
-                                    ? 'border-blue-500 text-blue-400'
-                                    : 'border-transparent text-gray-400 hover:text-white'
-                            }`}
-                        >
-                            {item.label}
-                        </button>
-                    ))}
-                </div>
-            </nav>
-
-            {/* Content */}
-            <div className="pb-20">
-                {activeSection === 'about' && (
-                    <div className="p-6 space-y-8">
-                        <div className="flex flex-col items-center text-center">
-                            <div className="relative w-32 h-32 mb-4 rounded-full overflow-hidden border-2 border-green-500/50 shadow-[0_0_20px_rgba(34,197,94,0.2)]">
-                                <Image
-                                    src="/mevertical.jpg"
-                                    alt="Yohann CHAVANEL"
-                                    width={128}
-                                    height={128}
-                                    className="object-cover w-full h-full"
-                                    priority
-                                />
-                            </div>
-                            <h1 className="text-2xl font-bold text-green-400 mb-2">Yohann CHAVANEL</h1>
-                            <p className="text-sm text-gray-400 mb-6">{getTranslation('sysinfo.job.title')}</p>
+            {/* Sticky Navigation */}
+            <AnimatePresence>
+                {showNav && (
+                    <motion.nav
+                        initial={{ y: -100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: -100, opacity: 0 }}
+                        className="sticky top-0 z-50 bg-black/90 backdrop-blur-xl border-b border-white/10 shadow-lg"
+                    >
+                        <div className="flex overflow-x-auto scrollbar-hide px-2">
+                            {navItems.map((item) => {
+                                const Icon = item.icon;
+                                const isActive = activeSection === item.id;
+                                return (
+                                    <button
+                                        key={item.id}
+                                        onClick={() => scrollToSection(item.id)}
+                                        className={`flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-all ${
+                                            isActive
+                                                ? 'border-green-400 text-green-400'
+                                                : 'border-transparent text-gray-400'
+                                        }`}
+                                    >
+                                        <Icon className="w-4 h-4" />
+                                        <span>{item.label}</span>
+                                    </button>
+                                );
+                            })}
                         </div>
+                    </motion.nav>
+                )}
+            </AnimatePresence>
 
-                        <div>
-                            <h2 className="text-xl font-bold text-green-400 mb-4 border-b border-green-500/30 pb-2">
-                                {getTranslation('sysinfo.bio.title')}
-                            </h2>
-                            <p className="text-gray-300 leading-relaxed text-sm">
-                                {getTranslation('sysinfo.bio.text')}
-                            </p>
-                        </div>
+            {/* Hero Section */}
+            <section
+                ref={(el) => (sectionsRef.current.hero = el)}
+                id="hero"
+                className="min-h-screen"
+            >
+                <MobileHero />
+            </section>
 
+            {/* About Section */}
+            <section
+                ref={(el) => (sectionsRef.current.about = el)}
+                id="about"
+                className="py-16 px-6"
+            >
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="max-w-2xl mx-auto"
+                >
+                    <h2 className="text-3xl font-bold text-green-400 mb-6 flex items-center gap-2">
+                        <Sparkles className="w-6 h-6" />
+                        {getTranslation('sysinfo.bio.title')}
+                    </h2>
+                    <p className="text-gray-300 leading-relaxed mb-8 text-base">
+                        {getTranslation('sysinfo.bio.text')}
+                    </p>
+
+                    <div className="grid grid-cols-2 gap-6 mb-8">
                         <div>
-                            <h2 className="text-xl font-bold text-green-400 mb-4 border-b border-green-500/30 pb-2">
+                            <h3 className="text-xl font-bold text-green-400 mb-4 border-b border-green-500/30 pb-2">
                                 {getTranslation('sysinfo.skills.title')}
-                            </h2>
-                            <div className="grid grid-cols-2 gap-3">
+                            </h3>
+                            <div className="space-y-2">
                                 {['JavaScript', 'NodeJS', 'HTML5', 'CSS3', 'Python', 'PHP', 'Java', 'C', 'MySQL', 'PostgreSQL', 'MongoDB', 'Go', 'Rust'].map(skill => (
                                     <div key={skill} className="flex items-center gap-2 text-sm text-gray-400">
                                         <span className="w-2 h-2 bg-green-500 rounded-full" />
@@ -141,12 +246,11 @@ export default function MobileView() {
                                 ))}
                             </div>
                         </div>
-
                         <div>
-                            <h2 className="text-xl font-bold text-green-400 mb-4 border-b border-green-500/30 pb-2">
+                            <h3 className="text-xl font-bold text-green-400 mb-4 border-b border-green-500/30 pb-2">
                                 {getTranslation('sysinfo.tools.title')}
-                            </h2>
-                            <div className="grid grid-cols-2 gap-3">
+                            </h3>
+                            <div className="space-y-2">
                                 {['VS Code', 'Jetbrains', 'Git', 'Docker', 'Linux', 'Figma'].map(tool => (
                                     <div key={tool} className="flex items-center gap-2 text-sm text-gray-400">
                                         <span className="w-2 h-2 bg-blue-500 rounded-full" />
@@ -156,170 +260,89 @@ export default function MobileView() {
                             </div>
                         </div>
                     </div>
-                )}
+                </motion.div>
+            </section>
 
-                {activeSection === 'projects' && (
-                    <div className="p-6 space-y-6">
-                        <h2 className="text-2xl font-bold text-green-400 mb-6">
-                            {getTranslation('mobile.projects.title') || 'Projects'}
-                        </h2>
-                        {PROJECTS.map((project) => (
-                            <div
-                                key={project.id}
-                                className="bg-white/5 border border-white/10 rounded-lg p-4 hover:bg-white/10 transition-colors"
-                            >
-                                <div className="flex items-start gap-4 mb-3">
-                                    {project.logoSrc && (
-                                        <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-                                            <Image
-                                                src={project.logoSrc}
-                                                alt={project.name}
-                                                width={64}
-                                                height={64}
-                                                className="object-contain"
-                                            />
-                                        </div>
-                                    )}
-                                    <div className="flex-1 min-w-0">
-                                        <h3 className="text-lg font-bold text-white mb-1">{project.name}</h3>
-                                        <p className="text-xs text-gray-400 mb-2">{project.year}</p>
-                                        <p className="text-sm text-gray-300">
-                                            {getTranslation(project.descriptionKey)}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="flex flex-wrap gap-2 mb-3">
-                                    {project.techStack.frontend.map((tech) => (
-                                        <span key={tech} className="px-2 py-1 bg-blue-500/20 text-blue-300 text-xs rounded">
-                                            {tech}
-                                        </span>
-                                    ))}
-                                    {project.techStack.backend.map((tech) => (
-                                        <span key={tech} className="px-2 py-1 bg-purple-500/20 text-purple-300 text-xs rounded">
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
-                                {project.link && (
-                                    <a
-                                        href={project.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300"
-                                    >
-                                        <ExternalLink className="w-4 h-4" />
-                                        {getTranslation('showcase.open') || 'View Project'}
-                                    </a>
-                                )}
-                            </div>
+            {/* Projects Section */}
+            <section
+                ref={(el) => (sectionsRef.current.projects = el)}
+                id="projects"
+                className="py-16 px-6 bg-white/5"
+            >
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="max-w-2xl mx-auto"
+                >
+                    <h2 className="text-3xl font-bold text-green-400 mb-8 flex items-center gap-2">
+                        <Briefcase className="w-6 h-6" />
+                        {getTranslation('mobile.projects.title') || 'Projects'}
+                    </h2>
+                    <div className="space-y-6">
+                        {PROJECTS.map((project, index) => (
+                            <MobileProjectCard key={project.id} project={project} index={index} />
                         ))}
                     </div>
-                )}
+                </motion.div>
+            </section>
 
-                {activeSection === 'experience' && (
-                    <div className="p-6 space-y-6">
-                        <h2 className="text-2xl font-bold text-green-400 mb-6">
-                            {getTranslation('timeline.title')}
-                        </h2>
-                        <div className="space-y-4">
-                            {events.map((event) => (
-                                <div key={event.id} className="relative pl-8 border-l-2 border-gray-700">
-                                    <div className="absolute left-[-6px] top-2 w-3 h-3 rounded-full bg-blue-500 border-2 border-black" />
-                                    <div className="bg-white/5 border border-white/10 rounded-lg p-4">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <span className="text-xs font-bold text-blue-400">
-                                                {event.date} → {event.endDate}
-                                            </span>
-                                            {event.type === 'work' ? (
-                                                <Briefcase className="w-4 h-4 text-gray-400" />
-                                            ) : event.type === 'education' ? (
-                                                <GraduationCap className="w-4 h-4 text-gray-400" />
-                                            ) : (
-                                                <MapPin className="w-4 h-4 text-gray-400" />
-                                            )}
-                                        </div>
-                                        <h3 className="text-lg font-bold text-white mb-1">{event.title}</h3>
-                                        <p className="text-sm text-green-400 font-medium mb-2">@{event.company}</p>
-                                        <p className="text-sm text-gray-300 leading-relaxed">{event.description}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+            {/* Experience Section */}
+            <section
+                ref={(el) => (sectionsRef.current.experience = el)}
+                id="experience"
+                className="py-16 px-6"
+            >
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="max-w-2xl mx-auto"
+                >
+                    <h2 className="text-3xl font-bold text-green-400 mb-8 flex items-center gap-2">
+                        <Briefcase className="w-6 h-6" />
+                        {getTranslation('timeline.title')}
+                    </h2>
+                    <div className="space-y-6">
+                        {events.map((event, index) => (
+                            <MobileExperienceItem key={event.id} event={event} index={index} />
+                        ))}
                     </div>
-                )}
+                </motion.div>
+            </section>
 
-                {activeSection === 'contact' && (
-                    <div className="p-6 space-y-6">
-                        <h2 className="text-2xl font-bold text-green-400 mb-6">
-                            {getTranslation('mobile.contact.title') || 'Get in Touch'}
-                        </h2>
-                        <div className="space-y-4">
-                            <a
-                                href="mailto:yohann.chavanel@proton.me"
-                                className="flex items-center gap-4 p-4 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors"
-                            >
-                                <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
-                                    <Mail className="w-6 h-6 text-blue-400" />
-                                </div>
-                                <div className="flex-1">
-                                    <p className="font-medium text-white">Email</p>
-                                    <p className="text-sm text-gray-400">yohann.chavanel@proton.me</p>
-                                </div>
-                                <ChevronRight className="w-5 h-5 text-gray-400" />
-                            </a>
-
-                            <a
-                                href="https://www.linkedin.com/in/yohann-chavanel/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-4 p-4 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors"
-                            >
-                                <div className="w-12 h-12 rounded-full bg-blue-600/20 flex items-center justify-center">
-                                    <Linkedin className="w-6 h-6 text-blue-400" />
-                                </div>
-                                <div className="flex-1">
-                                    <p className="font-medium text-white">LinkedIn</p>
-                                    <p className="text-sm text-gray-400">linkedin.com/in/yohann-chavanel</p>
-                                </div>
-                                <ChevronRight className="w-5 h-5 text-gray-400" />
-                            </a>
-
-                            <a
-                                href="https://github.com/yohann69"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-4 p-4 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors"
-                            >
-                                <div className="w-12 h-12 rounded-full bg-gray-700/20 flex items-center justify-center">
-                                    <Github className="w-6 h-6 text-gray-300" />
-                                </div>
-                                <div className="flex-1">
-                                    <p className="font-medium text-white">GitHub</p>
-                                    <p className="text-sm text-gray-400">github.com/yohann69</p>
-                                </div>
-                                <ChevronRight className="w-5 h-5 text-gray-400" />
-                            </a>
-
-                            <a
-                                href="/CV_2024_Yohann_CHAVANEL.pdf"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-4 p-4 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors"
-                            >
-                                <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
-                                    <FileText className="w-6 h-6 text-red-400" />
-                                </div>
-                                <div className="flex-1">
-                                    <p className="font-medium text-white">CV / Resume</p>
-                                    <p className="text-sm text-gray-400">Download PDF</p>
-                                </div>
-                                <ChevronRight className="w-5 h-5 text-gray-400" />
-                            </a>
-                        </div>
+            {/* Contact Section */}
+            <section
+                ref={(el) => (sectionsRef.current.contact = el)}
+                id="contact"
+                className="py-16 px-6 bg-white/5"
+            >
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="max-w-2xl mx-auto"
+                >
+                    <h2 className="text-3xl font-bold text-green-400 mb-8 flex items-center gap-2">
+                        <Mail className="w-6 h-6" />
+                        {getTranslation('mobile.contact.title') || 'Get in Touch'}
+                    </h2>
+                    <div className="space-y-4">
+                        {contactItems.map((item, index) => (
+                            <MobileContactCard key={item.label} item={item} index={index} />
+                        ))}
                     </div>
-                )}
-            </div>
+                </motion.div>
+            </section>
+
+            {/* Footer */}
+            <footer className="py-8 px-6 text-center text-gray-400 text-sm border-t border-white/10">
+                <p>© 2024 Yohann CHAVANEL. All rights reserved.</p>
+                <p className="mt-2">Designed and built with ❤️</p>
+            </footer>
         </div>
     );
 }
-
