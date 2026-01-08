@@ -38,6 +38,8 @@ export function ScreenshotsGrid({ project }: { project: ProjectData }) {
                                     fill
                                     className="object-cover"
                                     sizes="(max-width: 768px) 100vw, 33vw"
+                                    loading={idx < 3 ? "eager" : "lazy"}
+                                    quality={85}
                                     onError={(e) => {
                                         (e.currentTarget as any).style.display = 'none';
                                     }}

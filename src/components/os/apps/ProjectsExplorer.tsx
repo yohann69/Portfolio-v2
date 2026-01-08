@@ -360,7 +360,8 @@ export default function ProjectsExplorer() {
                                                             alt={item.name}
                                                             fill
                                                             sizes="64px"
-                                                            unoptimized
+                                                            loading="lazy"
+                                                            quality={75}
                                                             className="object-cover rounded shadow-sm"
                                                         />
                                                     </div>
@@ -374,7 +375,8 @@ export default function ProjectsExplorer() {
                                                         alt={item.name}
                                                         fill
                                                         sizes="64px"
-                                                        unoptimized
+                                                        loading="lazy"
+                                                        quality={75}
                                                         className="object-contain rounded shadow-sm"
                                                     />
                                                 </div>
@@ -473,7 +475,8 @@ export default function ProjectsExplorer() {
                                         alt={selectedFile.name}
                                         fill
                                         sizes="288px"
-                                        unoptimized
+                                        loading="lazy"
+                                        quality={85}
                                         className="object-contain"
                                     />
                                 ) : selectedFile.type === 'pdf' ? (

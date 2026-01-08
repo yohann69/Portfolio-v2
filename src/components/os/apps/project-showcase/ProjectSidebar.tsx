@@ -69,6 +69,8 @@ export function ProjectSidebar({
                                                 width={28}
                                                 height={28}
                                                 className="object-contain"
+                                                loading="lazy"
+                                                quality={85}
                                             />
                                         ) : (
                                             proj.name.substring(0, 2).toUpperCase()

@@ -7,7 +7,8 @@
     "prebuild": "node scripts/generate-project-images-manifest.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "compress-images": "node scripts/compress-images.mjs"
   },
   "dependencies": {
     "@tabler/icons-react": "^2.47.0",
@@ -28,6 +29,7 @@
     "eslint-config-next": "^14.2.33",
     "eslint-plugin-next-on-pages": "^1.11.2",
     "postcss": "^8",
+    "sharp": "^0.34.5",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }

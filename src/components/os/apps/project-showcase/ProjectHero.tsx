@@ -90,6 +90,7 @@ export function ProjectHero({ project }: { project: ProjectData }) {
                                             height={72}
                                             className="object-contain"
                                             priority
+                                            quality={90}
                                         />
                                     ) : (
                                         <div className="text-3xl font-black">{project.name.substring(0, 2).toUpperCase()}</div>

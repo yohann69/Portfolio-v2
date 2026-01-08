@@ -87,6 +87,8 @@ export default function Gallery() {
                             width={500}
                             height={500}
                             className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
+                            loading={index < 6 ? "eager" : "lazy"}
+                            quality={85}
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
                             <ZoomIn className="text-white w-8 h-8 drop-shadow-lg" />
@@ -125,17 +127,25 @@ export default function Gallery() {
                             <ChevronRight className="w-12 h-12" />
                         </button>
 
-                        <motion.img
+                        <motion.div
                             key={selectedIndex}
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
                             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                            src={images[selectedIndex]}
-                            alt="Full screen"
-                            className="max-w-full max-h-full object-contain shadow-2xl p-4 select-none"
+                            className="relative max-w-full max-h-full p-4 select-none"
                             onClick={(e) => e.stopPropagation()}
-                        />
+                        >
+                            <Image
+                                src={images[selectedIndex]}
+                                alt="Full screen"
+                                width={1920}
+                                height={1080}
+                                className="max-w-full max-h-full object-contain shadow-2xl"
+                                quality={90}
+                                priority
+                            />
+                        </motion.div>
 
                         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 text-sm">
                             {selectedIndex + 1} / {images.length}

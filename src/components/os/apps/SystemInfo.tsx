@@ -21,6 +21,8 @@ export default function SystemInfo() {
                             width={192}
                             height={192}
                             className="object-cover w-full h-full"
+                            priority
+                            quality={90}
                         />
                     </div>
                     <h1 className="text-2xl font-bold text-green-400 mb-2">Yohann CHAVANEL</h1>

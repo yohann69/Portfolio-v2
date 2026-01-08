@@ -25,7 +25,10 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
             setIndex(0);
 
             try {
-                const res = await fetch('/img/projects/manifest.json', { cache: 'no-store' });
+                const res = await fetch('/img/projects/manifest.json', { 
+                    cache: 'force-cache',
+                    next: { revalidate: 3600 } // Revalidate every hour
+                });
                 if (!res.ok) throw new Error('Failed to fetch project images manifest');
 
                 const data = (await res.json()) as { projects?: Record<string, unknown> };
@@ -235,6 +238,8 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                                     height={360}
                                     className="block h-[260px] sm:h-[300px] md:h-[340px] w-auto max-w-none object-contain"
                                     sizes="(max-width: 640px) 80vw, 60vw"
+                                    loading={i === 0 ? "eager" : "lazy"}
+                                    quality={85}
                                     role="button"
                                     tabIndex={0}
                                     onClick={() => openViewer(i)}
@@ -371,6 +376,7 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                                     sizes="100vw"
                                     className="object-contain select-none"
                                     priority
+                                    quality={90}
                                 />
                             </div>
                         </div>

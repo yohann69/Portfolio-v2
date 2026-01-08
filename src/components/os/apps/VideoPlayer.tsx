@@ -20,6 +20,7 @@ const VideoPlayer = () => {
                 <video
                     controls
                     autoPlay
+                    preload="metadata"
                     className="max-w-full max-h-full w-full h-full object-contain"
                     src={src}
                 >
