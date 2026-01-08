@@ -68,6 +68,15 @@ export const translations = {
         'settings.dark': 'Dark',
         'settings.system': 'System',
 
+        // Mobile
+        'mobile.banner': 'For the best experience, please use a PC or tablet',
+        'mobile.nav.about': 'About',
+        'mobile.nav.projects': 'Projects',
+        'mobile.nav.experience': 'Experience',
+        'mobile.nav.contact': 'Contact',
+        'mobile.projects.title': 'Projects',
+        'mobile.contact.title': 'Get in Touch',
+
         // Content
         'content.projects.desc': 'My personal and professional projects',
         'content.contributions.desc': 'Open source and community contributions',
@@ -165,6 +174,15 @@ export const translations = {
         'calendar.weekdays': 'S,M,T,W,T,F,S',
     },
     fr: {
+        // Mobile
+        'mobile.banner': 'Pour la meilleure expérience, veuillez utiliser un PC ou une tablette',
+        'mobile.nav.about': 'À propos',
+        'mobile.nav.projects': 'Projets',
+        'mobile.nav.experience': 'Expérience',
+        'mobile.nav.contact': 'Contact',
+        'mobile.projects.title': 'Projets',
+        'mobile.contact.title': 'Me contacter',
+
         // System
         'system.info': 'Infos Système',
         'system.about': 'À propos de PortfoliOS',
@@ -330,6 +348,15 @@ export const translations = {
         'calendar.weekdays': 'D,L,M,M,J,V,S',
     },
     cn: {
+        // Mobile
+        'mobile.banner': '为了获得最佳体验，请使用PC或平板电脑',
+        'mobile.nav.about': '关于',
+        'mobile.nav.projects': '项目',
+        'mobile.nav.experience': '经历',
+        'mobile.nav.contact': '联系',
+        'mobile.projects.title': '项目',
+        'mobile.contact.title': '联系我',
+
         // System
         'system.info': '系统信息',
         'system.about': '关于 PortfoliOS',

@@ -10,7 +10,7 @@ export default function Home() {
     const isMobile = useIsMobile();
 
     return (
-        <main className="h-screen w-screen overflow-hidden">
+        <main className={isMobile ? "min-h-screen w-screen overflow-y-auto" : "h-screen w-screen overflow-hidden"}>
             <SettingsProvider>
                 {isMobile ? <MobileView /> : <Desktop />}
             </SettingsProvider>

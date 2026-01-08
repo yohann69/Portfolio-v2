@@ -106,11 +106,18 @@ export default function MobileView() {
     const sectionsRef = useRef<{ [key: string]: HTMLElement | null }>({});
 
     const getTranslation = (key: string) => {
+        // Try using the t function first, fallback to direct translation lookup
+        try {
+            const translated = t(key as any);
+            if (translated && translated !== key) return translated;
+        } catch {}
+        
         const lang = language || 'en';
         return translations[lang as keyof typeof translations]?.[key as keyof typeof translations[typeof lang]] || key;
     };
 
     useEffect(() => {
+        // Initialize scroll position
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
             
@@ -123,18 +130,33 @@ export default function MobileView() {
             lastScrollY.current = currentScrollY;
 
             // Update active section based on scroll position
-            const scrollPosition = currentScrollY + 200;
-            for (const [section, element] of Object.entries(sectionsRef.current)) {
-                if (element) {
-                    const { offsetTop, offsetHeight } = element;
-                    if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-                        setActiveSection(section as any);
-                        break;
-                    }
+            const bannerHeight = 40;
+            const navHeight = 60;
+            const scrollPosition = currentScrollY + bannerHeight + navHeight + 100;
+            
+            // Find the current section
+            const sections = Object.entries(sectionsRef.current)
+                .filter(([_, el]) => el !== null)
+                .map(([id, el]) => ({
+                    id,
+                    element: el!,
+                    top: el!.offsetTop,
+                    bottom: el!.offsetTop + el!.offsetHeight,
+                }))
+                .sort((a, b) => a.top - b.top);
+
+            for (let i = sections.length - 1; i >= 0; i--) {
+                const section = sections[i];
+                if (scrollPosition >= section.top) {
+                    setActiveSection(section.id as any);
+                    break;
                 }
             }
         };
 
+        // Initial check
+        handleScroll();
+        
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
@@ -142,9 +164,11 @@ export default function MobileView() {
     const scrollToSection = (section: string) => {
         const element = sectionsRef.current[section];
         if (element) {
-            const navHeight = 60;
-            const elementPosition = element.offsetTop - navHeight;
-            window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+            const bannerHeight = 40; // Banner height
+            const navHeight = 60; // Navigation height
+            const totalOffset = bannerHeight + navHeight;
+            const elementPosition = element.offsetTop - totalOffset;
+            window.scrollTo({ top: Math.max(0, elementPosition), behavior: 'smooth' });
             setActiveSection(section as any);
         }
     };
@@ -158,7 +182,7 @@ export default function MobileView() {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white scroll-smooth">
+        <div className="w-full min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
             {/* Banner Notice */}
             <div className="bg-yellow-500/20 border-b border-yellow-500/30 px-4 py-2.5 text-center">
                 <div className="flex items-center justify-center gap-2 text-xs">
