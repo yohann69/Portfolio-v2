@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Monitor, User, Briefcase, Mail, Home, Sparkles, Linkedin, Github, FileText } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useSettings } from '@/context/SettingsContext';
 import { PROJECTS } from './os/apps/project-showcase/data';
 import { translations } from '@/utils/translations';
@@ -101,8 +101,6 @@ const contactItems = [
 export default function MobileView() {
     const { t, language } = useSettings();
     const [activeSection, setActiveSection] = useState<'hero' | 'about' | 'projects' | 'experience' | 'contact'>('hero');
-    const [showNav, setShowNav] = useState(true);
-    const lastScrollY = useRef(0);
     const sectionsRef = useRef<{ [key: string]: HTMLElement | null }>({});
 
     const getTranslation = (key: string) => {
@@ -117,17 +115,9 @@ export default function MobileView() {
     };
 
     useEffect(() => {
-        // Initialize scroll position
+        // Update active section based on scroll position
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
-            
-            // Show/hide nav on scroll
-            if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-                setShowNav(false);
-            } else {
-                setShowNav(true);
-            }
-            lastScrollY.current = currentScrollY;
 
             // Update active section based on scroll position
             const bannerHeight = 40;
@@ -164,8 +154,8 @@ export default function MobileView() {
     const scrollToSection = (section: string) => {
         const element = sectionsRef.current[section];
         if (element) {
-            const bannerHeight = 40; // Banner height
-            const navHeight = 60; // Navigation height
+            const bannerHeight = 40; // Banner height (sticky)
+            const navHeight = 60; // Navigation height (sticky)
             const totalOffset = bannerHeight + navHeight;
             const elementPosition = element.offsetTop - totalOffset;
             window.scrollTo({ top: Math.max(0, elementPosition), behavior: 'smooth' });
@@ -183,8 +173,8 @@ export default function MobileView() {
 
     return (
         <div className="w-full min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
-            {/* Banner Notice */}
-            <div className="bg-yellow-500/20 border-b border-yellow-500/30 px-4 py-2.5 text-center">
+            {/* Sticky Banner Notice */}
+            <div className="sticky top-0 z-50 bg-yellow-500/20 border-b border-yellow-500/30 px-4 py-2.5 text-center">
                 <div className="flex items-center justify-center gap-2 text-xs">
                     <Monitor className="w-3.5 h-3.5 text-yellow-400" />
                     <p className="text-yellow-200">
@@ -194,37 +184,28 @@ export default function MobileView() {
             </div>
 
             {/* Sticky Navigation */}
-            <AnimatePresence>
-                {showNav && (
-                    <motion.nav
-                        initial={{ y: -100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -100, opacity: 0 }}
-                        className="sticky top-0 z-50 bg-black/90 backdrop-blur-xl border-b border-white/10 shadow-lg"
-                    >
-                        <div className="flex overflow-x-auto scrollbar-hide px-2">
-                            {navItems.map((item) => {
-                                const Icon = item.icon;
-                                const isActive = activeSection === item.id;
-                                return (
-                                    <button
-                                        key={item.id}
-                                        onClick={() => scrollToSection(item.id)}
-                                        className={`flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-all ${
-                                            isActive
-                                                ? 'border-green-400 text-green-400'
-                                                : 'border-transparent text-gray-400'
-                                        }`}
-                                    >
-                                        <Icon className="w-4 h-4" />
-                                        <span>{item.label}</span>
-                                    </button>
-                                );
-                            })}
-                        </div>
-                    </motion.nav>
-                )}
-            </AnimatePresence>
+            <nav className="sticky top-[40px] z-40 bg-black/90 backdrop-blur-xl border-b border-white/10 shadow-lg">
+                <div className="flex overflow-x-auto scrollbar-hide px-2">
+                    {navItems.map((item) => {
+                        const Icon = item.icon;
+                        const isActive = activeSection === item.id;
+                        return (
+                            <button
+                                key={item.id}
+                                onClick={() => scrollToSection(item.id)}
+                                className={`flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-all ${
+                                    isActive
+                                        ? 'border-green-400 text-green-400'
+                                        : 'border-transparent text-gray-400'
+                                }`}
+                            >
+                                <Icon className="w-4 h-4" />
+                                <span>{item.label}</span>
+                            </button>
+                        );
+                    })}
+                </div>
+            </nav>
 
             {/* Hero Section */}
             <section
