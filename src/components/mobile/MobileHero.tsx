@@ -56,8 +56,8 @@ export function MobileHero() {
                                 y: randomY,
                             }}
                             animate={{
-                                y: [null, -100, null],
-                                opacity: [0.3, 0.6, 0.3],
+                                y: [randomY, randomY - 100, randomY],
+                                opacity: [0.3, 0.6, 0.3] as number[],
                             }}
                             transition={{
                                 duration: 3 + Math.random() * 2,
