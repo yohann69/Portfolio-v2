@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/ui/OptimizedImage';
 import { AnimatePresence, motion } from 'framer-motion';
 import { GlassPanel } from './GlassPanel';
 import type { ProjectData } from './types';
@@ -25,7 +25,7 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
             setIndex(0);
 
             try {
-                const res = await fetch('/img/projects/manifest.json', { 
+                const res = await fetch('/img/projects/manifest.json', {
                     cache: 'force-cache',
                     next: { revalidate: 3600 } // Revalidate every hour
                 });
@@ -231,7 +231,7 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                                     i === index ? 'border-white/20' : 'border-white/10'
                                 )}
                             >
-                                <Image
+                                <OptimizedImage
                                     src={s}
                                     alt={`${project.name} screenshot ${i + 1}`}
                                     width={Math.max(1, Math.round((ratios[s] ?? 1) * 360))}
@@ -239,7 +239,8 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
                                     className="block h-[260px] sm:h-[300px] md:h-[340px] w-auto max-w-none object-contain"
                                     sizes="(max-width: 640px) 80vw, 60vw"
                                     loading={i === 0 ? "eager" : "lazy"}
-                                    quality={85}
+                                    fetchPriority={i === 0 ? "high" : "low"}
+                                    quality={60}
                                     role="button"
                                     tabIndex={0}
                                     onClick={() => openViewer(i)}
@@ -369,14 +370,15 @@ export function ScreenshotsCarousel({ project }: { project: ProjectData }) {
 
                         <div className="absolute inset-0 flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
                             <div className="relative w-full h-full">
-                                <Image
+                                <OptimizedImage
                                     src={viewerSrc}
                                     alt={`${project.name} screenshot ${viewerIndex + 1}`}
                                     fill
                                     sizes="100vw"
                                     className="object-contain select-none"
                                     priority
-                                    quality={90}
+                                    quality={75}
+                                    fetchPriority="high"
                                 />
                             </div>
                         </div>

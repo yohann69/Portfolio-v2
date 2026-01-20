@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/ui/OptimizedImage';
 import { ExternalLink, ChevronDown, ChevronUp, Code, Server } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { ProjectData } from '../os/apps/project-showcase/types';
@@ -34,12 +34,13 @@ export function MobileProjectCard({ project, index }: MobileProjectCardProps) {
                 <div className="flex items-start gap-4 mb-4">
                     {project.logoSrc && (
                         <div className="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 border border-white/10">
-                            <Image
+                            <OptimizedImage
                                 src={project.logoSrc}
                                 alt={project.name}
                                 width={80}
                                 height={80}
                                 className="object-contain bg-white/5 p-2"
+                                quality={60}
                             />
                         </div>
                     )}
@@ -139,12 +140,13 @@ export function MobileProjectCard({ project, index }: MobileProjectCardProps) {
                                                 key={i}
                                                 className="relative w-32 h-48 rounded-lg overflow-hidden flex-shrink-0 border border-white/10"
                                             >
-                                                <Image
+                                                <OptimizedImage
                                                     src={screenshot}
                                                     alt={`${project.name} screenshot ${i + 1}`}
                                                     width={128}
                                                     height={192}
                                                     className="object-cover w-full h-full"
+                                                    quality={60}
                                                 />
                                             </div>
                                         ))}

@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/ui/OptimizedImage';
 import { Mail, Linkedin, Github, FileText, Download, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useSettings } from '@/context/SettingsContext';
@@ -83,13 +83,14 @@ export function MobileHero() {
                     className="relative mb-6"
                 >
                     <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-green-500/50 shadow-[0_0_40px_rgba(34,197,94,0.4)]">
-                        <Image
+                        <OptimizedImage
                             src="/mevertical.jpg"
                             alt="Yohann CHAVANEL"
                             width={160}
                             height={160}
                             className="object-cover w-full h-full"
                             priority
+                            quality={70}
                         />
                     </div>
                     <motion.div

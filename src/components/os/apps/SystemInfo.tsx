@@ -48,9 +48,29 @@ export default function SystemInfo() {
                     <div className="w-full h-px bg-white/10 my-4" />
                     <div className="text-xs text-left w-full space-y-2 text-gray-300">
                         <p><span className="text-green-500">{t('sysinfo.role')}:</span> Alternant Développeur</p>
-                        <p><span className="text-green-500">{t('sysinfo.company')}:</span> La Poste</p>
-                        <p><span className="text-green-500">{t('sysinfo.school')}:</span> IMT Atlantique</p>
-                        <p><span className="text-green-500">{t('sysinfo.location')}:</span> Valence, Lyon, Nantes</p>
+                        <p>
+                            <span className="text-green-500">{t('sysinfo.company')}:</span>{' '}
+                            <a
+                                href="https://www.laposte.fr/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-300 hover:text-blue-200 underline decoration-dotted underline-offset-2"
+                            >
+                                La Poste
+                            </a>
+                        </p>
+                        <p>
+                            <span className="text-green-500">{t('sysinfo.school')}:</span>{' '}
+                            <a
+                                href="https://www.imt-atlantique.fr/en"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-300 hover:text-blue-200 underline decoration-dotted underline-offset-2"
+                            >
+                                IMT Atlantique
+                            </a>
+                        </p>
+                        <p><span className="text-green-500">{t('sysinfo.location')}:</span> Nantes, Lyon</p>
                     </div>
                 </div>
 
