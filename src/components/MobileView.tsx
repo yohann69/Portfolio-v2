@@ -209,7 +209,9 @@ export default function MobileView() {
 
             {/* Hero Section */}
             <section
-                ref={(el) => (sectionsRef.current.hero = el)}
+                ref={(el) => {
+                    sectionsRef.current.hero = el;
+                }}
                 id="hero"
                 className="min-h-screen"
             >
@@ -218,7 +220,9 @@ export default function MobileView() {
 
             {/* About Section */}
             <section
-                ref={(el) => (sectionsRef.current.about = el)}
+                ref={(el) => {
+                    sectionsRef.current.about = el;
+                }}
                 id="about"
                 className="py-16 px-6"
             >
@@ -270,7 +274,9 @@ export default function MobileView() {
 
             {/* Projects Section */}
             <section
-                ref={(el) => (sectionsRef.current.projects = el)}
+                ref={(el) => {
+                    sectionsRef.current.projects = el;
+                }}
                 id="projects"
                 className="py-16 px-6 bg-white/5"
             >
@@ -295,7 +301,9 @@ export default function MobileView() {
 
             {/* Experience Section */}
             <section
-                ref={(el) => (sectionsRef.current.experience = el)}
+                ref={(el) => {
+                    sectionsRef.current.experience = el;
+                }}
                 id="experience"
                 className="py-16 px-6"
             >
@@ -320,7 +328,9 @@ export default function MobileView() {
 
             {/* Contact Section */}
             <section
-                ref={(el) => (sectionsRef.current.contact = el)}
+                ref={(el) => {
+                    sectionsRef.current.contact = el;
+                }}
                 id="contact"
                 className="py-16 px-6 bg-white/5"
             >

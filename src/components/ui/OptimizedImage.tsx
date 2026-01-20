@@ -18,6 +18,7 @@ type OptimizedImageProps = ImageProps & {
  */
 export function OptimizedImage(props: OptimizedImageProps) {
     const {
+        alt,
         priority = false,
         loading,
         fetchPriority,
@@ -32,6 +33,7 @@ export function OptimizedImage(props: OptimizedImageProps) {
     return (
         <Image
             {...rest}
+            alt={alt ?? ""}
             priority={priority}
             loading={finalLoading}
             fetchPriority={finalFetchPriority}
